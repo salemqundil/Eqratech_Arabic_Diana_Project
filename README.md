@@ -13,8 +13,17 @@ Python_NLP Project with all Arabic tools verbs and names
 
 ### Installation
 
+#### Option 1: Automated Setup (Recommended)
+
 ```bash
-# Install dependencies
+# Run the setup script with automatic dependency installation
+python setup_bert_training.py --install
+```
+
+#### Option 2: Manual Installation
+
+```bash
+# Install dependencies manually
 pip install -r requirements.txt
 ```
 
@@ -23,11 +32,12 @@ pip install -r requirements.txt
 Train a BERT model for Arabic phoneme processing:
 
 ```bash
-# Run test to verify setup
-python test_setup.py
+# Option 1: Use the setup script (automatically installs dependencies and validates setup)
+python setup_bert_training.py --install
 
-# Start training
-python run_training.py --config config/training_config.json
+# Option 2: Manual verification and training
+python test_setup.py           # Verify setup
+python run_training.py --config config/training_config.json  # Start training
 ```
 
 See [BERT_TRAINING_README.md](BERT_TRAINING_README.md) for detailed documentation.
@@ -44,19 +54,24 @@ python run_server.py --host 127.0.0.1 --port 8000
 
 ```
 .
+├── setup_bert_training.py   # Automated setup script for BERT training
 ├── run_training.py          # BERT training script
+├── test_setup.py            # Setup validation script
 ├── utf8_tokenizer.py        # UTF-8 phoneme tokenizer
 ├── config/                  # Configuration files
 │   └── training_config.json # Training configuration
 ├── phonemes_engine.py       # Phoneme processing engine
 ├── *_engine.py              # Various Arabic grammar engines
 ├── run_server.py            # Web server launcher
-└── web_app/                 # FastAPI web application
+└── output/                  # Training outputs (created by setup)
+    └── logs/                # Training logs
 ```
 
 ## Documentation
 
+- [Quick Start Guide](QUICKSTART.md) - Get started in under 5 minutes
 - [BERT Training Guide](BERT_TRAINING_README.md) - Complete guide for training BERT models
+- [Usage Examples](example_usage.py) - Code examples for using trained models
 
 ## Requirements
 
