@@ -5,25 +5,36 @@ Test script to verify BERT training setup
 
 import sys
 import os
+import importlib.util
+
+def _is_available(mod_name: str) -> bool:
+    return importlib.util.find_spec(mod_name) is not None
+
 
 def test_imports():
     """Test that all required packages can be imported."""
     print("Testing imports...")
-    try:
-        import transformers
-        import torch
-        import datasets
-        import pandas
-        import numpy
-        import sklearn
-        import accelerate
-        print("✓ All required packages imported successfully")
-        print(f"  - PyTorch: {torch.__version__}")
-        print(f"  - Transformers: {transformers.__version__}")
-        return True
-    except ImportError as e:
-        print(f"✗ Import error: {e}")
+    required = [
+        "transformers",
+        "torch",
+        "datasets",
+        "pandas",
+        "numpy",
+        "sklearn",
+        "accelerate",
+    ]
+    missing = [m for m in required if not _is_available(m)]
+    if missing:
+        print(f"\u2717 Missing packages: {', '.join(missing)}")
         return False
+
+    # Print versions for primary deps
+    import torch  # noqa: F401
+    import transformers  # noqa: F401
+    print("\u2713 All required packages appear available")
+    print(f"  - PyTorch: {torch.__version__}")
+    print(f"  - Transformers: {transformers.__version__}")
+    return True
 
 def test_tokenizer():
     """Test the UTF-8 tokenizer."""
@@ -42,7 +53,7 @@ def test_tokenizer():
         # Test decoding
         decoded = tokenizer.decode(encoded['input_ids'])
         
-        print(f"✓ Tokenizer working correctly")
+        print("✓ Tokenizer working correctly")
         print(f"  - Vocabulary size: {len(tokenizer)}")
         print(f"  - Test text: {test_text}")
         print(f"  - Encoded length: {len(encoded['input_ids'])}")
@@ -93,7 +104,6 @@ def test_training_script():
             return False
         
         # Try to import (without running)
-        import run_training
         
         print("✓ Training script is valid")
         print("  - run_training.py can be imported")

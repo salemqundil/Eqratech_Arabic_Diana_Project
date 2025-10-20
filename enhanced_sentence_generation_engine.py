@@ -142,7 +142,8 @@ class EnhancedSentenceGenerationEngine(BaseReconstructionEngine):
                         add_func(sentence, 'فعل+فاعل+مفعول_به', 'فعلية',
                                [('فعل', verb), ('فاعل', fael), ('مفعول به', mafoul)])
                         count += 1
-                        if count >= max_count: return
+                        if count >= max_count:
+                            return
         
         # 2. فعل + فاعل + مفعول مطلق
         for verb in samples['verbs'][:10]:
@@ -153,7 +154,8 @@ class EnhancedSentenceGenerationEngine(BaseReconstructionEngine):
                         add_func(sentence, 'فعل+فاعل+مفعول_مطلق', 'فعلية',
                                [('فعل', verb), ('فاعل', fael), ('مفعول مطلق', mutlaq)])
                         count += 1
-                        if count >= max_count: return
+                        if count >= max_count:
+                            return
         
         # 3. فعل + فاعل + حال
         for verb in samples['verbs'][:10]:
@@ -164,7 +166,8 @@ class EnhancedSentenceGenerationEngine(BaseReconstructionEngine):
                         add_func(sentence, 'فعل+فاعل+حال', 'فعلية',
                                [('فعل', verb), ('فاعل', fael), ('حال', haal)])
                         count += 1
-                        if count >= max_count: return
+                        if count >= max_count:
+                            return
         
         # 4. الأفعال الخمسة
         for afaal in samples['afaal_khamsa'][:8]:
@@ -172,56 +175,61 @@ class EnhancedSentenceGenerationEngine(BaseReconstructionEngine):
                 if cls._check_compatibility('afaal_khamsa', [afaal, fael]):
                     sentence = f"{afaal} {fael}"
                     add_func(sentence, 'أفعال_خمسة+فاعل', 'فعلية',
-                           [('فعل من الأفعال الخمسة', afaal), ('فاعل', fael)])
+                            [('فعل من الأفعال الخمسة', afaal), ('فاعل', fael)])
                     count += 1
-                    if count >= max_count: return
-        
-        # 5. المبني للمجهول
+                    if count >= max_count:
+                        return
+
+        # 5. المبني للمجهول + نائب فاعل
         for majhool in samples['mabni_majhool'][:8]:
-            for fael in samples['fael'][:6]:  # نائب فاعل
+            for fael in samples['fael'][:6]:  # يستخدم كـ نائب فاعل
                 if cls._check_compatibility('passive', [majhool, fael]):
                     sentence = f"{majhool} {fael}"
                     add_func(sentence, 'فعل_مبني_للمجهول+نائب_فاعل', 'فعلية',
-                           [('فعل مبني للمجهول', majhool), ('نائب فاعل', fael)])
+                            [('فعل مبني للمجهول', majhool), ('نائب فاعل', fael)])
                     count += 1
-                    if count >= max_count: return
-    
-    @classmethod 
+                    if count >= max_count:
+                        return
+
+    @classmethod
     def _generate_nominal_sentences(cls, samples, add_func, max_count):
         """توليد الجمل الاسمية بتراكيب متقدمة"""
         count = 0
         
         # 1. مبتدأ + خبر (أساسي)
-        for mobtada in samples['mobtada_khabar'][:10]:
-            for khabar in samples['mobtada_khabar'][10:20]:
-                if cls._check_compatibility('nominal', [mobtada, khabar]):
-                    sentence = f"{mobtada} {khabar}"
+        for mob in samples['proper_nouns'][:10]:
+            for kh in samples['nouns'][:10]:
+                if cls._check_compatibility('nominal', [mob, kh]):
+                    sentence = f"{mob} {kh}"
                     add_func(sentence, 'مبتدأ+خبر', 'اسمية',
-                           [('مبتدأ', mobtada), ('خبر', khabar)])
+                             [('مبتدأ', mob), ('خبر', kh)])
                     count += 1
-                    if count >= max_count: return
+                    if count >= max_count:
+                        return
         
         # 2. اسم إشارة + اسم + صفة
         for demonstrative in samples['demonstratives'][:8]:
-            for noun in samples['nouns'][:8]:
-                for adjective in samples['adjectives'][:6]:
-                    if cls._check_compatibility('demonstrative', [demonstrative, noun, adjective]):
+            for noun in samples['nouns'][:10]:
+                for adjective in samples['adjectives'][:8]:
+                    if cls._check_compatibility('demonstrative', [demonstrative, noun]):
                         sentence = f"{demonstrative} {noun} {adjective}"
                         add_func(sentence, 'اسم_إشارة+اسم+صفة', 'اسمية',
-                               [('اسم إشارة', demonstrative), ('اسم', noun), ('صفة', adjective)])
+                                 [('اسم إشارة', demonstrative), ('اسم', noun), ('صفة', adjective)])
                         count += 1
-                        if count >= max_count: return
+                        if count >= max_count:
+                            return
         
-        # 3. النواسخ (كان وأخواتها، إن وأخواتها)
+        # 3. أدوات النواسخ + اسم + خبر
         for nasikh in samples['nasikh'][:6]:
-            for ism in samples['nouns'][:8]:
-                for khabar in samples['adjectives'][:6]:
+            for ism in samples['nouns'][:10]:
+                for khabar in samples['nouns'][:10]:
                     if cls._check_compatibility('nasikh', [nasikh, ism, khabar]):
                         sentence = f"{nasikh} {ism} {khabar}"
                         add_func(sentence, 'ناسخ+اسم+خبر', 'اسمية',
-                               [('ناسخ', nasikh), ('اسم الناسخ', ism), ('خبر الناسخ', khabar)])
+                                 [('ناسخ', nasikh), ('اسم الناسخ', ism), ('خبر الناسخ', khabar)])
                         count += 1
-                        if count >= max_count: return
+                        if count >= max_count:
+                            return
         
         # 4. أعداد + معدود
         for number in samples['numbers'][:8]:
@@ -231,7 +239,8 @@ class EnhancedSentenceGenerationEngine(BaseReconstructionEngine):
                     add_func(sentence, 'عدد+معدود', 'اسمية',
                            [('عدد', number), ('معدود', noun)])
                     count += 1
-                    if count >= max_count: return
+                    if count >= max_count:
+                        return
     
     @classmethod
     def _generate_complex_sentences(cls, samples, add_func, max_count):
@@ -247,7 +256,8 @@ class EnhancedSentenceGenerationEngine(BaseReconstructionEngine):
                         add_func(sentence, 'استفهام+فعل+اسم', 'استفهامية',
                                [('أداة استفهام', interrogative), ('فعل', verb), ('اسم', noun)])
                         count += 1
-                        if count >= max_count: return
+                        if count >= max_count:
+                            return
         
         # 2. جمل الشرط
         for conditional in samples['conditionals'][:4]:
@@ -268,7 +278,8 @@ class EnhancedSentenceGenerationEngine(BaseReconstructionEngine):
                     add_func(sentence, 'نداء+منادى', 'ندائية',
                            [('أداة نداء', nida), ('منادى', noun)])
                     count += 1
-                    if count >= max_count: return
+                    if count >= max_count:
+                        return
         
         # 4. الجمل الموصولة
         for relative in samples['relatives'][:4]:
@@ -279,7 +290,8 @@ class EnhancedSentenceGenerationEngine(BaseReconstructionEngine):
                         add_func(sentence, 'اسم_موصول+صلة_الموصول', 'موصولية',
                                [('اسم موصول', relative), ('فعل', verb), ('ضمير', pronoun)])
                         count += 1
-                        if count >= max_count: return
+                        if count >= max_count:
+                            return
     
     @classmethod
     def _check_compatibility(cls, pattern_type, components):
@@ -341,11 +353,16 @@ class EnhancedSentenceGenerationEngine(BaseReconstructionEngine):
         d = {'fatha': 0, 'damma': 0, 'kasra': 0, 'sukun': 0, 'shadda': 0}
         for ch in text:
             oc = ord(ch)
-            if oc == 0x064E: d['fatha'] += 1
-            elif oc == 0x064F: d['damma'] += 1  
-            elif oc == 0x0650: d['kasra'] += 1
-            elif oc == 0x0652: d['sukun'] += 1
-            elif oc == 0x0651: d['shadda'] += 1
+            if oc == 0x064E:
+                d['fatha'] += 1
+            elif oc == 0x064F:
+                d['damma'] += 1  
+            elif oc == 0x0650:
+                d['kasra'] += 1
+            elif oc == 0x0652:
+                d['sukun'] += 1
+            elif oc == 0x0651:
+                d['shadda'] += 1
         
         words = len([w for w in text.split() if w])
         return f"كلمات: {words}؛ فتحة: {d['fatha']}؛ ضمة: {d['damma']}؛ كسرة: {d['kasra']}"
@@ -383,6 +400,6 @@ class EnhancedSentenceGenerationEngine(BaseReconstructionEngine):
             try:
                 utf8_hex = ' '.join(f"0x{b:02x}" for b in token.encode('utf-8'))
                 utf8_parts.append(f"{label}:{utf8_hex}")
-            except:
+            except Exception:
                 utf8_parts.append(f"{label}:")
         return ' | '.join(utf8_parts)

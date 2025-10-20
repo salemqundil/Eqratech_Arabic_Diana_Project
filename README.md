@@ -71,3 +71,20 @@ See `requirements.txt` for complete list.
 ## License
 
 This project is part of the Eqratech Arabic Diana Project.
+
+---
+
+## Rule-based Built Pronouns/Verbs Lab
+
+This repo includes an educational lab to attach diacritics, syllabify into six gates, detect built pronouns/particles/verbs, and export statistics from a UTF-8 Quran text.
+
+Run on Windows PowerShell:
+
+```bash
+python -m venv .venv
+.\.venv\Scripts\Activate.ps1
+pip install -r requirements.txt
+python run_built_stats.py --text ./data/quran-simple-enhanced.txt --out ./reports/built_quran
+```
+
+Outputs will appear in `./reports/built_quran/` as CSV/JSON and optional PNG plots.

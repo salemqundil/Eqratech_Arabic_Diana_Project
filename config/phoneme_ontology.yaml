@@ -1,0 +1,76 @@
+meta:
+  version: 1.0
+  language: ar
+  notes: >
+    Ontology for Arabic phonemes, diacritics, and operators (rule-based labeling).
+    Each entry defines: type, kind, context, effect, priority, examples.
+
+phonemes:
+  inventory:
+    - symbol: "ب"
+      type: consonant
+      place: bilabial
+      manner: stop
+      functions: [root, derivational]
+    - symbol: "ء"
+      type: glottal
+      manner: stop
+      functions: [hamza, alternation]
+    - symbol: "ا"
+      type: vowel_long
+      functions: [madd, derivational]
+  functional_sets:
+    ten_augments: ["س","أ","ل","ت","م","و","ن","ي","ه","ا"]
+    mudari_prefix: ["ن","أ","ت","ي"]
+
+diacritics:
+  labels:
+    F: {name: fatha, roles: [phonetic, morphological, syntactic]}
+    K: {name: kasra, roles: [phonetic, morphological, syntactic]}
+    D: {name: damma, roles: [phonetic, morphological, syntactic]}
+    S: {name: sukun, roles: [phonetic]}
+  tri_past_patterns:
+    - {code: "FFF", name: "fa3ala"}
+    - {code: "FKF", name: "fa3ila"}
+    - {code: "FDF", name: "fa3ula"}
+
+syllables:
+  allowed_gates: ["CV","CVC","CVV","CVVC","CVCC","VC"]
+  notes: Only these gates are valid segmentation targets.
+
+operators:
+  particles:
+    - {form: "و", role: "AND", effect: "conjunctive"}
+    - {form: "ف", role: "AND", effect: "consecutive"}
+    - {form: "ثم", role: "AND", effect: "delayed_sequence"}
+    - {form: "بل", role: "CORRECT", effect: "rectification"}
+    - {form: "لكن", role: "CONTRAST"}
+    - {form: "أو", role: "OR"}
+    - {form: "أم", role: "XOR"}
+    - {form: "عن", role: "prep"}
+    - {form: "من", role: "prep"}
+    - {form: "على", role: "prep"}
+    - {form: "لأن", role: "CAUSE"}
+    - {form: "كي", role: "PURPOSE"}
+    - {form: "حتى", role: "UNTIL"}
+  demonstratives: ["هذا","هذه","هؤلاء","ذلك","تلك","أولئك"]
+  relatives: ["الذي","التي","الذين","اللاتي","اللائي","من","ما"]
+  interrogatives: ["من","ما","أين","متى","كيف","كم","أي"]
+  i3rab:
+    types: ["مبني","معرب"]
+
+labels:
+  pos_subgroup: ["none","verb","particle"]
+  pattern_classes: ["fa3ala","fa3ila","fa3ula","NA"]
+
+rules:
+  past_to_present_prefix:
+    prefix_set: ["ن","أ","ت","ي"]
+    apply_to: "verb_stem"
+    example: {past: "كتب", present: "يكتب"}
+
+  singular_to_plural:
+    note: "Rule-based slots; add concrete patterns per your table"
+    examples:
+      - {sg: "مسلم", pl: "مسلمون", type: "sound_masc"}
+      - {sg: "مسلمة", pl: "مسلمات", type: "sound_fem"}

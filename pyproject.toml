@@ -1,0 +1,23 @@
+[tool.ruff]
+line-length = 120
+extend-exclude = [
+  "notebooks",
+  "logs",
+  "output",
+]
+
+[tool.ruff.lint]
+select = [
+  "E",
+  "F",
+  "W",
+]
+ignore = [
+  "E402", # allow imports not at top within notebooks/scripts
+  "E501", # allow long lines (Arabic text/CSV stubs)
+  "W291", # ignore trailing whitespace (legacy files)
+  "W293", # ignore whitespace on blank lines
+]
+
+[tool.black]
+line-length = 120

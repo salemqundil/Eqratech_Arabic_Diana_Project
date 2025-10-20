@@ -31,7 +31,7 @@ def compare_engines():
     for i, engine in enumerate(current_engines, 1):
         print(f"  {i:2d}. {engine}")
     
-    print(f"\n📈 أنماط الجمل المولدة:")
+    print("\n📈 أنماط الجمل المولدة:")
     current_patterns = [
         "ضمير + فعل مضارع + ظرف",
         "علم + فعل ماض + ظرف", 
@@ -46,8 +46,8 @@ def compare_engines():
     for pattern in current_patterns:
         print(f"  • {pattern}")
     
-    print(f"\n⚙️ خوارزميات التحقق: لا توجد")
-    print(f"📊 العدد الأقصى للجمل: 600")
+    print("\n⚙️ خوارزميات التحقق: لا توجد")
+    print("📊 العدد الأقصى للجمل: 600")
     
     print("\n" + "=" * 80)
     print("🚀 المحرك المحسّن (enhanced_sentence_generation_engine.py)")
@@ -88,7 +88,7 @@ def compare_engines():
     for i, engine in enumerate(new_engines, 1):
         print(f"  {i:2d}. {engine}")
     
-    print(f"\n📈 أنماط الجمل المولدة (محسّن):")
+    print("\n📈 أنماط الجمل المولدة (محسّن):")
     enhanced_patterns = [
         # فعلية
         "فعل + فاعل + مفعول به",
@@ -113,7 +113,7 @@ def compare_engines():
     for pattern in enhanced_patterns:
         print(f"  • {pattern}")
     
-    print(f"\n⚙️ خوارزميات التحقق:")
+    print("\n⚙️ خوارزميات التحقق:")
     compatibility_rules = [
         "تطابق الفعل مع الفاعل في الجنس والعدد",
         "تطابق المبتدأ والخبر", 
@@ -125,7 +125,7 @@ def compare_engines():
     for rule in compatibility_rules:
         print(f"  ✓ {rule}")
         
-    print(f"\n📊 العدد الأقصى للجمل: 2000")
+    print("\n📊 العدد الأقصى للجمل: 2000")
     
     print("\n" + "=" * 80)
     print("📊 ملخص المقارنة")
