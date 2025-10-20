@@ -1,0 +1,23 @@
+{
+  "total_tokens": 17,
+  "noun_muarab_tokens": 4,
+  "noun_muarab_%": 23.529,
+  "final_diac_%": {
+    "K": 0.75,
+    "F": 0.25
+  },
+  "diacritics_counts": {
+    "F": 4,
+    "K": 6,
+    "D": 0,
+    "S": 1
+  },
+  "syllable_gates_counts": {
+    "CV": 0,
+    "CVC": 1,
+    "CVV": 0,
+    "CVVC": 0,
+    "CVCC": 3,
+    "VC": 0
+  }
+}

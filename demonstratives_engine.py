@@ -39,11 +39,11 @@ class DemonstrativesEngine:
         for name, phonemes_list, harakats_list in demonstratives:
             phonemes = ' '.join(phonemes_list)
             harakats = ' '.join(harakats_list)
-            unicode_val = ' '.join([f"U+{ord(l):04X}" for l in phonemes_list])
-            utf8_letters = ' '.join([phoneme_utf8.get(l, 'غير متوفر') for l in phonemes_list])
+            unicode_val = ' '.join([f"U+{ord(ch):04X}" for ch in phonemes_list])
+            utf8_letters = ' '.join([phoneme_utf8.get(ch, 'غير متوفر') for ch in phonemes_list])
             utf8_harakat = ' '.join([haraka_utf8.get(h, 'غير متوفر') for h in harakats_list])
             utf8_full = utf8_letters + ' ' + utf8_harakat
-            makhraj = '،'.join([phoneme_makhraj.get(l, 'غير متوفر') for l in phonemes_list])
+            makhraj = '،'.join([phoneme_makhraj.get(ch, 'غير متوفر') for ch in phonemes_list])
             row = {
                 'اسم الاشارة': name,
                 'الوظيفة النحوية': 'اسم إشارة يُستخدم للدلالة على المشار إليه في الجملة',
@@ -67,7 +67,7 @@ class DemonstrativesEngine:
             print(f"  Unicode: {unicode_val}")
             print(f"  UTF-8: {utf8_full}")
             print(f"  المخرج: {makhraj}")
-            print(f"  ---")
+            print("  ---")
             data.append(row)
         df = pd.DataFrame(data, columns=columns)
         print("\n--- DataFrame الناتج ---")

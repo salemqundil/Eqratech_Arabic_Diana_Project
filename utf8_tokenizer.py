@@ -7,7 +7,6 @@ utilizing UTF-8 encoding for proper handling of Arabic characters.
 from typing import List, Dict, Optional, Union
 import json
 import os
-from pathlib import Path
 
 
 class UTF8PhonemeTokenizer:
@@ -68,7 +67,7 @@ class UTF8PhonemeTokenizer:
         if vocab_file and os.path.exists(vocab_file):
             self.load_vocab(vocab_file)
     
-    def build_vocab_from_phonemes(self, phonemes_csv: str = None) -> None:
+    def build_vocab_from_phonemes(self, phonemes_csv: Optional[str] = None) -> None:
         """
         Build vocabulary from phonemes CSV file.
         
@@ -76,6 +75,24 @@ class UTF8PhonemeTokenizer:
             phonemes_csv: Path to phonemes CSV file
         """
         try:
+            # Try to include ontology symbols/sets first (best-effort, independent of pandas)
+            try:
+                from phoneme_ontology import get_ontology
+                ont = get_ontology()
+                for item in ont.phoneme_inventory():
+                    sym = str(item.get('symbol', '')).strip()
+                    if sym and sym not in self.vocab:
+                        self._add_to_vocab(sym)
+                for ch in ont.functional_sets().get('mudari_prefix', []):
+                    if ch and ch not in self.vocab:
+                        self._add_to_vocab(ch)
+                for ch in ont.functional_sets().get('ten_augments', []):
+                    if ch and ch not in self.vocab:
+                        self._add_to_vocab(ch)
+            except Exception:
+                # Ontology is optional; ignore if missing
+                pass
+
             import pandas as pd
             
             # Try to load phonemes from the existing phonemes_engine
@@ -223,7 +240,9 @@ class UTF8PhonemeTokenizer:
         
         # Handle max length
         if max_length is None:
-            max_length = self.max_length
+            max_length = int(self.max_length)
+        else:
+            max_length = int(max_length)
         
         # Truncate if necessary
         if truncation and len(input_ids) > max_length:
@@ -243,6 +262,17 @@ class UTF8PhonemeTokenizer:
             'attention_mask': attention_mask
         }
     
+    def _decode_single(self, token_ids: List[int], skip_special_tokens: bool = True) -> str:
+        """Decode a single sequence of token IDs back to text."""
+        tokens: List[str] = []
+        for idx in token_ids:
+            if idx in self.inverse_vocab:
+                token = self.inverse_vocab[idx]
+                if skip_special_tokens and token in self.special_tokens:
+                    continue
+                tokens.append(token)
+        return ''.join(tokens)
+
     def decode(self, token_ids: Union[List[int], List[List[int]]], skip_special_tokens: bool = True) -> Union[str, List[str]]:
         """
         Decode token IDs back to text.
@@ -256,30 +286,27 @@ class UTF8PhonemeTokenizer:
         """
         # Handle batch decoding
         if isinstance(token_ids[0], list):
-            return [self.decode(ids, skip_special_tokens) for ids in token_ids]
-        
+            return [self._decode_single(ids, skip_special_tokens) for ids in token_ids]  # type: ignore[index]
+
         # Decode single sequence
-        tokens = []
-        for idx in token_ids:
-            if idx in self.inverse_vocab:
-                token = self.inverse_vocab[idx]
-                if skip_special_tokens and token in self.special_tokens:
-                    continue
-                tokens.append(token)
-        
-        return ''.join(tokens)
+        return self._decode_single(token_ids, skip_special_tokens)  # type: ignore[arg-type]
     
     def save_vocab(self, save_path: str) -> None:
-        """
-        Save vocabulary to file.
-        
-        Args:
-            save_path: Path to save vocabulary
+        """Save vocabulary to disk.
+
+        Writes a JSON file. Primary format is a dict containing keys:
+        - 'vocab': token->id mapping
+        - 'special_tokens': dict of special token strings
+        - 'max_length': int
+
+        For compatibility, if downstream tools expect just a flat mapping,
+        they can read the 'vocab' field. Our load_vocab also accepts a flat
+        mapping file written by older variants.
         """
         vocab_dir = os.path.dirname(save_path)
         if vocab_dir:
             os.makedirs(vocab_dir, exist_ok=True)
-        
+
         vocab_data = {
             'vocab': self.vocab,
             'special_tokens': {
@@ -287,14 +314,14 @@ class UTF8PhonemeTokenizer:
                 'sep_token': self.sep_token,
                 'pad_token': self.pad_token,
                 'cls_token': self.cls_token,
-                'mask_token': self.mask_token
+                'mask_token': self.mask_token,
             },
-            'max_length': self.max_length
+            'max_length': self.max_length,
         }
-        
+
         with open(save_path, 'w', encoding='utf-8') as f:
             json.dump(vocab_data, f, ensure_ascii=False, indent=2)
-        
+
         print(f"[UTF8PhonemeTokenizer] Vocabulary saved to {save_path}")
     
     def save_pretrained(self, save_directory: str) -> None:
@@ -307,6 +334,57 @@ class UTF8PhonemeTokenizer:
         os.makedirs(save_directory, exist_ok=True)
         vocab_path = os.path.join(save_directory, 'vocab.json')
         self.save_vocab(vocab_path)
+        # Also write a lightweight tokenizer config for convenience
+        cfg = {
+            "tokenizer_class": self.__class__.__name__,
+            "special_tokens": {
+                "unk_token": self.unk_token,
+                "sep_token": self.sep_token,
+                "pad_token": self.pad_token,
+                "cls_token": self.cls_token,
+                "mask_token": self.mask_token,
+            },
+            "max_length": int(self.max_length),
+            "vocab_file": "vocab.json",
+        }
+        with open(os.path.join(save_directory, 'utf8_tokenizer.json'), 'w', encoding='utf-8') as f:
+            json.dump(cfg, f, ensure_ascii=False, indent=2)
+
+    @classmethod
+    def from_pretrained(cls, load_directory: str) -> "UTF8PhonemeTokenizer":
+        """Load tokenizer from a directory produced by save_pretrained."""
+        vocab_path = os.path.join(load_directory, 'vocab.json')
+        # Optional: read config to override max_length/special tokens if needed
+        cfg_path = os.path.join(load_directory, 'utf8_tokenizer.json')
+        special: Dict[str, str] = {}
+        max_len: Optional[int] = None
+        if os.path.exists(cfg_path):
+            try:
+                with open(cfg_path, 'r', encoding='utf-8') as f:
+                    cfg = json.load(f)
+                special = cfg.get('special_tokens', {}) or {}
+                ml = cfg.get('max_length')
+                if isinstance(ml, int):
+                    max_len = ml
+            except Exception:
+                pass
+        tok = cls(
+            vocab_file=vocab_path if os.path.exists(vocab_path) else None,
+            unk_token=special.get('unk_token', '[UNK]'),
+            sep_token=special.get('sep_token', '[SEP]'),
+            pad_token=special.get('pad_token', '[PAD]'),
+            cls_token=special.get('cls_token', '[CLS]'),
+            mask_token=special.get('mask_token', '[MASK]'),
+            max_length=max_len if max_len is not None else 512,
+        )
+        # If vocab_file missing, attempt to load from flat/structured anyway
+        if os.path.exists(vocab_path):
+            tok.load_vocab(vocab_path)
+        return tok
+
+# Alias for backward compatibility with earlier notebook text
+class UTF8CharTokenizer(UTF8PhonemeTokenizer):
+    pass
     
     def load_vocab(self, vocab_file: str) -> None:
         """
@@ -317,21 +395,29 @@ class UTF8PhonemeTokenizer:
         """
         with open(vocab_file, 'r', encoding='utf-8') as f:
             vocab_data = json.load(f)
-        
-        self.vocab = vocab_data['vocab']
+
+        # Support both structured and flat vocab files
+        if isinstance(vocab_data, dict) and 'vocab' in vocab_data:
+            self.vocab = {str(k): int(v) for k, v in vocab_data['vocab'].items()}
+            if 'special_tokens' in vocab_data:
+                special = vocab_data['special_tokens']
+                self.unk_token = special.get('unk_token', self.unk_token)
+                self.sep_token = special.get('sep_token', self.sep_token)
+                self.pad_token = special.get('pad_token', self.pad_token)
+                self.cls_token = special.get('cls_token', self.cls_token)
+                self.mask_token = special.get('mask_token', self.mask_token)
+            if 'max_length' in vocab_data:
+                try:
+                    self.max_length = int(vocab_data['max_length'])
+                except Exception:
+                    pass
+        else:
+            # Assume flat mapping token->id
+            self.vocab = {str(k): int(v) for k, v in vocab_data.items()}
+
+        # Rebuild inverse vocab
         self.inverse_vocab = {int(v): k for k, v in self.vocab.items()}
-        
-        if 'special_tokens' in vocab_data:
-            special = vocab_data['special_tokens']
-            self.unk_token = special.get('unk_token', self.unk_token)
-            self.sep_token = special.get('sep_token', self.sep_token)
-            self.pad_token = special.get('pad_token', self.pad_token)
-            self.cls_token = special.get('cls_token', self.cls_token)
-            self.mask_token = special.get('mask_token', self.mask_token)
-        
-        if 'max_length' in vocab_data:
-            self.max_length = vocab_data['max_length']
-        
+
         print(f"[UTF8PhonemeTokenizer] Vocabulary loaded from {vocab_file} ({len(self.vocab)} tokens)")
     
     @property
@@ -460,6 +546,15 @@ def create_tokenizer(config: Optional[Dict] = None) -> UTF8PhonemeTokenizer:
     
     # Build vocabulary from phonemes
     tokenizer.build_vocab_from_phonemes()
+
+    # Optionally seed additional texts (ensure demo chars/tokens are present)
+    cfg_dict: Dict = config if isinstance(config, dict) else {}
+    seed_texts = cfg_dict.get('seed_texts')
+    if isinstance(seed_texts, list):
+        for text in seed_texts:
+            for ch in str(text):
+                if ch and ch.strip() and ch not in tokenizer.vocab:
+                    tokenizer._add_to_vocab(ch)
     
     return tokenizer
 

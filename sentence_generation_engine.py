@@ -38,8 +38,7 @@ class SentenceGenerationEngine(BaseReconstructionEngine):
         }
 
         # أدوات ومفردات جاهزة من المحركات
-        neg = first(dfs['neg'])
-        conj = first(dfs['conj'])
+    # Note: previously retrieved first negation/conjunction but not used; keep logic focused on used vars
         # انتقاء حرف جر محدد: "في" من سطر ظرفية
         prep_df = dfs['prep']
         prep_row = prep_df[prep_df['القالب/التركيب'] == 'ظرفية'] if 'القالب/التركيب' in prep_df.columns else pd.DataFrame()
@@ -68,7 +67,6 @@ class SentenceGenerationEngine(BaseReconstructionEngine):
             pron_huwa = pick_p('هُوَ') or first(pron_df)
             pron_anta = pick_p('أَنْتَ') or first(pron_df, 1) or pron_huwa
         prop_df = dfs['prop']
-        prop_name = first(prop_df) if not prop_df.empty else ''
         qasr_tool = first(dfs['qasr'])
         nouns_df = dfs['nouns']
         # قوائم مختارة
@@ -128,19 +126,32 @@ class SentenceGenerationEngine(BaseReconstructionEngine):
             }
             for ch in text:
                 oc = ord(ch)
-                if oc == 0x064E: d['fatha'] += 1  # فتحة
-                elif oc == 0x064F: d['damma'] += 1  # ضمة
-                elif oc == 0x0650: d['kasra'] += 1  # كسرة
-                elif oc == 0x0652: d['sukun'] += 1  # سكون
-                elif oc == 0x0651: d['shadda'] += 1  # شدة
-                elif oc == 0x064B: d['tanween_fath'] += 1  # تنوين فتح
-                elif oc == 0x064C: d['tanween_damm'] += 1  # تنوين ضم
-                elif oc == 0x064D: d['tanween_kasr'] += 1  # تنوين كسر
-                elif oc == 0x0653: d['madda'] += 1  # مدة فوقية
-                elif oc == 0x0670: d['sup_alef'] += 1  # ألف خنجرية
-                elif oc == 0x0627: d['alef'] += 1  # ألف
-                elif oc == 0x0648: d['waw'] += 1  # واو
-                elif oc == 0x064A: d['ya'] += 1   # ياء
+                if oc == 0x064E:
+                    d['fatha'] += 1  # فتحة
+                elif oc == 0x064F:
+                    d['damma'] += 1  # ضمة
+                elif oc == 0x0650:
+                    d['kasra'] += 1  # كسرة
+                elif oc == 0x0652:
+                    d['sukun'] += 1  # سكون
+                elif oc == 0x0651:
+                    d['shadda'] += 1  # شدة
+                elif oc == 0x064B:
+                    d['tanween_fath'] += 1  # تنوين فتح
+                elif oc == 0x064C:
+                    d['tanween_damm'] += 1  # تنوين ضم
+                elif oc == 0x064D:
+                    d['tanween_kasr'] += 1  # تنوين كسر
+                elif oc == 0x0653:
+                    d['madda'] += 1  # مدة فوقية
+                elif oc == 0x0670:
+                    d['sup_alef'] += 1  # ألف خنجرية
+                elif oc == 0x0627:
+                    d['alef'] += 1  # ألف
+                elif oc == 0x0648:
+                    d['waw'] += 1  # واو
+                elif oc == 0x064A:
+                    d['ya'] += 1   # ياء
             words = len([w for w in text.split() if w])
             return (
                 f"عدد الكلمات: {words}؛ فتحة: {d['fatha']}؛ ضمة: {d['damma']}؛ كسرة: {d['kasra']}؛ "
@@ -221,29 +232,37 @@ class SentenceGenerationEngine(BaseReconstructionEngine):
         for pr in pron_list:
             for zv in zarf_list[:5]:
                 push(f"{pr} {verbs['present']} {zv}", 'ضمير+فعل مضارع+ظرف', 'فعلية', [('ضمير', pr), ('فعل', verbs['present']), ('ظرف', zv)])
-                if len(seen) >= MAX_SENTENCES: break
-            if len(seen) >= MAX_SENTENCES: break
+                if len(seen) >= MAX_SENTENCES:
+                    break
+            if len(seen) >= MAX_SENTENCES:
+                break
 
         # فعلية: أعلام × ماض × ظروف
         for pn in prop_list:
             for zv in zarf_list[:4]:
                 push(f"{pn} {verbs['past']} {zv}", 'علم+فعل ماض+ظرف', 'فعلية', [('علم', pn), ('فعل', verbs['past']), ('ظرف', zv)])
-                if len(seen) >= MAX_SENTENCES: break
-            if len(seen) >= MAX_SENTENCES: break
+                if len(seen) >= MAX_SENTENCES:
+                    break
+            if len(seen) >= MAX_SENTENCES:
+                break
 
         # فعلية: نفي + ضمير + مضارع + اسم
         for ng in neg_list[:3]:
             for pr in pron_list[:4]:
                 for nn in nouns_list[:6]:
                     push(f"{ng} {pr} {verbs['present']} {nn}", 'نفي+ضمير+مضارع+اسم', 'فعلية', [('نفي', ng), ('ضمير', pr), ('فعل', verbs['present']), ('اسم', nn)])
-                    if len(seen) >= MAX_SENTENCES: break
-                if len(seen) >= MAX_SENTENCES: break
-            if len(seen) >= MAX_SENTENCES: break
+                    if len(seen) >= MAX_SENTENCES:
+                        break
+                if len(seen) >= MAX_SENTENCES:
+                    break
+            if len(seen) >= MAX_SENTENCES:
+                break
 
         # فعلية: فعل أمر + ضمير مخاطب
         for pr in [pron_anta] + [p for p in pron_list if p != pron_anta][:2]:
             push(f"{verbs['imperative']} {pr}", 'فعل أمر+ضمير', 'فعلية', [('فعل', verbs['imperative']), ('ضمير', pr)])
-            if len(seen) >= MAX_SENTENCES: break
+            if len(seen) >= MAX_SENTENCES:
+                break
 
         # فعلية مركبة: ضمير + مضارع + اسم + جار ومجرور
         for pr in pron_list[:4]:
@@ -251,32 +270,42 @@ class SentenceGenerationEngine(BaseReconstructionEngine):
                 for pp in preps[:3]:
                     for zv in zarf_list[:3]:
                         push(f"{pr} {verbs['present']} {nn} {pp} {zv}", 'ضمير+مضارع+اسم+جار+ظرف', 'فعلية', [('ضمير', pr), ('فعل', verbs['present']), ('اسم', nn), ('حرف جر', pp), ('اسم مجرور/ظرف', zv)])
-                        if len(seen) >= MAX_SENTENCES: break
-                    if len(seen) >= MAX_SENTENCES: break
-                if len(seen) >= MAX_SENTENCES: break
-            if len(seen) >= MAX_SENTENCES: break
+                        if len(seen) >= MAX_SENTENCES:
+                            break
+                    if len(seen) >= MAX_SENTENCES:
+                        break
+                if len(seen) >= MAX_SENTENCES:
+                    break
+            if len(seen) >= MAX_SENTENCES:
+                break
 
         # اسمية: علم + اسم (خبر)
         for pn in prop_list[:6]:
             for nn in nouns_list[:6]:
                 push(f"{pn} {nn}", 'مبتدأ (علم)+خبر (اسم)', 'اسمية', [('مبتدأ', pn), ('خبر', nn)])
-                if len(seen) >= MAX_SENTENCES: break
-            if len(seen) >= MAX_SENTENCES: break
+                if len(seen) >= MAX_SENTENCES:
+                    break
+            if len(seen) >= MAX_SENTENCES:
+                break
 
         # اسمية بالقصر
         if qasr_tool:
             for pn in prop_list[:4]:
                 for nn in nouns_list[:4]:
                     push(f"{qasr_tool} {pn} {nn}", 'قصر+مبتدأ+خبر', 'اسمية', [('قصر', qasr_tool), ('مبتدأ', pn), ('خبر', nn)])
-                    if len(seen) >= MAX_SENTENCES: break
-                if len(seen) >= MAX_SENTENCES: break
+                    if len(seen) >= MAX_SENTENCES:
+                        break
+                if len(seen) >= MAX_SENTENCES:
+                    break
 
         # شبه جملة: حروف جر × أسماء/ظروف
         for pp in preps:
             for nn in (nouns_list[:6] + zarf_list[:4]):
                 push(f"{pp} {nn}", 'جار+مجرور/ظرف', 'شبه جملة', [('حرف جر', pp), ('اسم/ظرف', nn)])
-                if len(seen) >= MAX_SENTENCES: break
-            if len(seen) >= MAX_SENTENCES: break
+                if len(seen) >= MAX_SENTENCES:
+                    break
+            if len(seen) >= MAX_SENTENCES:
+                break
 
         # عطف: حرف عطف + جملة فعلية قصيرة
         for cj in conj_list:
@@ -284,57 +313,73 @@ class SentenceGenerationEngine(BaseReconstructionEngine):
                 for zv in zarf_list[:2]:
                     clause = f"{pn} {verbs['past']} {zv}"
                     push(f"{cj} {clause}", 'عطف+جملة فعلية', 'فعلية', [('عطف', cj), ('جملة', clause)])
-                    if len(seen) >= MAX_SENTENCES: break
-                if len(seen) >= MAX_SENTENCES: break
-            if len(seen) >= MAX_SENTENCES: break
+                    if len(seen) >= MAX_SENTENCES:
+                        break
+                if len(seen) >= MAX_SENTENCES:
+                    break
+            if len(seen) >= MAX_SENTENCES:
+                break
 
         # توسعة الجمل الاسمية: مبتدأ (ضمير/علم/اسم) + خبر (اسم/ظرف/شبه جملة)
         # 1) ضمير + اسم
         for pr in pron_list[:5]:
             for nn in nouns_list[:8]:
                 push(f"{pr} {nn}", 'مبتدأ (ضمير)+خبر (اسم)', 'اسمية', [('مبتدأ', pr), ('خبر', nn)])
-                if len(seen) >= MAX_SENTENCES: break
-            if len(seen) >= MAX_SENTENCES: break
+                if len(seen) >= MAX_SENTENCES:
+                    break
+            if len(seen) >= MAX_SENTENCES:
+                break
         # 2) علم + ظرف
         for pn in prop_list[:8]:
             for zv in [z_huna, z_hunak, z_yawm, z_ams]:
-                if zv:
-                    push(f"{pn} {zv}", 'مبتدأ (علم)+خبر (ظرف)', 'اسمية', [('مبتدأ', pn), ('خبر', zv)])
-                    if len(seen) >= MAX_SENTENCES: break
-            if len(seen) >= MAX_SENTENCES: break
+                    if zv:
+                        push(f"{pn} {zv}", 'مبتدأ (علم)+خبر (ظرف)', 'اسمية', [('مبتدأ', pn), ('خبر', zv)])
+                        if len(seen) >= MAX_SENTENCES:
+                            break
+            if len(seen) >= MAX_SENTENCES:
+                break
         # 3) اسم + اسم (خبر مفرد)
         for i, n1 in enumerate(nouns_list[:10]):
             for j, n2 in enumerate(nouns_list[:10]):
                 if i == j:
                     continue
                 push(f"{n1} {n2}", 'مبتدأ (اسم)+خبر (اسم)', 'اسمية', [('مبتدأ', n1), ('خبر', n2)])
-                if len(seen) >= MAX_SENTENCES: break
-            if len(seen) >= MAX_SENTENCES: break
+                if len(seen) >= MAX_SENTENCES:
+                    break
+            if len(seen) >= MAX_SENTENCES:
+                break
         # 4) قصر + علم + ظرف
         if qasr_tool:
             for pn in prop_list[:6]:
                 for zv in [z_huna, z_hunak]:
                     if zv:
                         push(f"{qasr_tool} {pn} {zv}", 'قصر+مبتدأ+خبر (ظرف)', 'اسمية', [('قصر', qasr_tool), ('مبتدأ', pn), ('خبر', zv)])
-                        if len(seen) >= MAX_SENTENCES: break
-                if len(seen) >= MAX_SENTENCES: break
+                        if len(seen) >= MAX_SENTENCES:
+                            break
+                if len(seen) >= MAX_SENTENCES:
+                    break
         # 5) نفي + علم + ظرف
         for ng in neg_list[:3]:
             for pn in prop_list[:6]:
                 for zv in [z_huna, z_hunak]:
                     if zv:
                         push(f"{ng} {pn} {zv}", 'نفي+مبتدأ+خبر (ظرف)', 'اسمية', [('نفي', ng), ('مبتدأ', pn), ('خبر', zv)])
-                        if len(seen) >= MAX_SENTENCES: break
-                if len(seen) >= MAX_SENTENCES: break
-            if len(seen) >= MAX_SENTENCES: break
+                        if len(seen) >= MAX_SENTENCES:
+                            break
+                if len(seen) >= MAX_SENTENCES:
+                    break
+            if len(seen) >= MAX_SENTENCES:
+                break
 
         # توسعة شبه الجملة (جار ومجرور):
         # 1) حروف جر × أسماء جنس
         for pp in preps:
             for nn in nouns_list[:10]:
                 push(f"{pp} {nn}", 'جار+مجرور', 'شبه جملة', [('حرف جر', pp), ('اسم مجرور', nn)])
-                if len(seen) >= MAX_SENTENCES: break
-            if len(seen) >= MAX_SENTENCES: break
+                if len(seen) >= MAX_SENTENCES:
+                    break
+            if len(seen) >= MAX_SENTENCES:
+                break
         # 2) من/إلى + هنا/هناك
         # اختيار دقيق لـ "من" و"إلى"
         prep_min = ''
@@ -349,15 +394,19 @@ class SentenceGenerationEngine(BaseReconstructionEngine):
                 push(f"{prep_min} {zv}", 'جار+ظرف مكان', 'شبه جملة', [('حرف جر', prep_min), ('ظرف مكان', zv)])
             if zv and prep_ila:
                 push(f"{prep_ila} {zv}", 'جار+ظرف مكان', 'شبه جملة', [('حرف جر', prep_ila), ('ظرف مكان', zv)])
-            if len(seen) >= MAX_SENTENCES: break
+            if len(seen) >= MAX_SENTENCES:
+                break
         # 3) تركيب مركب: جار+مجرور + جار+ظرف (قصير)
         for pp in preps[:3]:
             for nn in nouns_list[:4]:
                 for zv in [z_huna, z_hunak]:
                     if zv:
                         push(f"{pp} {nn} {prep_fi} {zv}", 'جار+مجرور+جار+ظرف', 'شبه جملة', [('حرف جر', pp), ('اسم مجرور', nn), ('حرف جر', prep_fi), ('ظرف', zv)])
-                        if len(seen) >= MAX_SENTENCES: break
-                if len(seen) >= MAX_SENTENCES: break
-            if len(seen) >= MAX_SENTENCES: break
+                        if len(seen) >= MAX_SENTENCES:
+                            break
+                if len(seen) >= MAX_SENTENCES:
+                    break
+            if len(seen) >= MAX_SENTENCES:
+                break
 
         return reconstruct_from_base_df(pd.DataFrame(sentences))

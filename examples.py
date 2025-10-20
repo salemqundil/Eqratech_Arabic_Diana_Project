@@ -23,7 +23,7 @@ def example_tokenizer_usage():
     print("\n1. Creating tokenizer...")
     tokenizer = UTF8PhonemeTokenizer()
     tokenizer.build_vocab_from_phonemes()
-    print(f"   Vocabulary size: {len(tokenizer)} tokens")
+    print(f"   Vocabulary size: {len(tokenizer.vocab)} tokens")
     
     # Encode some text
     print("\n2. Encoding Arabic text...")
@@ -164,10 +164,10 @@ def main():
     
     try:
         # Example 1: Tokenizer
-        tokenizer = example_tokenizer_usage()
+        _ = example_tokenizer_usage()
         
         # Example 2: Configuration
-        config = example_training_config()
+        _ = example_training_config()
         
         # Example 3: Training demonstration
         example_quick_training()
