@@ -45,6 +45,8 @@ jobs:
   training-setup-validation:
     name: Validate Training Setup
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
     
     steps:
       - name: Checkout code
@@ -87,6 +89,8 @@ jobs:
     runs-on: ubuntu-latest
     needs: training-setup-validation
     if: github.event_name == 'pull_request' || (github.event_name == 'workflow_dispatch' && github.event.inputs.provider == 'local')
+    permissions:
+      contents: read
     
     steps:
       - name: Checkout code
@@ -122,6 +126,8 @@ jobs:
     runs-on: ubuntu-latest
     needs: training-setup-validation
     if: github.event_name == 'workflow_dispatch' && github.event.inputs.provider != 'local'
+    permissions:
+      contents: read
     
     steps:
       - name: Checkout code
@@ -193,6 +199,8 @@ jobs:
     name: Build Docker Image
     runs-on: ubuntu-latest
     needs: training-setup-validation
+    permissions:
+      contents: read
     
     steps:
       - name: Checkout code
