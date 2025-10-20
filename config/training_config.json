@@ -1,0 +1,66 @@
+{
+  "model_name": "bert-base-arabic",
+  "model_type": "bert",
+  "output_dir": "./output/bert-arabic-phoneme",
+  "data_dir": "./data",
+  "tokenizer_dir": "./tokenizers",
+  
+  "training": {
+    "num_train_epochs": 3,
+    "per_device_train_batch_size": 8,
+    "per_device_eval_batch_size": 8,
+    "learning_rate": 5e-5,
+    "warmup_steps": 500,
+    "weight_decay": 0.01,
+    "logging_steps": 100,
+    "save_steps": 500,
+    "eval_steps": 500,
+    "save_total_limit": 2,
+    "gradient_accumulation_steps": 1,
+    "max_seq_length": 512
+  },
+  
+  "curriculum_training": {
+    "enabled": true,
+    "stages": [
+      {
+        "name": "phoneme_basics",
+        "max_length": 128,
+        "epochs": 1
+      },
+      {
+        "name": "word_level",
+        "max_length": 256,
+        "epochs": 1
+      },
+      {
+        "name": "full_sequences",
+        "max_length": 512,
+        "epochs": 1
+      }
+    ]
+  },
+  
+  "tokenizer": {
+    "type": "utf8_phoneme",
+    "vocab_size": 30000,
+    "special_tokens": {
+      "unk_token": "[UNK]",
+      "sep_token": "[SEP]",
+      "pad_token": "[PAD]",
+      "cls_token": "[CLS]",
+      "mask_token": "[MASK]"
+    }
+  },
+  
+  "data": {
+    "train_file": "train_phonemes.txt",
+    "eval_file": "eval_phonemes.txt",
+    "test_file": "test_phonemes.txt"
+  },
+  
+  "logging": {
+    "log_level": "info",
+    "log_dir": "./logs"
+  }
+}

@@ -1,0 +1,6 @@
+# Minimal deps to run features_pipeline.py (Python 3.11 recommended on Windows)
+numpy
+pandas
+scikit-learn
+scipy
+pyyaml

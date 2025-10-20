@@ -1,0 +1,7 @@
+﻿word,pos,i3rab,pron_type,pron_form,verb_form,verb_built_type,diacritics,syllables
+وَٱلْفَجْرِ,verb,مبني,,,imperative,imperative,"['F', 'S', 'F', 'S', 'K']","['VVC', 'CV', 'CV']"
+وَلَيَالٍ,verb,مبني,,,imperative,imperative,"['F', 'F', 'F', 'K']","['VVC', 'VVC', 'VVC', 'CV']"
+عَشْرٍ,verb,مبني,,,imperative,imperative,"['F', 'S', 'K']","['VVC', 'CV']"
+إِنَّ,verb,مبني,,,past,past,"['K', 'F']","['VVC', 'VVC']"
+رَبَّكَ,verb,مبني,,,imperative,imperative,"['F', 'F', 'F']","['VVC', 'VVC', 'VVC']"
+لَبِٱلْمِرْصَادِ,verb,مبني,,,imperative,imperative,"['F', 'K', 'S', 'K', 'S', 'F', 'K']","['VVC', 'VVC', 'CV', 'CVV', 'CV']"

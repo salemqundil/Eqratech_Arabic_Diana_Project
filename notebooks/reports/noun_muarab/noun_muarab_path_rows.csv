@@ -1,0 +1,5 @@
+word,len,diacritics,syllables,final_diac
+بِسْمِ,6,"['K', 'S', 'K']",['CVCC'],K
+رَبِّ,5,"['F', 'K']",['CVC'],K
+مَالِكِ,7,"['F', 'K', 'K']",['CVCC'],K
+وَإِيَّاكَ,10,"['K', 'F', 'F']",['CVCC'],F

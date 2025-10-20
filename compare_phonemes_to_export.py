@@ -7,7 +7,7 @@ def compare():
     csv_df = pd.read_csv('full_multilayer_grammar.csv', dtype=str).fillna('')
     try:
         xlsx_df = pd.read_excel('full_multilayer_grammar.xlsx', sheet_name='الفونيمات')
-    except Exception as e:
+    except Exception:
         xlsx_df = None
 
     print('engine rows:', len(phon_df))
