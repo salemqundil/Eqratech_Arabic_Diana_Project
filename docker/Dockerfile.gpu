@@ -1,0 +1,59 @@
+# Dockerfile for Arabic BERT Training with GPU Support
+FROM nvidia/cuda:12.1.0-cudnn8-devel-ubuntu22.04
+
+# Set environment variables
+ENV DEBIAN_FRONTEND=noninteractive
+ENV PYTHONIOENCODING=utf-8
+ENV LANG=C.UTF-8
+ENV LC_ALL=C.UTF-8
+
+# Install system dependencies
+RUN apt-get update && apt-get install -y \
+    python3.10 \
+    python3-pip \
+    git \
+    wget \
+    vim \
+    htop \
+    nvtop \
+    && rm -rf /var/lib/apt/lists/*
+
+# Set Python 3.10 as default
+RUN update-alternatives --install /usr/bin/python python /usr/bin/python3.10 1
+RUN update-alternatives --install /usr/bin/pip pip /usr/bin/pip3 1
+
+# Upgrade pip
+RUN pip install --upgrade pip setuptools wheel
+
+# Set working directory
+WORKDIR /workspace
+
+# Copy requirements first for better caching
+COPY requirements.txt requirements-features.txt ./
+
+# Install Python dependencies
+RUN pip install --no-cache-dir -r requirements.txt
+RUN pip install --no-cache-dir -r requirements-features.txt
+
+# Install additional cloud training dependencies
+RUN pip install --no-cache-dir \
+    wandb \
+    tensorboard \
+    gputil \
+    py-cpuinfo
+
+# Copy project files
+COPY . .
+
+# Create necessary directories
+RUN mkdir -p /workspace/output /workspace/logs /workspace/data /workspace/tokenizers
+
+# Set permissions
+RUN chmod +x cloud_training_launcher.py
+RUN chmod +x cloud_examples/*.sh
+
+# Expose ports for TensorBoard and potential web services
+EXPOSE 6006 8000
+
+# Default command
+CMD ["python", "cloud_training_launcher.py", "--help"]

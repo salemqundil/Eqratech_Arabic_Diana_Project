@@ -1,0 +1,22 @@
+# Additional requirements for cloud GPU training
+# Install with: pip install -r requirements-cloud.txt
+
+# Cloud provider SDKs (optional - install only if using that provider)
+boto3>=1.28.0          # AWS SDK
+google-cloud-compute>=1.12.0  # GCP SDK
+azure-mgmt-compute>=30.0.0    # Azure SDK
+
+# GPU monitoring and optimization
+gputil>=1.4.0
+py-cpuinfo>=9.0.0
+psutil>=5.9.0
+
+# Experiment tracking (optional)
+wandb>=0.15.0
+tensorboard>=2.14.0
+
+# Container support
+docker>=6.1.0
+
+# Cost tracking and monitoring
+python-dateutil>=2.8.2

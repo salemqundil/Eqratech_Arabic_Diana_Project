@@ -1,0 +1,96 @@
+{
+  "cloud_training": {
+    "enabled": false,
+    "provider": "local",
+    "gpu_type": "auto",
+    "num_gpus": 1,
+    "distributed_training": false
+  },
+  
+  "providers": {
+    "aws": {
+      "instance_type": "p3.2xlarge",
+      "region": "us-east-1",
+      "ami_id": "ami-pytorch-latest",
+      "spot_instance": true,
+      "max_price": 3.0
+    },
+    "gcp": {
+      "machine_type": "n1-standard-8",
+      "accelerator_type": "nvidia-tesla-v100",
+      "accelerator_count": 1,
+      "zone": "us-central1-a",
+      "preemptible": true
+    },
+    "azure": {
+      "vm_size": "Standard_NC6s_v3",
+      "location": "eastus",
+      "spot_instance": true
+    },
+    "lambda_labs": {
+      "instance_type": "gpu_1x_a100",
+      "region": "us-west-1"
+    },
+    "runpod": {
+      "gpu_type": "NVIDIA RTX A6000",
+      "gpu_count": 1,
+      "container_disk_size": 50
+    }
+  },
+  
+  "optimization": {
+    "mixed_precision": "auto",
+    "gradient_checkpointing": false,
+    "compile_model": false,
+    "dataloader_num_workers": 4,
+    "pin_memory": true,
+    "gradient_clipping": 1.0,
+    "find_unused_parameters": false
+  },
+  
+  "distributed": {
+    "backend": "nccl",
+    "find_unused_parameters": false,
+    "gradient_as_bucket_view": true,
+    "static_graph": false
+  },
+  
+  "monitoring": {
+    "gpu_monitoring": true,
+    "memory_monitoring": true,
+    "log_system_stats": true,
+    "wandb": {
+      "enabled": false,
+      "project": "arabic-bert-phoneme",
+      "entity": null
+    },
+    "tensorboard": {
+      "enabled": true,
+      "log_dir": "./logs"
+    }
+  },
+  
+  "checkpointing": {
+    "save_strategy": "steps",
+    "save_steps": 500,
+    "save_total_limit": 3,
+    "auto_resume": true,
+    "cloud_sync": {
+      "enabled": false,
+      "s3_bucket": null,
+      "gcs_bucket": null,
+      "azure_container": null
+    }
+  },
+  
+  "cost_estimation": {
+    "track_costs": true,
+    "cost_per_hour": {
+      "aws_p3_2xlarge": 3.06,
+      "gcp_v100": 2.48,
+      "azure_nc6s_v3": 3.06,
+      "lambda_a100": 1.10,
+      "runpod_a6000": 0.79
+    }
+  }
+}

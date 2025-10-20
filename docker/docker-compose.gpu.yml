@@ -1,0 +1,58 @@
+version: '3.8'
+
+services:
+  arabic-bert-training:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile.gpu
+    image: arabic-bert-training:latest
+    container_name: arabic-bert-gpu-training
+    
+    # GPU configuration
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: all
+              capabilities: [gpu]
+    
+    # Environment variables
+    environment:
+      - CUDA_VISIBLE_DEVICES=0
+      - NVIDIA_VISIBLE_DEVICES=all
+      - NVIDIA_DRIVER_CAPABILITIES=compute,utility
+      - PYTHONIOENCODING=utf-8
+    
+    # Volumes
+    volumes:
+      - ../config:/workspace/config
+      - ../output:/workspace/output
+      - ../logs:/workspace/logs
+      - ../data:/workspace/data
+      - ../tokenizers:/workspace/tokenizers
+    
+    # Network
+    ports:
+      - "6006:6006"  # TensorBoard
+      - "8000:8000"  # Web API (if needed)
+    
+    # Command
+    command: python cloud_training_launcher.py --provider local
+    
+    # Restart policy
+    restart: unless-stopped
+    
+    # Shared memory size (important for DataLoader with multiple workers)
+    shm_size: '8gb'
+
+  # Optional: TensorBoard service
+  tensorboard:
+    image: tensorflow/tensorflow:latest
+    container_name: arabic-bert-tensorboard
+    ports:
+      - "6007:6006"
+    volumes:
+      - ../logs:/logs
+    command: tensorboard --logdir=/logs --host=0.0.0.0
+    restart: unless-stopped
