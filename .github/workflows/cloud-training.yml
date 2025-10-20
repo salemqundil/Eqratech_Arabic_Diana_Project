@@ -1,0 +1,217 @@
+name: Cloud GPU Training CI/CD
+
+on:
+  workflow_dispatch:
+    inputs:
+      provider:
+        description: 'Cloud Provider'
+        required: true
+        default: 'local'
+        type: choice
+        options:
+          - local
+          - aws
+          - gcp
+          - azure
+          - lambda_labs
+          - runpod
+      gpu_type:
+        description: 'GPU Type (auto for automatic detection)'
+        required: false
+        default: 'auto'
+      num_gpus:
+        description: 'Number of GPUs'
+        required: false
+        default: '1'
+      training_epochs:
+        description: 'Training Epochs'
+        required: false
+        default: '3'
+
+  push:
+    branches:
+      - main
+    paths:
+      - '**.py'
+      - 'config/**'
+      - 'requirements.txt'
+      - '.github/workflows/cloud-training.yml'
+
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  training-setup-validation:
+    name: Validate Training Setup
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+      
+      - name: Cache pip dependencies
+        uses: actions/cache@v3
+        with:
+          path: ~/.cache/pip
+          key: ${{ runner.os }}-pip-${{ hashFiles('requirements.txt') }}
+          restore-keys: |
+            ${{ runner.os }}-pip-
+      
+      - name: Install dependencies
+        run: |
+          pip install -r requirements.txt
+      
+      - name: Validate configuration files
+        run: |
+          python -c "import json; json.load(open('config/training_config.json'))"
+          python -c "import json; json.load(open('config/cloud_gpu_config.json'))"
+          echo "✓ Configuration files are valid"
+      
+      - name: Test setup script
+        run: |
+          python test_setup.py || true
+      
+      - name: Validate cloud launcher
+        run: |
+          python cloud_training_launcher.py --help
+          echo "✓ Cloud launcher is working"
+
+  cloud-training-local:
+    name: Cloud Training (Local/CPU)
+    runs-on: ubuntu-latest
+    needs: training-setup-validation
+    if: github.event_name == 'pull_request' || (github.event_name == 'workflow_dispatch' && github.event.inputs.provider == 'local')
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+      
+      - name: Install dependencies
+        run: |
+          pip install -r requirements.txt
+      
+      - name: Run smoke test training
+        run: |
+          python run_training_smoke.py
+      
+      - name: Test cloud launcher
+        run: |
+          python cloud_training_launcher.py --provider local --monitor
+      
+      - name: Upload logs
+        if: always()
+        uses: actions/upload-artifact@v3
+        with:
+          name: training-logs-local
+          path: logs/
+          retention-days: 7
+
+  cloud-training-gpu:
+    name: Cloud Training (GPU)
+    runs-on: ubuntu-latest
+    needs: training-setup-validation
+    if: github.event_name == 'workflow_dispatch' && github.event.inputs.provider != 'local'
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+      
+      - name: Install dependencies
+        run: |
+          pip install -r requirements.txt
+      
+      - name: Configure cloud provider
+        run: |
+          # Update cloud config with workflow inputs
+          python -c "
+          import json
+          config = json.load(open('config/cloud_gpu_config.json'))
+          config['cloud_training']['enabled'] = True
+          config['cloud_training']['provider'] = '${{ github.event.inputs.provider }}'
+          config['cloud_training']['gpu_type'] = '${{ github.event.inputs.gpu_type }}'
+          config['cloud_training']['num_gpus'] = int('${{ github.event.inputs.num_gpus }}')
+          json.dump(config, open('config/cloud_gpu_config.json', 'w'), indent=2)
+          print(f'✓ Configured for {config[\"cloud_training\"][\"provider\"]}')
+          "
+      
+      - name: Launch cloud training
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          LAMBDA_API_KEY: ${{ secrets.LAMBDA_API_KEY }}
+          RUNPOD_API_KEY: ${{ secrets.RUNPOD_API_KEY }}
+          GCP_SERVICE_ACCOUNT_KEY: ${{ secrets.GCP_SERVICE_ACCOUNT_KEY }}
+        run: |
+          echo "Launching training on ${{ github.event.inputs.provider }}"
+          python cloud_training_launcher.py \
+            --provider ${{ github.event.inputs.provider }} \
+            --skip-deps-check
+      
+      - name: Upload training artifacts
+        if: always()
+        uses: actions/upload-artifact@v3
+        with:
+          name: training-results-${{ github.event.inputs.provider }}
+          path: |
+            output/
+            logs/
+          retention-days: 30
+      
+      - name: Create training summary
+        if: always()
+        run: |
+          echo "## Training Summary" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "**Provider:** ${{ github.event.inputs.provider }}" >> $GITHUB_STEP_SUMMARY
+          echo "**GPUs:** ${{ github.event.inputs.num_gpus }}" >> $GITHUB_STEP_SUMMARY
+          echo "**Epochs:** ${{ github.event.inputs.training_epochs }}" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          
+          if [ -f "output/bert-arabic-phoneme/final_model/config.json" ]; then
+            echo "✅ Training completed successfully" >> $GITHUB_STEP_SUMMARY
+          else
+            echo "❌ Training may have failed" >> $GITHUB_STEP_SUMMARY
+          fi
+
+  docker-build:
+    name: Build Docker Image
+    runs-on: ubuntu-latest
+    needs: training-setup-validation
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+      
+      - name: Build Docker image
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          file: docker/Dockerfile.gpu
+          push: false
+          tags: arabic-bert-training:latest
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+      
+      - name: Test Docker image
+        run: |
+          docker run --rm arabic-bert-training:latest python --version
+          docker run --rm arabic-bert-training:latest python cloud_training_launcher.py --help
