@@ -1,6 +1,35 @@
 # Python
 __pycache__/
 *.py[cod]
+*.pyo
+
+# Environments
+.venv/
+venv/
+
+# Editors/OS
+.vscode/
+.idea/
+.DS_Store
+
+# Outputs & artifacts
+output/
+logs/
+artifacts/
+*.zip
+*.safetensors
+*.pt
+*.bin
+
+# Notebooks
+notebooks/.ipynb_checkpoints/
+
+# Temp files
+tmp_*.csv
+tmp_*.json
+# Python
+__pycache__/
+*.py[cod]
 *$py.class
 *.so
 .Python

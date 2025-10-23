@@ -1,0 +1,21 @@
+name-template: 'Release v$NEXT_PATCH_VERSION'
+tag-template: 'v$NEXT_PATCH_VERSION'
+categories:
+  - title: '🚀 Features'
+    labels:
+      - feat
+      - feature
+      - enhancement
+  - title: '🐛 Fixes'
+    labels:
+      - fix
+      - bug
+  - title: '🧹 Chores'
+    labels:
+      - chore
+      - build
+      - ci
+change-template: '- $TITLE (#$NUMBER) by @$AUTHOR'
+template: |
+  ## Changes
+  $CHANGES
