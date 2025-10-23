@@ -47,7 +47,7 @@ def export_all(output_path: str = 'full_multilayer_grammar.xlsx'):
                 df = engine_cls.make_df()
                 sheet = engine_cls.SHEET_NAME[:31]  # Excel sheet name limit
                 df.to_excel(writer, sheet_name=sheet, index=False)
-            except Exception:
+            except Exception as e:
                 # Optionally: log or collect errors; for now skip failing engine
                 continue
 

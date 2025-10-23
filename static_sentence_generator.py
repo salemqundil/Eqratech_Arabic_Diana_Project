@@ -1,4 +1,6 @@
 import pandas as pd
+import sys
+import os
 
 class StaticSentenceGenerator:
     """
@@ -102,10 +104,8 @@ class StaticSentenceGenerator:
                 if self.add_sentence(f"{fael} {verb}", 'فاعل+فعل', 'فعلية', 
                                    [('فاعل', fael), ('فعل', verb)]):
                     count1 += 1
-                if len(self.sentences) >= self.MAX_SENTENCES:
-                    break
-            if len(self.sentences) >= self.MAX_SENTENCES:
-                break
+                if len(self.sentences) >= self.MAX_SENTENCES: break
+            if len(self.sentences) >= self.MAX_SENTENCES: break
         print(f"   توليد {count1} جملة فعلية أساسية")
         
         # 2. الجمل الفعلية المتعدية (فاعل + فعل + مفعول)
@@ -117,12 +117,9 @@ class StaticSentenceGenerator:
                     if self.add_sentence(f"{fael} {verb} {mafool}", 'فاعل+فعل+مفعول', 'فعلية متعدية', 
                                        [('فاعل', fael), ('فعل', verb), ('مفعول به', mafool)]):
                         count2 += 1
-                    if len(self.sentences) >= self.MAX_SENTENCES:
-                        break
-                if len(self.sentences) >= self.MAX_SENTENCES:
-                    break
-            if len(self.sentences) >= self.MAX_SENTENCES:
-                break
+                    if len(self.sentences) >= self.MAX_SENTENCES: break
+                if len(self.sentences) >= self.MAX_SENTENCES: break
+            if len(self.sentences) >= self.MAX_SENTENCES: break
         print(f"   توليد {count2} جملة فعلية متعدية")
         
         # 3. الجمل الاسمية (مبتدأ + خبر)
@@ -133,10 +130,8 @@ class StaticSentenceGenerator:
                 if self.add_sentence(f"{mubtada} {khabar}", 'مبتدأ+خبر', 'اسمية', 
                                    [('مبتدأ', mubtada), ('خبر', khabar)]):
                     count3 += 1
-                if len(self.sentences) >= self.MAX_SENTENCES:
-                    break
-            if len(self.sentences) >= self.MAX_SENTENCES:
-                break
+                if len(self.sentences) >= self.MAX_SENTENCES: break
+            if len(self.sentences) >= self.MAX_SENTENCES: break
         print(f"   توليد {count3} جملة اسمية")
         
         # 4. الجمل الاستفهامية
@@ -148,12 +143,9 @@ class StaticSentenceGenerator:
                     if self.add_sentence(f"{istifham} {fael} {verb}", 'استفهام+فاعل+فعل', 'استفهامية', 
                                        [('استفهام', istifham), ('فاعل', fael), ('فعل', verb)]):
                         count4 += 1
-                    if len(self.sentences) >= self.MAX_SENTENCES:
-                        break
-                if len(self.sentences) >= self.MAX_SENTENCES:
-                    break
-            if len(self.sentences) >= self.MAX_SENTENCES:
-                break
+                    if len(self.sentences) >= self.MAX_SENTENCES: break
+                if len(self.sentences) >= self.MAX_SENTENCES: break
+            if len(self.sentences) >= self.MAX_SENTENCES: break
         print(f"   توليد {count4} جملة استفهامية")
         
         # 5. الجمل المنفية
@@ -165,12 +157,9 @@ class StaticSentenceGenerator:
                     if self.add_sentence(f"{nafi} {fael} {verb}", 'نفي+فاعل+فعل', 'منفية', 
                                        [('نفي', nafi), ('فاعل', fael), ('فعل', verb)]):
                         count5 += 1
-                    if len(self.sentences) >= self.MAX_SENTENCES:
-                        break
-                if len(self.sentences) >= self.MAX_SENTENCES:
-                    break
-            if len(self.sentences) >= self.MAX_SENTENCES:
-                break
+                    if len(self.sentences) >= self.MAX_SENTENCES: break
+                if len(self.sentences) >= self.MAX_SENTENCES: break
+            if len(self.sentences) >= self.MAX_SENTENCES: break
         print(f"   توليد {count5} جملة منفية")
         
         # 6. شبه الجمل (جار + مجرور)
@@ -181,10 +170,8 @@ class StaticSentenceGenerator:
                 if self.add_sentence(f"{jar} {noun}", 'جار+مجرور', 'شبه جملة', 
                                    [('حرف جر', jar), ('مجرور', noun)]):
                     count6 += 1
-                if len(self.sentences) >= self.MAX_SENTENCES:
-                    break
-            if len(self.sentences) >= self.MAX_SENTENCES:
-                break
+                if len(self.sentences) >= self.MAX_SENTENCES: break
+            if len(self.sentences) >= self.MAX_SENTENCES: break
         print(f"   توليد {count6} شبه جملة")
         
         # 7. جمل النداء
@@ -195,10 +182,8 @@ class StaticSentenceGenerator:
                 if self.add_sentence(f"{nida} {name}", 'نداء+منادى', 'ندائية', 
                                    [('أداة نداء', nida), ('منادى', name)]):
                     count7 += 1
-                if len(self.sentences) >= self.MAX_SENTENCES:
-                    break
-            if len(self.sentences) >= self.MAX_SENTENCES:
-                break
+                if len(self.sentences) >= self.MAX_SENTENCES: break
+            if len(self.sentences) >= self.MAX_SENTENCES: break
         print(f"   توليد {count7} جملة ندائية")
         
         # 8. جمل الإشارة
@@ -209,10 +194,8 @@ class StaticSentenceGenerator:
                 if self.add_sentence(f"{demo} {noun}", 'إشارة+اسم', 'إشارية', 
                                    [('اسم إشارة', demo), ('مشار إليه', noun)]):
                     count8 += 1
-                if len(self.sentences) >= self.MAX_SENTENCES:
-                    break
-            if len(self.sentences) >= self.MAX_SENTENCES:
-                break
+                if len(self.sentences) >= self.MAX_SENTENCES: break
+            if len(self.sentences) >= self.MAX_SENTENCES: break
         print(f"   توليد {count8} جملة إشارية")
         
         # 9. الجمل الظرفية
@@ -224,12 +207,9 @@ class StaticSentenceGenerator:
                     if self.add_sentence(f"{fael} {verb} {adv}", 'فاعل+فعل+ظرف', 'ظرفية', 
                                        [('فاعل', fael), ('فعل', verb), ('ظرف', adv)]):
                         count9 += 1
-                    if len(self.sentences) >= self.MAX_SENTENCES:
-                        break
-                if len(self.sentences) >= self.MAX_SENTENCES:
-                    break
-            if len(self.sentences) >= self.MAX_SENTENCES:
-                break
+                    if len(self.sentences) >= self.MAX_SENTENCES: break
+                if len(self.sentences) >= self.MAX_SENTENCES: break
+            if len(self.sentences) >= self.MAX_SENTENCES: break
         print(f"   توليد {count9} جملة ظرفية")
         
         # 10. الجمل المعطوفة
@@ -246,16 +226,11 @@ class StaticSentenceGenerator:
                                                    [('فاعل1', fael1), ('فعل1', verb1), ('عطف', atf), 
                                                     ('فاعل2', fael2), ('فعل2', verb2)]):
                                     count10 += 1
-                            if len(self.sentences) >= self.MAX_SENTENCES:
-                                break
-                        if len(self.sentences) >= self.MAX_SENTENCES:
-                            break
-                    if len(self.sentences) >= self.MAX_SENTENCES:
-                        break
-                if len(self.sentences) >= self.MAX_SENTENCES:
-                    break
-            if len(self.sentences) >= self.MAX_SENTENCES:
-                break
+                            if len(self.sentences) >= self.MAX_SENTENCES: break
+                        if len(self.sentences) >= self.MAX_SENTENCES: break
+                    if len(self.sentences) >= self.MAX_SENTENCES: break
+                if len(self.sentences) >= self.MAX_SENTENCES: break
+            if len(self.sentences) >= self.MAX_SENTENCES: break
         print(f"   توليد {count10} جملة معطوفة")
         
         # 11. الجمل المركبة (جار+مجرور مع فعل)
@@ -269,14 +244,10 @@ class StaticSentenceGenerator:
                         if self.add_sentence(sentence, 'فاعل+فعل+جار+مجرور', 'مركبة', 
                                            [('فاعل', fael), ('فعل', verb), ('جار', jar), ('مجرور', noun)]):
                             count11 += 1
-                        if len(self.sentences) >= self.MAX_SENTENCES:
-                            break
-                    if len(self.sentences) >= self.MAX_SENTENCES:
-                        break
-                if len(self.sentences) >= self.MAX_SENTENCES:
-                    break
-            if len(self.sentences) >= self.MAX_SENTENCES:
-                break
+                        if len(self.sentences) >= self.MAX_SENTENCES: break
+                    if len(self.sentences) >= self.MAX_SENTENCES: break
+                if len(self.sentences) >= self.MAX_SENTENCES: break
+            if len(self.sentences) >= self.MAX_SENTENCES: break
         print(f"   توليد {count11} جملة مركبة")
         
         # 12. جمل متنوعة (إشارة + اسم + صفة)
@@ -289,12 +260,9 @@ class StaticSentenceGenerator:
                     if self.add_sentence(sentence, 'إشارة+اسم+صفة', 'وصفية', 
                                        [('إشارة', demo), ('موصوف', noun), ('صفة', adj)]):
                         count12 += 1
-                    if len(self.sentences) >= self.MAX_SENTENCES:
-                        break
-                if len(self.sentences) >= self.MAX_SENTENCES:
-                    break
-            if len(self.sentences) >= self.MAX_SENTENCES:
-                break
+                    if len(self.sentences) >= self.MAX_SENTENCES: break
+                if len(self.sentences) >= self.MAX_SENTENCES: break
+            if len(self.sentences) >= self.MAX_SENTENCES: break
         print(f"   توليد {count12} جملة وصفية")
         
         total = count1 + count2 + count3 + count4 + count5 + count6 + count7 + count8 + count9 + count10 + count11 + count12
@@ -312,13 +280,13 @@ class StaticSentenceGenerator:
                 print(f"\n✅ تم حفظ {len(df)} جملة في {filename}")
                 
                 # إحصائيات
-                print("\n📊 الإحصائيات:")
+                print(f"\n📊 الإحصائيات:")
                 print(f"   • إجمالي الجمل: {len(df)}")
                 print(f"   • الأعمدة: {len(df.columns)}")
                 
                 # أنواع الجمل
                 types = df['النوع'].value_counts()
-                print("   • أنواع الجمل:")
+                print(f"   • أنواع الجمل:")
                 for stype, count in types.items():
                     print(f"     - {stype}: {count}")
                 

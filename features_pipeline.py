@@ -1,6 +1,9 @@
 """
 Arabic diacritics-based feature extraction and simple analytics.
 
+ملاحظة: لم يتم العثور على مولّد الشبكة الصوتية phonology_generator.py في المشروع الحالي.
+إذا توفر لاحقًا، يمكن دمجه هنا عبر خيار --use-phonology-grid لدمج أعمدة الشبكة الصوتية (gate_seq, syllables, weights, OCP, ادغام شمسي/قمري) مع جدول Features.
+
 Outputs:
 - <prefix>_features.csv: per-token features (length, diacritics counts, syllable histogram, tri-vowel code/name)
 - <prefix>_mi_fisher.csv: feature MI/Fisher scores vs. a chosen label (default: tri_name)
@@ -9,6 +12,7 @@ Outputs:
 Ontology: tries to use project loader (phoneme_ontology.get_ontology). If unavailable,
 falls back to reading a provided YAML path, otherwise uses safe defaults for a smoke run.
 """
+
 from __future__ import annotations
 
 import re
@@ -151,9 +155,7 @@ def build_features(text_with: str, onto: Dict[str, Any]) -> pd.DataFrame:
     gates = onto.get("syllables", {}).get("allowed_gates", [])
     tri_list = onto.get("diacritics", {}).get("tri_past_patterns", [])
     pos_space = onto.get("labels", {}).get("pos_subgroup", ["none"])  # noqa: F841
-    i3_types = (
-        onto.get("operators", {}).get("i3rab", {}).get("types", ["معرب"]) or ["معرب"]
-    )
+    i3_types = onto.get("operators", {}).get("i3rab", {}).get("types", ["معرب"]) or ["معرب"]
 
     rows: List[Dict[str, Any]] = []
     for w in tokens:
@@ -211,13 +213,15 @@ def compute_mi_fisher(df: pd.DataFrame, gates: List[str], label_col: str = "tri_
         return result.sort_values("MI", ascending=False)
     except Exception as e:
         # Graceful fallback if sklearn is unavailable
-        return pd.DataFrame({
-            "feature": list(X.columns),
-            "MI": [np.nan] * X.shape[1],
-            "Fisher": [np.nan] * X.shape[1],
-            "p": [np.nan] * X.shape[1],
-            "note": [f"sklearn unavailable: {type(e).__name__}"] * X.shape[1],
-        })
+        return pd.DataFrame(
+            {
+                "feature": list(X.columns),
+                "MI": [np.nan] * X.shape[1],
+                "Fisher": [np.nan] * X.shape[1],
+                "p": [np.nan] * X.shape[1],
+                "note": [f"sklearn unavailable: {type(e).__name__}"] * X.shape[1],
+            }
+        )
 
 
 # ---------- SSM / Novelty / DFA (on F/K/D/S) ----------
@@ -235,7 +239,7 @@ def ssm(seq: np.ndarray, win: int = 32) -> np.ndarray:
 
     X = swv(seq, win)  # (T, win)
     Xn = X - X.mean(axis=1, keepdims=True)
-    Xn /= (Xn.std(axis=1, keepdims=True) + 1e-9)
+    Xn /= Xn.std(axis=1, keepdims=True) + 1e-9
     return (Xn @ Xn.T) / float(win)
 
 

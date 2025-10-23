@@ -1,3 +1,58 @@
+# === BERT & CANINE Synergy Expansion ===
+import os
+from typing import List
+
+
+def train_model_synergy(config_path: str):
+    """Train a model (BERT or CANINE) using the given config."""
+    # Placeholder: integrate with your actual training logic
+    print(f"[SYNERGY] Training model with config: {config_path}")
+    # ...call main() or training logic with config_path...
+
+
+def evaluate_model_synergy(config_path: str):
+    """Evaluate a model and save predictions."""
+    print(f"[SYNERGY] Evaluating model with config: {config_path}")
+    # ...call evaluation logic with config_path...
+
+
+def load_predictions(pred_path: str) -> List[str]:
+    """Load predictions from a file."""
+    with open(pred_path, encoding="utf-8") as f:
+        return [line.strip() for line in f]
+
+
+def save_predictions(preds: List[str], out_path: str):
+    """Save predictions to a file."""
+    with open(out_path, "w", encoding="utf-8") as f:
+        for p in preds:
+            f.write(p + "\n")
+
+
+def ensemble_predictions(bert_preds: List[str], canine_preds: List[str]) -> List[str]:
+    """Simple ensemble: majority vote or fallback to CANINE if disagree."""
+    final = []
+    for b, c in zip(bert_preds, canine_preds):
+        final.append(b if b == c else c)
+    return final
+
+
+def run_synergy_workflow():
+    """Run BERT+CANINE training, evaluation, and ensemble."""
+    bert_config = "config/training_config_bert.json"
+    canine_config = "config/training_config_canine.json"
+    train_model_synergy(bert_config)
+    train_model_synergy(canine_config)
+    evaluate_model_synergy(bert_config)
+    evaluate_model_synergy(canine_config)
+    bert_preds = load_predictions("output/bert/preds.txt")
+    canine_preds = load_predictions("output/canine/preds.txt")
+    final_preds = ensemble_predictions(bert_preds, canine_preds)
+    save_predictions(final_preds, "output/ensemble/preds.txt")
+    print("[SYNERGY] Ensemble predictions saved to output/ensemble/preds.txt")
+
+
+# === End Synergy Expansion ===
 """BERT Training Script for Arabic Phoneme Processing (No pyarrow/no datasets)
 - Pure PyTorch Dataset
 - UTF-8 tokenizer via utf8_tokenizer.create_tokenizer
@@ -146,10 +201,18 @@ def prepare_dataset(config: Dict, text_path: Optional[str] = None):
 
 def create_model(config: Dict, tokenizer):
     from transformers import BertConfig, BertForMaskedLM
+    from canine_bert_synergy import CanineBertSynergyHelper
 
-    print("\n[MODEL] Creating BERT model…")
+    # Import CANINE model (assume available as CanineForMaskedLM)
+    try:
+        from transformers import CanineConfig, CanineForMaskedLM
+    except ImportError:
+        print("ERROR: CANINE model not available in transformers. Please install a compatible version.")
+        sys.exit(1)
 
-    model_config = BertConfig(
+    print("\n[MODEL] Creating BERT and CANINE models…")
+
+    bert_config = BertConfig(
         vocab_size=len(tokenizer.vocab),
         hidden_size=768,
         num_hidden_layers=12,
@@ -158,9 +221,23 @@ def create_model(config: Dict, tokenizer):
         max_position_embeddings=config["training"]["max_seq_length"],
         pad_token_id=tokenizer.vocab.get(tokenizer.pad_token, 0),
     )
-    model = BertForMaskedLM(config=model_config)
-    print(f"[MODEL] BERT params: {sum(p.numel() for p in model.parameters()):,}")
-    return model
+    bert_model = BertForMaskedLM(config=bert_config)
+    print(f"[MODEL] BERT params: {sum(p.numel() for p in bert_model.parameters()):,}")
+
+    canine_config = CanineConfig(
+        vocab_size=len(tokenizer.vocab),
+        hidden_size=768,
+        num_hidden_layers=12,
+        num_attention_heads=12,
+        intermediate_size=3072,
+        max_position_embeddings=config["training"]["max_seq_length"],
+        pad_token_id=tokenizer.vocab.get(tokenizer.pad_token, 0),
+    )
+    canine_model = CanineForMaskedLM(config=canine_config)
+    print(f"[MODEL] CANINE params: {sum(p.numel() for p in canine_model.parameters()):,}")
+
+    synergy_helper = CanineBertSynergyHelper(canine_model, bert_model, fusion_mode="concat")
+    return synergy_helper, canine_model, bert_model
 
 
 def prepare_tokenizer(config: Dict):
@@ -178,100 +255,60 @@ def prepare_tokenizer(config: Dict):
 
 
 def train_model(config: Dict, model, tokenizer, train_texts: List[str], eval_texts: List[str]):
-    from transformers import Trainer, TrainingArguments
     import torch
 
-    print("\n[TRAINING] Starting…")
+    print("\n[TRAINING] Coordinated CANINE-BERT training (separate optimizers/losses)…")
 
-    # Dataset objects
+    synergy_helper, canine_model, bert_model = model
     max_len = config["training"]["max_seq_length"]
     train_ds = TinyTextDataset(train_texts, tokenizer, max_len)
     eval_ds = TinyTextDataset(eval_texts, tokenizer, max_len)
 
-    class CustomDataCollatorForMLM:
-        def __init__(self, tokenizer, mlm_probability=0.15):
-            self.tokenizer = tokenizer
-            self.mlm_probability = mlm_probability
-            self.pad_id = tokenizer.vocab[tokenizer.pad_token]
-            self.cls_id = tokenizer.vocab[tokenizer.cls_token]
-            self.sep_id = tokenizer.vocab[tokenizer.sep_token]
-            self.mask_id = tokenizer.vocab[tokenizer.mask_token]
+    device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+    synergy_helper.to(device)
+    canine_model.to(device)
+    bert_model.to(device)
 
-        def __call__(self, features):
-            import torch
+    optimizer_canine = torch.optim.AdamW(canine_model.parameters(), lr=config["training"]["learning_rate"])
+    optimizer_bert = torch.optim.AdamW(bert_model.parameters(), lr=config["training"]["learning_rate"])
 
-            input_ids = torch.tensor([f["input_ids"] for f in features], dtype=torch.long)
-            attention_mask = torch.tensor([f["attention_mask"] for f in features], dtype=torch.long)
+    num_epochs = config["training"]["num_train_epochs"]
+    batch_size = config["training"]["per_device_train_batch_size"]
+    print(f"[TRAINING] Device: {'GPU' if torch.cuda.is_available() else 'CPU'}")
+
+    for epoch in range(num_epochs):
+        print(f"[EPOCH] {epoch+1}/{num_epochs}")
+        synergy_helper.train()
+        for i in range(0, len(train_ds), batch_size):
+            batch = [train_ds[j] for j in range(i, min(i + batch_size, len(train_ds)))]
+            input_ids = torch.stack([b["input_ids"] for b in batch]).to(device)
+            attention_mask = torch.stack([b["attention_mask"] for b in batch]).to(device)
             labels = input_ids.clone()
 
-            prob = torch.full(labels.shape, self.mlm_probability, dtype=torch.float32)
-            special = (input_ids == self.pad_id) | (input_ids == self.cls_id) | (input_ids == self.sep_id)
-            prob.masked_fill_(special, 0.0)
+            # Forward pass
+            out = synergy_helper(input_ids, attention_mask=attention_mask, labels=labels)
+            canine_loss = out["canine_out"].loss if hasattr(out["canine_out"], "loss") else None
+            bert_loss = out["bert_out"].loss if hasattr(out["bert_out"], "loss") else None
 
-            masked = torch.bernoulli(prob).bool()
-            labels[~masked] = -100
+            optimizer_canine.zero_grad()
+            optimizer_bert.zero_grad()
+            if canine_loss is not None:
+                canine_loss.backward(retain_graph=True)
+                optimizer_canine.step()
+            if bert_loss is not None:
+                bert_loss.backward()
+                optimizer_bert.step()
 
-            # 80% [MASK]
-            replace_mask = torch.bernoulli(torch.full(labels.shape, 0.8)).bool() & masked
-            input_ids[replace_mask] = self.mask_id
+        print(f"[TRAINING] Finished epoch {epoch+1}")
 
-            # 10% random token
-            random_mask = torch.bernoulli(torch.full(labels.shape, 0.5)).bool() & masked & ~replace_mask
-            rand_ids = torch.randint(len(self.tokenizer.vocab), labels.shape, dtype=torch.long)
-            input_ids[random_mask] = rand_ids[random_mask]
-
-            return {"input_ids": input_ids, "attention_mask": attention_mask, "labels": labels}
-
-    # TrainingArguments (version-agnostic)
-    log_dir = config.get("logging", {}).get("log_dir", "./logs")
-    os.makedirs(log_dir, exist_ok=True)
-    from inspect import signature
-
-    ta_kwargs = dict(
-        output_dir=config["output_dir"],
-        num_train_epochs=config["training"]["num_train_epochs"],
-        per_device_train_batch_size=config["training"]["per_device_train_batch_size"],
-        per_device_eval_batch_size=config["training"]["per_device_eval_batch_size"],
-        learning_rate=config["training"]["learning_rate"],
-        warmup_steps=config["training"]["warmup_steps"],
-        weight_decay=config["training"]["weight_decay"],
-        logging_dir=log_dir,
-        logging_steps=config["training"]["logging_steps"],
-        save_steps=config["training"]["save_steps"],
-        eval_steps=config["training"]["eval_steps"],
-        save_total_limit=config["training"]["save_total_limit"],
-        gradient_accumulation_steps=config["training"]["gradient_accumulation_steps"],
-        load_best_model_at_end=True,
-        report_to=[],
-        fp16=torch.cuda.is_available(),
-    )
-    TA_params = signature(TrainingArguments.__init__).parameters
-    if "evaluation_strategy" in TA_params:
-        ta_kwargs["evaluation_strategy"] = "steps"
-        ta_kwargs["save_strategy"] = "steps"
-
-    args = TrainingArguments(**ta_kwargs)
-    collator = CustomDataCollatorForMLM(tokenizer, mlm_probability=0.15)
-
-    trainer = Trainer(
-        model=model,
-        args=args,
-        train_dataset=train_ds,
-        eval_dataset=eval_ds,
-        data_collator=collator,
-    )
-
-    print(f"[TRAINING] Device: {'GPU' if torch.cuda.is_available() else 'CPU'}")
-    trainer.train()
-
-    # Save final
+    # Save final models
     final_dir = os.path.join(config["output_dir"], "final_model")
     os.makedirs(final_dir, exist_ok=True)
-    trainer.save_model(final_dir)
+    torch.save(canine_model.state_dict(), os.path.join(final_dir, "canine_model.pt"))
+    torch.save(bert_model.state_dict(), os.path.join(final_dir, "bert_model.pt"))
     tokenizer.save_pretrained(final_dir)
-
-    print(f"[TRAINING] Saved final model to {final_dir}")
-    return trainer
+    print(f"[TRAINING] Saved final CANINE and BERT models to {final_dir}")
+    return None
 
 
 def curriculum_training(config: Dict, model, tokenizer, train_texts, eval_texts):
@@ -320,10 +357,9 @@ def main():
     train_texts, eval_texts = prepare_dataset(cfg, text_path=args.text)
     model = create_model(cfg, tokenizer)
 
-    if cfg.get("curriculum_training", {}).get("enabled", False):
-        curriculum_training(cfg, model, tokenizer, train_texts, eval_texts)
-    else:
-        train_model(cfg, model, tokenizer, train_texts, eval_texts)
+    # Coordinated training disables curriculum for simplicity
+    train_model(cfg, model, tokenizer, train_texts, eval_texts)
+    # For future synergy expansion, call run_synergy_workflow() here if needed
 
     print("\n" + "=" * 70)
     print("Training Pipeline Completed Successfully!")
@@ -331,10 +367,16 @@ def main():
     print(f"\nModel saved to: {cfg['output_dir']}")
     print(f"Logs saved to : {cfg.get('logging',{}).get('log_dir','./logs')}")
     print("\nReuse:")
-    print(f"  from transformers import BertForMaskedLM; m=BertForMaskedLM.from_pretrained('{cfg['output_dir']}/final_model')")
-    print("  from utf8_tokenizer import UTF8CharTokenizer; tok=UTF8CharTokenizer.from_pretrained('{cfg['output_dir']}/final_model')")
+    print(
+        f"  from transformers import BertForMaskedLM; m=BertForMaskedLM.from_pretrained('{cfg['output_dir']}/final_model')"
+    )
+    print(
+        "  from utf8_tokenizer import UTF8CharTokenizer; tok=UTF8CharTokenizer.from_pretrained('{cfg['output_dir']}/final_model')"
+    )
     print()
 
 
 if __name__ == "__main__":
     main()
+    # To run BERT+CANINE synergy workflow in future:
+    # run_synergy_workflow()

@@ -15,9 +15,11 @@ from shart_engine import ShartEngine
 from tawkid_engine import TawkidEngine
 from nidha_engine import NidhaEngine
 from qasr_engine import QasrEngine
+from ism_fiil_engine import IsmFiilEngine
 from adad_engine import AdadEngine
 from istithna_engine import IstithnaEngine
 from tahdidh_engine import TahdidhEngine
+from adverbs_engine import AdverbsEngine
 from pronouns_engine import PronounsEngine
 from verbs_engine import VerbsEngine
 from nasikh_engine import NasikhEngine
@@ -30,6 +32,7 @@ from passive_participle_engine import PassiveParticipleEngine
 from active_participle_engine import ActiveParticipleEngine
 from adjective_engine import AdjectiveEngine
 from mimi_nouns_engine import MimiNounsEngine
+from time_engine import TimeEngine
 from place_engine import PlaceEngine
 from sound_engine import SoundEngine
 from adad_names_engine import AdadNamesEngine
@@ -38,6 +41,7 @@ from jins_ifradi_engine import JinsIfradiEngine
 from a3lam_manqula_engine import A3lamManqulaEngine
 from a3lam_amakin_engine import A3lamAmakinEngine
 from a3lam_ashkhas_engine import A3lamAshkhasEngine
+from aswat_muhdatha_engine import AswatMuhdathaEngine
 from kainat_ghair_aqila_engine import KainatGhairAqilaEngine
 from kainat_aqila_engine import KainatAqilaEngine
 from asma_allah_engine import AsmaAllahEngine
@@ -53,8 +57,10 @@ from nisba_engine import NisbaEngine
 from tasgheer_engine import TasgheerEngine
 from kinaya_engine import KinayaEngine
 from mubalagh_sigha_engine import MubalaghSighaEngine
+from taajjub_engine import TaajjubEngine
 from jawab_engine import JawabEngine
 from masdar_sinai_engine import MasdarSinaiEngine
+from binaa_engine import BinaaEngine
 from mobtada_khabar_engine import MobtadaKhabarEngine
 from tashbih_engine import TashbihEngine
 from istiara_engine import IstiaraEngine
