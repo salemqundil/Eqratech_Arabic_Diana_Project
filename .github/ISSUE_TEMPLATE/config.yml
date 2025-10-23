@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Questions / أسئلة
+    url: https://github.com/salemqundil/Eqratech_Arabic_Diana_Project/discussions
+    about: Ask questions and get support
+  - name: Security | الأمان
+    url: https://github.com/salemqundil/Eqratech_Arabic_Diana_Project/security/policy
+    about: Report security vulnerabilities privately

@@ -1,0 +1,18 @@
+- name: bug
+  color: d73a4a
+  description: Something isn't working
+- name: enhancement
+  color: a2eeef
+  description: New feature or request
+- name: documentation
+  color: 0075ca
+  description: Improvements or additions to documentation
+- name: chore
+  color: fef2c0
+  description: Maintenance tasks
+- name: ci
+  color: 0e8a16
+  description: Continuous Integration
+- name: question
+  color: d876e3
+  description: Further information is requested
