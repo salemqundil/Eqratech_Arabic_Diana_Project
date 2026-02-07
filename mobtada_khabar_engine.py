@@ -1,8 +1,4 @@
-import pandas as pd
-from base_reconstruction_engine import BaseReconstructionEngine
-from reconstruction_utils import reconstruct_from_base_df
-
-class MobtadaKhabarEngine(BaseReconstructionEngine):
+from engines.syntax.mobtada_khabar_engine import MobtadaKhabarEngine  # noqa: F401
     SHEET_NAME = 'المبتدأ_والخبر'
 
     @classmethod

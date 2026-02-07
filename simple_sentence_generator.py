@@ -1,6 +1,7 @@
 import pandas as pd
 import sys
 import os
+import importlib
 
 # حل مشكلة الترميز
 if sys.platform == "win32":
@@ -29,19 +30,19 @@ class SimpleSentenceGenerator:
         self.safe_print("[INFO] Loading basic engines...")
         
         basic_engines = [
-            ('fael', 'fael_engine', 'FaelEngine'),
-            ('verbs', 'verbs_engine', 'VerbsEngine'),
+            ('fael', 'engines.syntax.fael_engine', 'FaelEngine'),
+            ('verbs', 'engines.morphology.verbs_engine', 'VerbsEngine'),
             ('pronouns', 'pronouns_engine', 'PronounsEngine'),
             ('adverbs', 'adverbs_engine', 'AdverbsEngine'),
             ('jar', 'jar_engine', 'JarEngine'),
             ('nafi', 'nafi_engine', 'NafiEngine'),
             ('atf', 'atf_engine', 'AtfEngine'),
-            ('generic_nouns', 'generic_nouns_engine', 'GenericNounsEngine'),
-            ('proper_nouns', 'proper_nouns_engine', 'ProperNounsEngine'),
-            ('demonstratives', 'demonstratives_engine', 'DemonstrativesEngine'),
-            ('istifham', 'istifham_engine', 'IstifhamEngine'),
-            ('adjective', 'adjective_engine', 'AdjectiveEngine'),
-            ('place', 'place_engine', 'PlaceEngine'),
+            ('generic_nouns', 'engines.lexicon.generic_nouns_engine', 'GenericNounsEngine'),
+            ('proper_nouns', 'engines.lexicon.proper_nouns_engine', 'ProperNounsEngine'),
+            ('demonstratives', 'engines.syntax.demonstratives_engine', 'DemonstrativesEngine'),
+            ('istifham', 'engines.syntax.istifham_engine', 'IstifhamEngine'),
+            ('adjective', 'engines.morphology.adjective_engine', 'AdjectiveEngine'),
+            ('place', 'engines.lexicon.place_engine', 'PlaceEngine'),
             ('time', 'time_engine', 'TimeEngine'),
         ]
         
@@ -50,7 +51,7 @@ class SimpleSentenceGenerator:
         for engine_name, module_name, class_name in basic_engines:
             try:
                 # محاولة الاستيراد
-                module = __import__(module_name)
+                module = importlib.import_module(module_name)
                 engine_class = getattr(module, class_name)
                 
                 # تحميل البيانات بطريقة آمنة

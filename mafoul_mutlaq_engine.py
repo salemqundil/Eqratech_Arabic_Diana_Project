@@ -1,8 +1,4 @@
-import pandas as pd
-from base_reconstruction_engine import BaseReconstructionEngine
-from reconstruction_utils import reconstruct_from_base_df
-
-class MafoulMutlaqEngine(BaseReconstructionEngine):
+from engines.syntax.mafoul_mutlaq_engine import MafoulMutlaqEngine  # noqa: F401
     SHEET_NAME = 'المفعول_المطلق'
 
     @classmethod

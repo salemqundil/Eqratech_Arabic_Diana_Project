@@ -1,5 +1,6 @@
 import pandas as pd
 import os
+import importlib
 from pathlib import Path
 
 class ComprehensiveSentenceGenerator:
@@ -21,46 +22,46 @@ class ComprehensiveSentenceGenerator:
         # قائمة المحركات المطلوبة
         engine_modules = [
             # النحو الأساسي
-            ('فاعل', 'fael_engine', 'FaelEngine'),
-            ('مفعول_به', 'mafoul_bih_engine', 'MafoulBihEngine'),
-            ('مفعول_لأجله', 'mafoul_ajlih_engine', 'MafoulAjlihEngine'),
-            ('مفعول_مطلق', 'mafoul_mutlaq_engine', 'MafoulMutlaqEngine'),
-            ('نائب_فاعل', 'naeb_fael_engine', 'NaebFaelEngine'),
-            ('مبتدأ_خبر', 'mobtada_khabar_engine', 'MobtadaKhabarEngine'),
-            ('حال', 'haal_engine', 'HaalEngine'),
-            ('تمييز', 'tamyeez_engine', 'TamyeezEngine'),
+            ('فاعل', 'engines.syntax.fael_engine', 'FaelEngine'),
+            ('مفعول_به', 'engines.syntax.mafoul_bih_engine', 'MafoulBihEngine'),
+            ('مفعول_لأجله', 'engines.syntax.mafoul_ajlih_engine', 'MafoulAjlihEngine'),
+            ('مفعول_مطلق', 'engines.syntax.mafoul_mutlaq_engine', 'MafoulMutlaqEngine'),
+            ('نائب_فاعل', 'engines.syntax.naeb_fael_engine', 'NaebFaelEngine'),
+            ('مبتدأ_خبر', 'engines.syntax.mobtada_khabar_engine', 'MobtadaKhabarEngine'),
+            ('حال', 'engines.syntax.haal_engine', 'HaalEngine'),
+            ('تمييز', 'engines.syntax.tamyeez_engine', 'TamyeezEngine'),
             ('نداء', 'nidha_engine', 'NidhaEngine'),
-            ('استفهام', 'istifham_engine', 'IstifhamEngine'),
+            ('استفهام', 'engines.syntax.istifham_engine', 'IstifhamEngine'),
             ('استثناء', 'istithna_engine', 'IstithnaEngine'),
             ('شرط', 'shart_engine', 'ShartEngine'),
             
             # الضمائر والإشارة والموصولات
-            ('أسماء_إشارة', 'demonstratives_engine', 'DemonstrativesEngine'),
+            ('أسماء_إشارة', 'engines.syntax.demonstratives_engine', 'DemonstrativesEngine'),
             ('أسماء_موصولة', 'relatives_engine', 'RelativesEngine'),
             ('ضمائر', 'pronouns_engine', 'PronounsEngine'),
             
             # الأفعال والمشتقات
-            ('أفعال', 'verbs_engine', 'VerbsEngine'),
-            ('اسم_فاعل', 'active_participle_engine', 'ActiveParticipleEngine'),
-            ('اسم_مفعول', 'passive_participle_engine', 'PassiveParticipleEngine'),
-            ('أفعل_تفضيل', 'superlative_engine', 'SuperlativeEngine'),
+            ('أفعال', 'engines.morphology.verbs_engine', 'VerbsEngine'),
+            ('اسم_فاعل', 'engines.morphology.active_participle_engine', 'ActiveParticipleEngine'),
+            ('اسم_مفعول', 'engines.morphology.passive_participle_engine', 'PassiveParticipleEngine'),
+            ('أفعل_تفضيل', 'engines.morphology.superlative_engine', 'SuperlativeEngine'),
             ('اسم_فعل', 'ism_fiil_engine', 'IsmFiilEngine'),
             
             # الظروف والأماكن والأزمنة
-            ('أماكن', 'place_engine', 'PlaceEngine'),
+            ('أماكن', 'engines.lexicon.place_engine', 'PlaceEngine'),
             ('أزمنة', 'time_engine', 'TimeEngine'),
             ('ظروف', 'adverbs_engine', 'AdverbsEngine'),
             
             # التعريف والتنكير والجنس والعدد
             ('تعريف_تنكير', 'definiteness_engine', 'DefinitenessEngine'),
-            ('جنس', 'gender_engine', 'GenderEngine'),
+            ('جنس', 'engines.morphology.gender_engine', 'GenderEngine'),
             ('عدد_جنس', 'number_gender_suffixes_engine', 'NumberGenderSuffixesEngine'),
             
             # الأدوات النحوية
             ('نواسخ', 'nasikh_engine', 'NasikhEngine'),
             ('جوازم', 'jazm_engine', 'JazmEngine'),
             ('نواصب', 'nasb_engine', 'NasbEngine'),
-            ('قصر', 'qasr_engine', 'QasrEngine'),
+            ('قصر', 'engines.syntax.qasr_engine', 'QasrEngine'),
             ('توكيد', 'tawkid_engine', 'TawkidEngine'),
             ('تحضيض', 'tahdidh_engine', 'TahdidhEngine'),
             
@@ -70,35 +71,35 @@ class ComprehensiveSentenceGenerator:
             ('جر', 'jar_engine', 'JarEngine'),
             
             # الأسماء والأدوات العامة
-            ('أعلام_أشخاص', 'a3lam_ashkhas_engine', 'A3lamAshkhasEngine'),
-            ('أعلام_أماكن', 'a3lam_amakin_engine', 'A3lamAmakinEngine'),
-            ('أعلام_منقولة', 'a3lam_manqula_engine', 'A3lamManqulaEngine'),
-            ('أسماء_عامة', 'generic_nouns_engine', 'GenericNounsEngine'),
-            ('أسماء_ميمية', 'mimi_nouns_engine', 'MimiNounsEngine'),
-            ('أدوات', 'particles_engine', 'ParticlesEngine'),
+            ('أعلام_أشخاص', 'engines.lexicon.a3lam_ashkhas_engine', 'A3lamAshkhasEngine'),
+            ('أعلام_أماكن', 'engines.lexicon.a3lam_amakin_engine', 'A3lamAmakinEngine'),
+            ('أعلام_منقولة', 'engines.lexicon.a3lam_manqula_engine', 'A3lamManqulaEngine'),
+            ('أسماء_عامة', 'engines.lexicon.generic_nouns_engine', 'GenericNounsEngine'),
+            ('أسماء_ميمية', 'engines.morphology.mimi_nouns_engine', 'MimiNounsEngine'),
+            ('أدوات', 'engines.syntax.particles_engine', 'ParticlesEngine'),
             
             # الأرقام والأعداد
             ('أعداد', 'adad_engine', 'AdadEngine'),
-            ('أسماء_أعداد', 'adad_names_engine', 'AdadNamesEngine'),
+            ('أسماء_أعداد', 'engines.lexicon.adad_names_engine', 'AdadNamesEngine'),
             
             # الصفات والنعوت
-            ('صفات', 'adjective_engine', 'AdjectiveEngine'),
+            ('صفات', 'engines.morphology.adjective_engine', 'AdjectiveEngine'),
             
             # أسماء الله والمصطلحات الشرعية
-            ('أسماء_الله', 'asma_allah_engine', 'AsmaAllahEngine'),
-            ('أسماء_الله_مركبة', 'asma_allah_murakkaba_engine', 'AsmaAllahMurakkabaEngine'),
-            ('مصطلحات_شرعية', 'musatalahat_sharia_engine', 'MusatalahatShariaEngine'),
+            ('أسماء_الله', 'engines.lexicon.asma_allah_engine', 'AsmaAllahEngine'),
+            ('أسماء_الله_مركبة', 'engines.lexicon.asma_allah_murakkaba_engine', 'AsmaAllahMurakkabaEngine'),
+            ('مصطلحات_شرعية', 'engines.lexicon.musatalahat_sharia_engine', 'MusatalahatShariaEngine'),
             
             # الكون والطبيعة
-            ('كائنات_عاقلة', 'kainat_aqila_engine', 'KainatAqilaEngine'),
-            ('كائنات_غير_عاقلة', 'kainat_ghair_aqila_engine', 'KainatGhairAqilaEngine'),
-            ('جنس_إفرادي', 'jins_ifradi_engine', 'JinsIfradiEngine'),
-            ('جنس_جمعي', 'jins_jamii_engine', 'JinsJamiiEngine'),
+            ('كائنات_عاقلة', 'engines.lexicon.kainat_aqila_engine', 'KainatAqilaEngine'),
+            ('كائنات_غير_عاقلة', 'engines.lexicon.kainat_ghair_aqila_engine', 'KainatGhairAqilaEngine'),
+            ('جنس_إفرادي', 'engines.lexicon.jins_ifradi_engine', 'JinsIfradiEngine'),
+            ('جنس_جمعي', 'engines.lexicon.jins_jamii_engine', 'JinsJamiiEngine'),
             
             # الصوتيات والفونيمات
-            ('أصوات', 'sound_engine', 'SoundEngine'),
-            ('فونيمات', 'phonemes_engine', 'PhonemesEngine'),
-            ('أصوات_محدثة', 'aswat_muhdatha_engine', 'AswatMuhdathaEngine'),
+            ('أصوات', 'engines.phonology.sound_engine', 'SoundEngine'),
+            ('فونيمات', 'engines.phonology.phonemes_engine', 'PhonemesEngine'),
+            ('أصوات_محدثة', 'engines.phonology.aswat_muhdatha_engine', 'AswatMuhdathaEngine'),
             ('حركات', 'harakat_engine', 'HarakatEngine'),
             
             # قوالب الجمع
@@ -111,7 +112,7 @@ class ComprehensiveSentenceGenerator:
         for engine_name, module_name, class_name in engine_modules:
             try:
                 # محاولة استيراد المحرك
-                module = __import__(module_name)
+                module = importlib.import_module(module_name)
                 engine_class = getattr(module, class_name)
                 
                 # تحميل البيانات

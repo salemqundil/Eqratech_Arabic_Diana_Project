@@ -1,0 +1,149 @@
+{
+  "nodes": [
+    {
+      "id": "t1",
+      "kind": "TokenNode",
+      "data": {
+        "surface": "من",
+        "tags": [
+          "particle",
+          "condition"
+        ]
+      },
+      "capabilities": []
+    },
+    {
+      "id": "m1",
+      "kind": "Ma3aniToolNode",
+      "data": {
+        "tool_class": "COND"
+      },
+      "capabilities": [
+        "CAN_PRODUCE_SCOPE",
+        "CAN_PRODUCE_CONSTRAINT"
+      ]
+    },
+    {
+      "id": "scope_m1",
+      "kind": "ScopeOperatorNode",
+      "data": {
+        "operator_type": "IF_THEN",
+        "arity": 1,
+        "effect": "IF_THEN"
+      },
+      "capabilities": []
+    },
+    {
+      "id": "t2",
+      "kind": "TokenNode",
+      "data": {
+        "surface": "يكذب",
+        "tags": [
+          "verb",
+          "present"
+        ]
+      },
+      "capabilities": []
+    },
+    {
+      "id": "r2",
+      "kind": "RootNode",
+      "data": {
+        "radicals": [
+          "ك",
+          "ذ",
+          "ب"
+        ],
+        "root_kind": "EventRoot"
+      },
+      "capabilities": [
+        "CAN_WRITE_SUBJECT",
+        "CAN_WRITE_PREDICATE"
+      ]
+    },
+    {
+      "id": "t3",
+      "kind": "TokenNode",
+      "data": {
+        "surface": "يعاقب",
+        "tags": [
+          "verb",
+          "present",
+          "passive"
+        ]
+      },
+      "capabilities": []
+    },
+    {
+      "id": "r3",
+      "kind": "RootNode",
+      "data": {
+        "radicals": [
+          "ع",
+          "ق",
+          "ب"
+        ],
+        "root_kind": "EventRoot"
+      },
+      "capabilities": [
+        "CAN_WRITE_SUBJECT",
+        "CAN_WRITE_PREDICATE"
+      ]
+    }
+  ],
+  "edges": [
+    {
+      "id": "e1",
+      "type": "ADDS_SCOPE_OPERATOR",
+      "from": "m1",
+      "to": "scope_m1"
+    },
+    {
+      "id": "e2",
+      "type": "ROOT_OF",
+      "from": "r2",
+      "to": "t2"
+    },
+    {
+      "id": "e3",
+      "type": "BUILDS_PREDICATE",
+      "from": "r2",
+      "to": "J.predicate"
+    },
+    {
+      "id": "e4",
+      "type": "ROOT_OF",
+      "from": "r3",
+      "to": "t3"
+    },
+    {
+      "id": "e5",
+      "type": "CONDITION_IMPLIES",
+      "from": "r2",
+      "to": "r3",
+      "payload": {
+        "scope_operator": "scope_m1",
+        "relation": "IF_THEN"
+      }
+    }
+  ],
+  "judgment": {
+    "subject": null,
+    "predicate": "r2",
+    "scope": [
+      "scope_m1"
+    ],
+    "constraints": []
+  },
+  "traces": [
+    {
+      "gate_type": "Ma3aniScopeGate",
+      "input_node_id": "m1",
+      "output_node_id": "scope_m1",
+      "trace": {
+        "tool_class": "COND",
+        "operator_type": "IF_THEN"
+      }
+    }
+  ]
+}
