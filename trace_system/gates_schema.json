@@ -1,0 +1,305 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Gates Schema - Computational Linguistics Gates",
+  "version": "1.0.0",
+  "description": "JSON schemas for all linguistic gates: Syllabify, Scope, SenseSelection, Epistemic",
+  
+  "SyllabifyGate": {
+    "description": "Segments phoneme stream into syllables, assigns weight, validates transitions",
+    "input_schema": {
+      "type": "object",
+      "required": ["phoneme_stream"],
+      "properties": {
+        "phoneme_stream": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["token_id", "surface", "phonemes"],
+            "properties": {
+              "token_id": {"type": "integer"},
+              "surface": {"type": "string"},
+              "phonemes": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "required": ["type", "sym", "features"],
+                  "properties": {
+                    "type": {"type": "string", "enum": ["C", "V"]},
+                    "sym": {"type": "string"},
+                    "features": {"type": "array", "items": {"type": "string"}}
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "output_schema": {
+      "type": "object",
+      "required": ["syllabification", "transitions", "status"],
+      "properties": {
+        "syllabification": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "token_id": {"type": "integer"},
+              "syllables": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "required": ["type", "onset", "nucleus", "weight"],
+                  "properties": {
+                    "type": {"type": "string", "enum": ["CV", "CVC", "CVV", "CVVC", "CVCC", "CVVCV", "CVVCCV"]},
+                    "onset": {"type": ["string", "null"]},
+                    "nucleus": {"type": "string"},
+                    "coda": {"type": ["string", "null"]},
+                    "weight": {"type": "string", "enum": ["LIGHT", "HEAVY", "SUPERHEAVY"]},
+                    "feature_id": {"type": "string"}
+                  }
+                }
+              }
+            }
+          }
+        },
+        "transitions": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "between": {"type": "object"},
+              "pattern": {"type": "object"},
+              "decision": {"type": "string", "enum": ["keep", "repair", "reject"]},
+              "notes": {"type": "array", "items": {"type": "string"}}
+            }
+          }
+        },
+        "status": {"type": "string", "enum": ["ok", "warning", "error"]}
+      }
+    },
+    "rules": [
+      {"id": "T-01", "description": "CV: Light syllable (nucleus only)"},
+      {"id": "T-02", "description": "CVC: Heavy syllable (nucleus + coda)"},
+      {"id": "T-03", "description": "CVV: Heavy syllable (long vowel)"},
+      {"id": "T-04", "description": "CVVC/CVCC: Superheavy (long + coda or double coda)"},
+      {"id": "T-05", "description": "Forbidden: VV, VVC, *CCC in coda"},
+      {"id": "T-06", "description": "Transition balance: HEAVY-LIGHT-HEAVY preferred"}
+    ]
+  },
+
+  "ScopeGate": {
+    "description": "Tracks operator scope (negation, condition, exception, restriction) across tokens",
+    "input_schema": {
+      "type": "object",
+      "required": ["syntax_parse", "current_scope"],
+      "properties": {
+        "syntax_parse": {
+          "type": "object",
+          "properties": {
+            "nodes": {"type": "array"},
+            "edges": {"type": "array"}
+          }
+        },
+        "current_scope": {
+          "type": "object",
+          "properties": {
+            "operators": {"type": "array"},
+            "negation_scope": {"type": ["object", "null"]},
+            "condition_scope": {"type": ["object", "null"]},
+            "exception_scope": {"type": ["object", "null"]}
+          }
+        }
+      }
+    },
+    "output_schema": {
+      "type": "object",
+      "required": ["updated_scope", "scope_delta", "status"],
+      "properties": {
+        "updated_scope": {
+          "type": "object",
+          "properties": {
+            "operators": {"type": "array"},
+            "negation_scope": {"type": ["object", "null"]},
+            "condition_scope": {"type": ["object", "null"]},
+            "exception_scope": {"type": ["object", "null"]}
+          }
+        },
+        "scope_delta": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "op": {"type": "string", "enum": ["push_operator", "pop_operator", "extend_scope"]},
+              "operator": {"type": "string"},
+              "operator_id": {"type": "string"},
+              "source_token_id": {"type": "integer"}
+            }
+          }
+        },
+        "status": {"type": "string", "enum": ["ok", "warning", "error"]}
+      }
+    },
+    "rules": [
+      {"id": "SCOPE-NEG-01", "description": "Negation scope: operator until sentence end or scope boundary"},
+      {"id": "SCOPE-COND-01", "description": "Condition scope: protasis (if-clause) + apodosis (then-clause)"},
+      {"id": "SCOPE-EXC-01", "description": "Exception scope: إلا modifies preceding universal/general claim"},
+      {"id": "SCOPE-ONLY-01", "description": "Restriction scope: إنما/only restricts predicate to subject"}
+    ]
+  },
+
+  "SenseSelectionGate": {
+    "description": "Disambiguates word senses based on context, constraints, and evidence",
+    "input_schema": {
+      "type": "object",
+      "required": ["candidates", "context", "constraints"],
+      "properties": {
+        "candidates": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["sense", "score"],
+            "properties": {
+              "sense": {"type": "string"},
+              "sense_id": {"type": "string"},
+              "evidence": {"type": "array", "items": {"type": "string"}},
+              "score": {"type": "number", "minimum": 0, "maximum": 1}
+            }
+          }
+        },
+        "context": {
+          "type": "object",
+          "properties": {
+            "register": {"type": "string"},
+            "domain": {"type": "string"},
+            "speaker": {"type": "string"}
+          }
+        },
+        "constraints": {
+          "type": "object",
+          "properties": {
+            "logical": {"type": "array"},
+            "syntactic": {"type": "array"},
+            "morphological": {"type": "array"}
+          }
+        }
+      }
+    },
+    "output_schema": {
+      "type": "object",
+      "required": ["selected", "confidence", "status"],
+      "properties": {
+        "selected": {
+          "type": ["string", "null"],
+          "description": "Selected sense ID or null if ambiguous"
+        },
+        "selected_id": {"type": ["string", "null"]},
+        "confidence": {"type": "number", "minimum": 0, "maximum": 1},
+        "evidence": {"type": "array", "items": {"type": "string"}},
+        "status": {"type": "string", "enum": ["ok", "ambiguous", "error"]}
+      }
+    },
+    "rules": [
+      {"id": "SENSE-SEL-01", "description": "Default: select highest-scoring candidate if > threshold"},
+      {"id": "SENSE-SEL-02", "description": "Context filter: religious domain → otherworld senses boosted"},
+      {"id": "SENSE-SEL-03", "description": "Constraint check: selected sense must satisfy all constraints"},
+      {"id": "SENSE-SEL-04", "description": "Ambiguity: if top 2 candidates within δ → mark ambiguous"}
+    ]
+  },
+
+  "EpistemicGate": {
+    "description": "Classifies predicate type and determines truth evaluation mode (world/reason/hearing)",
+    "input_schema": {
+      "type": "object",
+      "required": ["J", "sense_selected"],
+      "properties": {
+        "J": {
+          "type": "object",
+          "required": ["subject", "predicate", "constraints", "scope"],
+          "properties": {
+            "subject": {"type": ["object", "null"]},
+            "predicate": {"type": ["object", "null"]},
+            "constraints": {"type": "array"},
+            "scope": {"type": "object"}
+          }
+        },
+        "sense_selected": {"type": ["string", "null"]}
+      }
+    },
+    "output_schema": {
+      "type": "object",
+      "required": ["predicate_type", "truth_mode", "needs_hearing", "world_verifiable", "status"],
+      "properties": {
+        "predicate_type": {
+          "type": "string",
+          "enum": [
+            "SENSIBLE_WORLD_CLAIM",
+            "ANALYTIC_DEFINITION",
+            "NORMATIVE_EVALUATION",
+            "OTHERWORLD_CLAIM",
+            "DIVINE_ATTRIBUTION",
+            "UNKNOWN"
+          ]
+        },
+        "predicate_type_id": {"type": "string"},
+        "truth_mode": {
+          "type": "string",
+          "enum": ["LANGUAGE_FORM_ONLY", "RATIONAL_CONSISTENCY", "WORLD_VERIFICATION", "HEARING_REQUIRED"]
+        },
+        "truth_mode_id": {"type": "string"},
+        "needs_hearing": {"type": "boolean"},
+        "world_verifiable": {"type": "boolean"},
+        "consistency_score": {"type": ["number", "null"]},
+        "status": {"type": "string", "enum": ["ok", "warning", "error"]}
+      }
+    },
+    "decision_rules": [
+      {
+        "condition": "predicate_type == SENSIBLE_WORLD_CLAIM",
+        "then": {
+          "truth_mode": "WORLD_VERIFICATION",
+          "needs_hearing": false,
+          "world_verifiable": true
+        }
+      },
+      {
+        "condition": "predicate_type == ANALYTIC_DEFINITION",
+        "then": {
+          "truth_mode": "RATIONAL_CONSISTENCY",
+          "needs_hearing": false,
+          "world_verifiable": false
+        }
+      },
+      {
+        "condition": "predicate_type == NORMATIVE_EVALUATION",
+        "then": {
+          "truth_mode": "RATIONAL_CONSISTENCY",
+          "needs_hearing": false,
+          "world_verifiable": false
+        }
+      },
+      {
+        "condition": "predicate_type == OTHERWORLD_CLAIM",
+        "then": {
+          "truth_mode": "HEARING_REQUIRED",
+          "needs_hearing": true,
+          "world_verifiable": false
+        }
+      },
+      {
+        "condition": "predicate_type == DIVINE_ATTRIBUTION",
+        "then": {
+          "truth_mode": "HEARING_REQUIRED",
+          "needs_hearing": true,
+          "world_verifiable": false
+        }
+      }
+    ],
+    "rules": [
+      {"id": "EPI-DECIDE-01", "description": "Classify predicate based on sense + context"},
+      {"id": "EPI-DECIDE-02", "description": "Map predicate_type → truth_mode via decision table"},
+      {"id": "EPI-CHECK-01", "description": "Verify consistency: no logical contradictions in J"},
+      {"id": "EPI-CHECK-02", "description": "Compute confidence: higher if context clear"}
+    ]
+  }
+}

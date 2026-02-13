@@ -1,0 +1,366 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Feature Enumerations - Arabic NLP Unified Dictionary",
+  "version": "1.0.0",
+  "description": "Canonical feature space for phonology, morphology, syntax, semantics",
+  
+  "ConsonantFeatures": {
+    "place": {
+      "enum": ["BILABIAL","LABIODENTAL","DENTAL","ALVEOLAR","POSTALVEOLAR","PALATAL","VELAR","UVULAR","PHARYNGEAL","GLOTTAL"],
+      "ids": {
+        "BILABIAL": "CF_PL_001",
+        "LABIODENTAL": "CF_PL_002",
+        "DENTAL": "CF_PL_003",
+        "ALVEOLAR": "CF_PL_004",
+        "POSTALVEOLAR": "CF_PL_005",
+        "PALATAL": "CF_PL_006",
+        "VELAR": "CF_PL_007",
+        "UVULAR": "CF_PL_008",
+        "PHARYNGEAL": "CF_PL_009",
+        "GLOTTAL": "CF_PL_010"
+      }
+    },
+    "manner": {
+      "enum": ["STOP","FRICATIVE","AFFRICATE","NASAL","LIQUID","TRILL","APPROXIMANT"],
+      "ids": {
+        "STOP": "CF_MN_001",
+        "FRICATIVE": "CF_MN_002",
+        "AFFRICATE": "CF_MN_003",
+        "NASAL": "CF_MN_004",
+        "LIQUID": "CF_MN_005",
+        "TRILL": "CF_MN_006",
+        "APPROXIMANT": "CF_MN_007"
+      }
+    },
+    "voicing": {
+      "enum": ["VOICELESS","VOICED"],
+      "ids": {
+        "VOICELESS": "CF_VC_001",
+        "VOICED": "CF_VC_002"
+      }
+    },
+    "emphasis": {
+      "enum": ["PLAIN","EMPHATIC"],
+      "ids": {
+        "PLAIN": "CF_EM_001",
+        "EMPHATIC": "CF_EM_002"
+      }
+    },
+    "secondary": {
+      "enum": ["NONE","PHARYNGEALIZED","VELARIZED"],
+      "ids": {
+        "NONE": "CF_SC_000",
+        "PHARYNGEALIZED": "CF_SC_001",
+        "VELARIZED": "CF_SC_002"
+      }
+    },
+    "gemination": {
+      "enum": ["SINGLE","GEMINATED"],
+      "ids": {
+        "SINGLE": "CF_GM_001",
+        "GEMINATED": "CF_GM_002"
+      }
+    },
+    "root_role": {
+      "enum": ["RADICAL","EXTRA","FUNCTIONAL"],
+      "ids": {
+        "RADICAL": "CF_RR_001",
+        "EXTRA": "CF_RR_002",
+        "FUNCTIONAL": "CF_RR_003"
+      }
+    },
+    "phonotactic": {
+      "enum": ["ALLOWS_ONSET","ALLOWS_CODA","RESTRICTED_CODA"],
+      "ids": {
+        "ALLOWS_ONSET": "CF_PT_001",
+        "ALLOWS_CODA": "CF_PT_002",
+        "RESTRICTED_CODA": "CF_PT_003"
+      }
+    }
+  },
+
+  "VowelFeatures": {
+    "length": {
+      "enum": ["SHORT","LONG"],
+      "ids": {
+        "SHORT": "VF_LN_001",
+        "LONG": "VF_LN_002"
+      }
+    },
+    "height": {
+      "enum": ["HIGH","MID","LOW"],
+      "ids": {
+        "HIGH": "VF_HT_001",
+        "MID": "VF_HT_002",
+        "LOW": "VF_HT_003"
+      }
+    },
+    "backness": {
+      "enum": ["FRONT","CENTRAL","BACK"],
+      "ids": {
+        "FRONT": "VF_BK_001",
+        "CENTRAL": "VF_BK_002",
+        "BACK": "VF_BK_003"
+      }
+    },
+    "rounding": {
+      "enum": ["UNROUNDED","ROUNDED"],
+      "ids": {
+        "UNROUNDED": "VF_RD_001",
+        "ROUNDED": "VF_RD_002"
+      }
+    },
+    "quality": {
+      "enum": ["A","I","U"],
+      "ids": {
+        "A": "VF_QL_001",
+        "I": "VF_QL_002",
+        "U": "VF_QL_003"
+      }
+    },
+    "diacritic": {
+      "enum": ["FATHA","KASRA","DAMMA","SUKUN","SHADDA","TANWIN_FATH","TANWIN_KASR","TANWIN_DAM"],
+      "ids": {
+        "FATHA": "VF_DC_001",
+        "KASRA": "VF_DC_002",
+        "DAMMA": "VF_DC_003",
+        "SUKUN": "VF_DC_004",
+        "SHADDA": "VF_DC_005",
+        "TANWIN_FATH": "VF_DC_006",
+        "TANWIN_KASR": "VF_DC_007",
+        "TANWIN_DAM": "VF_DC_008"
+      }
+    }
+  },
+
+  "Syllable": {
+    "types": {
+      "enum": ["CV","CVC","CVV","CVVC","CVCC","CVVCV","CVVCCV"],
+      "ids": {
+        "CV": "SY_TP_001",
+        "CVC": "SY_TP_002",
+        "CVV": "SY_TP_003",
+        "CVVC": "SY_TP_004",
+        "CVCC": "SY_TP_005",
+        "CVVCV": "SY_TP_006",
+        "CVVCCV": "SY_TP_007"
+      }
+    },
+    "weight": {
+      "enum": ["LIGHT","HEAVY","SUPERHEAVY"],
+      "ids": {
+        "LIGHT": "SY_WT_001",
+        "HEAVY": "SY_WT_002",
+        "SUPERHEAVY": "SY_WT_003"
+      }
+    },
+    "boundary": {
+      "enum": ["TOKEN_INTERNAL","TOKEN_BOUNDARY"],
+      "ids": {
+        "TOKEN_INTERNAL": "SY_BD_001",
+        "TOKEN_BOUNDARY": "SY_BD_002"
+      }
+    }
+  },
+
+  "MorphFeatures": {
+    "word_class": {
+      "enum": ["NOUN","VERB","ADJ","PARTICLE","PRONOUN","DEMONSTRATIVE","RELATIVE","NUMBER","TOOL","OTHER"],
+      "ids": {
+        "NOUN": "MF_WC_001",
+        "VERB": "MF_WC_002",
+        "ADJ": "MF_WC_003",
+        "PARTICLE": "MF_WC_004",
+        "PRONOUN": "MF_WC_005",
+        "DEMONSTRATIVE": "MF_WC_006",
+        "RELATIVE": "MF_WC_007",
+        "NUMBER": "MF_WC_008",
+        "TOOL": "MF_WC_009",
+        "OTHER": "MF_WC_999"
+      }
+    },
+    "derivation": {
+      "enum": ["JAMID","MUSHTAQ"],
+      "ids": {
+        "JAMID": "MF_DR_001",
+        "MUSHTAQ": "MF_DR_002"
+      }
+    },
+    "root_type": {
+      "enum": ["GENDER_ROOT","EVENT_ROOT","QUALITY_ROOT","UNKNOWN"],
+      "ids": {
+        "GENDER_ROOT": "MF_RT_001",
+        "EVENT_ROOT": "MF_RT_002",
+        "QUALITY_ROOT": "MF_RT_003",
+        "UNKNOWN": "MF_RT_999"
+      }
+    },
+    "voice": {
+      "enum": ["ACTIVE","PASSIVE","UNKNOWN"],
+      "ids": {
+        "ACTIVE": "MF_VC_001",
+        "PASSIVE": "MF_VC_002",
+        "UNKNOWN": "MF_VC_999"
+      }
+    },
+    "tense": {
+      "enum": ["PAST","PRESENT","IMPERATIVE","UNKNOWN"],
+      "ids": {
+        "PAST": "MF_TN_001",
+        "PRESENT": "MF_TN_002",
+        "IMPERATIVE": "MF_TN_003",
+        "UNKNOWN": "MF_TN_999"
+      }
+    },
+    "mood": {
+      "enum": ["INDICATIVE","SUBJUNCTIVE","JUSSIVE","NONE","UNKNOWN"],
+      "ids": {
+        "INDICATIVE": "MF_MD_001",
+        "SUBJUNCTIVE": "MF_MD_002",
+        "JUSSIVE": "MF_MD_003",
+        "NONE": "MF_MD_000",
+        "UNKNOWN": "MF_MD_999"
+      }
+    },
+    "definiteness": {
+      "enum": ["DEFINITE","INDEFINITE","CONSTRUCT","UNKNOWN"],
+      "ids": {
+        "DEFINITE": "MF_DF_001",
+        "INDEFINITE": "MF_DF_002",
+        "CONSTRUCT": "MF_DF_003",
+        "UNKNOWN": "MF_DF_999"
+      }
+    },
+    "number": {
+      "enum": ["SG","DU","PL","UNKNOWN"],
+      "ids": {
+        "SG": "MF_NM_001",
+        "DU": "MF_NM_002",
+        "PL": "MF_NM_003",
+        "UNKNOWN": "MF_NM_999"
+      }
+    },
+    "gender": {
+      "enum": ["MASC","FEM","UNKNOWN"],
+      "ids": {
+        "MASC": "MF_GN_001",
+        "FEM": "MF_GN_002",
+        "UNKNOWN": "MF_GN_999"
+      }
+    }
+  },
+
+  "Ma3aniTools": {
+    "classes": {
+      "enum": [
+        "NEGATION","CONDITION","EXCEPTION","RESTRICTION","CAUSE","PURPOSE",
+        "TIME","PLACE","CONJUNCTION","INTERROGATION","EMPHASIS","WISH",
+        "CALLING","PROHIBITION"
+      ],
+      "ids": {
+        "NEGATION": "MT_CL_001",
+        "CONDITION": "MT_CL_002",
+        "EXCEPTION": "MT_CL_003",
+        "RESTRICTION": "MT_CL_004",
+        "CAUSE": "MT_CL_005",
+        "PURPOSE": "MT_CL_006",
+        "TIME": "MT_CL_007",
+        "PLACE": "MT_CL_008",
+        "CONJUNCTION": "MT_CL_009",
+        "INTERROGATION": "MT_CL_010",
+        "EMPHASIS": "MT_CL_011",
+        "WISH": "MT_CL_012",
+        "CALLING": "MT_CL_013",
+        "PROHIBITION": "MT_CL_014"
+      }
+    },
+    "scope_operators": {
+      "enum": ["NEGATE","IF_THEN","EXCEPT","ONLY","BECAUSE","SO_THAT","WHEN","WHERE","AND","OR","ASK","EMPH"],
+      "ids": {
+        "NEGATE": "MT_OP_001",
+        "IF_THEN": "MT_OP_002",
+        "EXCEPT": "MT_OP_003",
+        "ONLY": "MT_OP_004",
+        "BECAUSE": "MT_OP_005",
+        "SO_THAT": "MT_OP_006",
+        "WHEN": "MT_OP_007",
+        "WHERE": "MT_OP_008",
+        "AND": "MT_OP_009",
+        "OR": "MT_OP_010",
+        "ASK": "MT_OP_011",
+        "EMPH": "MT_OP_012"
+      }
+    }
+  },
+
+  "Inflection": {
+    "mode": {
+      "enum": ["MU3RAB","MABNI"],
+      "ids": {
+        "MU3RAB": "IF_MD_001",
+        "MABNI": "IF_MD_002"
+      }
+    },
+    "case": {
+      "enum": ["NOM","ACC","GEN","NONE","LOCKED"],
+      "ids": {
+        "NOM": "IF_CS_001",
+        "ACC": "IF_CS_002",
+        "GEN": "IF_CS_003",
+        "NONE": "IF_CS_000",
+        "LOCKED": "IF_CS_999"
+      }
+    },
+    "jussive_marker": {
+      "enum": ["SUKUN","DELETE_FINAL_N","DELETE_VOWEL","NONE"],
+      "ids": {
+        "SUKUN": "IF_JM_001",
+        "DELETE_FINAL_N": "IF_JM_002",
+        "DELETE_VOWEL": "IF_JM_003",
+        "NONE": "IF_JM_000"
+      }
+    },
+    "case_marker": {
+      "enum": ["DAMMA","FATHA","KASRA","ALIF","WAW","YA","NONE"],
+      "ids": {
+        "DAMMA": "IF_CM_001",
+        "FATHA": "IF_CM_002",
+        "KASRA": "IF_CM_003",
+        "ALIF": "IF_CM_004",
+        "WAW": "IF_CM_005",
+        "YA": "IF_CM_006",
+        "NONE": "IF_CM_000"
+      }
+    }
+  },
+
+  "Semantic": {
+    "predicate_type": {
+      "enum": [
+        "SENSIBLE_WORLD_CLAIM",
+        "ANALYTIC_DEFINITION",
+        "NORMATIVE_EVALUATION",
+        "OTHERWORLD_CLAIM",
+        "DIVINE_ATTRIBUTION",
+        "UNKNOWN"
+      ],
+      "ids": {
+        "SENSIBLE_WORLD_CLAIM": "SM_PT_001",
+        "ANALYTIC_DEFINITION": "SM_PT_002",
+        "NORMATIVE_EVALUATION": "SM_PT_003",
+        "OTHERWORLD_CLAIM": "SM_PT_004",
+        "DIVINE_ATTRIBUTION": "SM_PT_005",
+        "UNKNOWN": "SM_PT_999"
+      }
+    },
+    "truth_mode": {
+      "enum": ["LANGUAGE_FORM_ONLY","RATIONAL_CONSISTENCY","WORLD_VERIFICATION","HEARING_REQUIRED"],
+      "ids": {
+        "LANGUAGE_FORM_ONLY": "SM_TM_001",
+        "RATIONAL_CONSISTENCY": "SM_TM_002",
+        "WORLD_VERIFICATION": "SM_TM_003",
+        "HEARING_REQUIRED": "SM_TM_004"
+      }
+    }
+  }
+}

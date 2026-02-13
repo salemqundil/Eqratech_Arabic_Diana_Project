@@ -1,8 +1,4 @@
-import pandas as pd
-from base_reconstruction_engine import BaseReconstructionEngine
-from reconstruction_utils import reconstruct_from_base_df
-
-class MafoulAjlihEngine(BaseReconstructionEngine):
+from engines.syntax.mafoul_ajlih_engine import MafoulAjlihEngine  # noqa: F401
     SHEET_NAME = 'المفعول_لأجله'
 
     @classmethod

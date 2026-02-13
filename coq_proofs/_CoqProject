@@ -1,0 +1,11 @@
+-R . ArgminArabic
+
+Assumptions.v
+CoreTypes.v
+Energy.v
+Generator.v
+Canonical.v
+Minimizer.v
+SyntaxGates.v
+Maqam.v
+Theorems.v

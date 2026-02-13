@@ -1,0 +1,273 @@
+# Copilot Instructions
+
+## Architecture Overview (6-Layer Computational Linguistics Model)
+
+This project implements a **theoretically-grounded hierarchical architecture** for Arabic NLP:
+
+```
+Layer 6: Generation (التوليد)  → Sentence production from components
+Layer 5: Rhetoric (البلاغة)    → Figurative language & discourse
+Layer 4: Syntax (النحو)        → Grammatical relations & structure
+Layer 3: Lexicon (المعجم)      → Vocabulary & semantic classification
+Layer 2: Morphology (الصرف)    → Word structure & patterns
+Layer 1: Phonology (الصوتيات)  → Sound units & prosody
+```
+
+**Key Principle**: Lower layers provide foundation for higher layers; dependencies flow upward only.
+
+---
+
+## Project Map (Four Main Subsystems)
+
+### 1. FVAFK Pipeline ([src/fvafk](src/fvafk))
+Three-phase Arabic text processing:
+- **C1**: Encoding & normalization ([src/fvafk/c1](src/fvafk/c1))
+- **C2a**: Phonological gates (10 Tajweed-based transformations) ([src/fvafk/c2a](src/fvafk/c2a))
+- **C2b**: Morphological analysis (root extraction, pattern matching) ([src/fvafk/c2b](src/fvafk/c2b))
+- **Entry point**: [src/fvafk/cli/main.py](src/fvafk/cli/main.py)
+
+### 2. Grammar Engines ([src/engines](src/engines))
+**66 engines** organized in 3-level hierarchy (see [ENGINE_TAXONOMY.md](ENGINE_TAXONOMY.md)):
+- **Layer → Group → Subgroup** classification
+- `src/engines/phonology/` - Phonemes, sounds (Layer 1, 2 groups)
+- `src/engines/morphology/` - Word structure (Layer 2, 9 groups, 22 engines)
+- `src/engines/lexicon/` - Vocabulary (Layer 3, 6 groups, 15 engines)
+- `src/engines/syntax/` - Grammar (Layer 4, 6 groups, 13 engines)
+- `src/engines/rhetoric/` - Figurative language (Layer 5, 5 groups, 11 engines)
+- `src/engines/generation/` - Sentence production (Layer 6, 2 groups)
+
+**Navigate hierarchy**: `python engine_hierarchy.py --stats`
+
+**Legacy**: 68 root-level `*_engine.py` files exist for backward compatibility; prefer `src/engines/` imports.
+
+### 3. Maqam Theory ([src/maqam_theory](src/maqam_theory))
+**Mathematical optimization framework** for Arabic sentence construction via energy minimization:
+- `gates/` - Constraint gates (12 types): Declarative, Interrogative, Vocative, Imperative, etc.
+- `generators/` - Candidate generation (y₀ → G(x) transformations)
+- `minimizers/` - Energy function minimizers (arg min E)
+- `proofs/` - Formal computational proofs
+- `structures/` - Core data structures (Maqam state, surface forms)
+
+**Key Pattern**: Every gate extends `BaseGate` ([base_gate.py](src/maqam_theory/gates/base_gate.py)):
+```python
+class MyGate(BaseGate):
+    def can_activate(self, x) -> bool:  # Activation conditions
+    def compute_satisfaction(self, x, y) -> float:  # Constraint satisfaction [0,1]
+    def compute_cost(self, x, y, activated) -> float:  # Energy contribution
+```
+
+### 4. Syntax Theory ([src/syntax_theory](src/syntax_theory))
+**Graph-based syntactic analysis** using `x → y₀ → G(x) → arg min E` paradigm:
+- `structures/` - SyntacticInput (x), SyntacticGraph (y), Node/Edge definitions
+- `relations/` - Three core relations: ISN (إسناد), TADMN (تضمين), TAQYID (تقييد)
+- `operators/` - 14 grammatical operators (إنّ وأخواتها, كان وأخواتها, particles)
+- `generators/` - Canon(x) and G(x) functions for graph generation
+- `minimizers/` - Multi-component energy function (E_rel + E_gov + E_case + ...)
+- `proofs/` - Mechanized proofs of syntactic properties
+
+**Architecture**: Directed graph y = (V_y, E_y, τ, φ) with hard gates (∞ cost for violations)
+
+See [SYNTAX_THEORY_SUMMARY.md](SYNTAX_THEORY_SUMMARY.md) for complete mathematical formulation.
+
+---
+
+## Data Flow & Architecture
+
+### Engine Structure
+Every engine:
+1. Extends `BaseReconstructionEngine` (or layer-specific: `PhonologyEngine`, `MorphologyEngine`, etc.) from [src/engines/base.py](src/engines/base.py)
+2. Defines metadata:
+   - `SHEET_NAME` (≤31 chars) - Excel sheet identifier
+   - `LAYER` (from `EngineLayer` enum) - Linguistic layer (1-6)
+   - `GROUP` (optional) - Functional group (e.g., "2.1" for Verbal Morphology)
+   - `SUBGROUP` (optional) - Semantic subgroup (e.g., "2.1.1" for Basic Verbs)
+   - `GROUP_AR`, `SUBGROUP_AR` (optional) - Arabic names
+3. Implements `make_df()` returning pandas `DataFrame` with **Arabic columns**:
+   - `الأداة` (required) - The linguistic tool/item
+   - `الفونيمات` - Phoneme sequence (optional, auto-filled)
+   - `الحركات` - Diacritics (optional, auto-filled)
+   - Additional domain-specific columns
+
+### Normalization Pipeline
+`reconstruct_from_base_df` in [reconstruction_utils.py](reconstruction_utils.py) post-processes all DataFrames:
+- Fills `الفونيمات` and `الحركات` if empty (derives from `الأداة`)
+- Generates `Unicode` (U+XXXX codepoint notation)
+- Generates `UTF-8` (0xXX byte representation)
+- Preserves multi-word tools (doesn't split on spaces)
+- Standardizes hamza/alif variations
+
+### Export Paths
+1. **Auto-discovery**: [Main_engine.py](Main_engine.py) scans root-level `*_engine.py` modules, exports all to `full_multilayer_grammar.xlsx` (sheet names truncated to 31 chars)
+2. **Curated/Ordered**: [export_full_multilayer_grammar_minimal.py](export_full_multilayer_grammar_minimal.py) imports `engines.*` classes in layer order (phonology → generation), writes `full_multilayer_grammar.xlsx`
+
+### Sentence Generation (Layer 6)
+- [src/engines/generation/sentence_generation_engine.py](src/engines/generation/sentence_generation_engine.py) - Dynamic composition from lower-layer engine outputs
+- [src/engines/generation/static_sentence_generator.py](src/engines/generation/static_sentence_generator.py) - Template-based fallback (self-contained, no engine dependencies)
+- [src/engines/generation/enhanced_sentence_generation_engine.py](src/engines/generation/enhanced_sentence_generation_engine.py) - Advanced generation with linguistic constraints
+
+---
+
+## Critical Workflows
+
+### Installation
+```bash
+pip install -r requirements.txt  # pandas, openpyxl (XLSX), FastAPI/uvicorn (server)
+```
+
+### Testing
+```bash
+pytest -v                        # PYTHONPATH=src (configured in pytest.ini)
+pytest tests/engines/phonology/  # Test specific layer
+pytest tests/c2b/                # Test morphological analysis (C2b)
+pytest tests/test_gate_*.py      # Test specific phonological gates
+pytest tests/test_syntax_theory.py  # Test syntax theory components
+```
+
+**Test Naming Convention**:
+- `test_*.py` - Module-level tests (e.g., `test_gate_sukun.py`, `test_cli.py`)
+- `Test*` - Class-based test suites (e.g., `TestRootExtractorBasic`)
+- Tests in subdirectories mirror `src/` structure (e.g., `tests/c2b/`, `tests/engines/`)
+- All tests use pytest fixtures; PYTHONPATH automatically set to `src/` via [pytest.ini](pytest.ini)
+
+### FVAFK CLI Pipeline
+```bash
+python -m fvafk.cli "كَاتِبٌ"                 # C1 encoding only
+python -m fvafk.cli "كَاتِبٌ" --morphology    # C1 → C2a → C2b
+python -m fvafk.cli "كَاتِبٌ" --morphology --json --verbose
+```
+
+### Full Grammar Export
+```bash
+python export_full_multilayer_grammar_minimal.py  # Curated export (layer order)
+python Main_engine.py                             # Auto-discovery export
+```
+Both produce `full_multilayer_grammar.xlsx` with multiple sheets.
+
+### Development Server
+```bash
+python run_server.py --host 127.0.0.1 --port 8000 --reload
+# Expects web_app.main:app module (verify existence first)
+```
+
+**Note**: Web server is optional; core functionality is CLI-based and library-oriented.
+
+---
+
+## Project-Specific Conventions
+
+### Column Naming (Always Arabic)
+- `الأداة` - The linguistic item (word, phrase, particle)
+- `الفونيمات` - Phoneme sequence (space-separated)
+- `الحركات` - Diacritic sequence
+- `Unicode` - U+XXXX representation (auto-generated)
+- `UTF-8` - 0xXX byte encoding (auto-generated)
+- `النوع` - Type/category
+- `الوزن` - Pattern/weight (morphology)
+- `الجذر` - Root (morphology)
+
+Exporters and `reconstruct_from_base_df` **depend on these exact names**.
+
+### Engine Data Sources
+- Many engines **embed data inline** as Python lists/dicts
+- Root CSVs are **canonical sources** for shared data:
+  - [Phonemes.csv](Phonemes.csv) - Core phoneme inventory
+  - [Harakat.csv](Harakat.csv) - Diacritic definitions
+  - [broken_plurals.csv](broken_plurals.csv) - Plural patterns
+- Do NOT rename `SHEET_NAME` in engines; exporters rely on stable sheet names
+
+### Adding a New Engine
+1. Place in `src/engines/{layer}/` (choose layer based on [ENGINE_TAXONOMY.md](ENGINE_TAXONOMY.md))
+2. Inherit from appropriate base:
+   ```python
+   from engines.base import MorphologyEngine, EngineLayer
+   
+   class MyNewEngine(MorphologyEngine):
+       SHEET_NAME = "اسم_قصير"  # ≤31 chars
+       LAYER = EngineLayer.MORPHOLOGY
+       GROUP = "2.1"  # Optional: functional group
+       SUBGROUP = "2.1.3"  # Optional: semantic subgroup
+       GROUP_AR = "الأفعال"  # Optional: Arabic group name
+       SUBGROUP_AR = "الأفعال الخاصة"  # Optional: Arabic subgroup
+       
+       @classmethod
+       def make_df(cls):
+           data = {'الأداة': [...], ...}
+           df = pd.DataFrame(data)
+           return reconstruct_from_base_df(df)
+   ```
+3. Add to layer's `__init__.py`:
+   ```python
+   from engines.morphology.my_new_engine import MyNewEngine
+   __all__ = [..., 'MyNewEngine']
+   ```
+4. Import in curated export script if needed
+5. Verify hierarchy: `python engine_hierarchy.py --search MyNew`
+6. Run `pytest -v` to validate
+
+### Import Patterns
+**Preferred** (new code):
+```python
+from engines.phonology import PhonemesEngine
+from engines.morphology import ActiveParticipleEngine
+from engines.syntax import FaelEngine
+from engines.generation import SentenceGenerationEngine
+```
+
+**Legacy** (root-level imports, still functional):
+```python
+from phonemes_engine import PhonemesEngine
+from active_participle_engine import ActiveParticipleEngine
+```
+
+---
+
+## Key Files Reference
+
+| File | Purpose |
+|------|---------|
+| [src/engines/base.py](src/engines/base.py) | Base classes: `BaseReconstructionEngine`, `EngineLayer` enum, hierarchical metadata |
+| [ENGINE_TAXONOMY.md](ENGINE_TAXONOMY.md) | Complete 3-level hierarchy: 6 layers → 30 groups → 66 engines |
+| [ENGINE_MANIFEST.md](ENGINE_MANIFEST.md) | Architecture documentation and proven components |
+| [SYNTAX_THEORY_SUMMARY.md](SYNTAX_THEORY_SUMMARY.md) | Mathematical formulation of syntax theory (x → y₀ → G(x) → arg min E) |
+| [engine_hierarchy.py](engine_hierarchy.py) | CLI tool to explore/visualize/search engine hierarchy |
+| [reconstruction_utils.py](reconstruction_utils.py) | Canonical normalizer: `reconstruct_from_base_df()` |
+| [Main_engine.py](Main_engine.py) | Auto-discovery exporter (root-level engines) |
+| [export_full_multilayer_grammar_minimal.py](export_full_multilayer_grammar_minimal.py) | Curated exporter (layer-ordered) |
+| [pytest.ini](pytest.ini) | Test configuration (PYTHONPATH=src) |
+| [src/fvafk/cli/main.py](src/fvafk/cli/main.py) | FVAFK pipeline CLI entry point |
+| [src/maqam_theory/gates/base_gate.py](src/maqam_theory/gates/base_gate.py) | Base gate for constraint-based optimization |
+| [src/syntax_theory/structures/](src/syntax_theory/structures/) | Core data structures for graph-based syntax |
+
+---
+
+## Testing & Validation
+
+```bash
+# Verify engine structure
+python -c "from engines.base import BaseReconstructionEngine; \
+           from engines.phonology import PhonemesEngine; \
+           print(PhonemesEngine.get_metadata())"
+
+# View engine hierarchy
+python engine_hierarchy.py                    # Full tree
+python engine_hierarchy.py --layer 2          # Morphology only
+python engine_hierarchy.py --stats            # Statistics
+python engine_hierarchy.py --search "فاعل"    # Search by Arabic term
+python engine_hierarchy.py --export json      # Export to JSON
+
+# Test layer imports
+python -c "from engines import phonology, morphology, syntax; print('✓ Imports OK')"
+
+# Run specific layer tests
+pytest tests/engines/morphology/ -v
+
+# Full test suite
+pytest -v
+```
+
+---
+
+**Architecture Version**: 2.0.0  
+**Model**: 6-Layer Computational Linguistics Hierarchy  
+**Engines**: 66 total in 30 functional groups  
+**See also**: [ENGINE_TAXONOMY.md](ENGINE_TAXONOMY.md) for complete hierarchical catalog

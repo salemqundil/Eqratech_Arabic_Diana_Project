@@ -1,0 +1,173 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "DecisionTrace Schema",
+  "version": "1.0.0",
+  "type": "object",
+  "required": ["trace_id", "input", "context", "state", "layers", "judgment", "audit"],
+  "properties": {
+    "trace_id": {
+      "type": "string",
+      "pattern": "^DT-[0-9]{6}$",
+      "description": "Unique trace identifier"
+    },
+    "input": {
+      "type": "object",
+      "required": ["text", "tokens"],
+      "properties": {
+        "text": {"type": "string"},
+        "tokens": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": {"type": "integer"},
+              "surface": {"type": "string"},
+              "span": {"type": "array", "items": {"type": "integer"}, "minItems": 2, "maxItems": 2}
+            }
+          }
+        }
+      }
+    },
+    "context": {
+      "type": "object",
+      "properties": {
+        "register": {"type": "string", "enum": ["msa", "dialect", "classical", "mixed"]},
+        "domain": {"type": "string"},
+        "speaker": {"type": "string"},
+        "time": {"type": "string"}
+      }
+    },
+    "state": {
+      "type": "object",
+      "required": ["scope", "sense", "constraints"],
+      "properties": {
+        "scope": {
+          "type": "object",
+          "properties": {
+            "operators": {"type": "array", "items": {"type": "string"}},
+            "negation_scope": {"type": ["object", "null"]},
+            "condition_scope": {"type": ["object", "null"]},
+            "exception_scope": {"type": ["object", "null"]}
+          }
+        },
+        "sense": {
+          "type": "object",
+          "properties": {
+            "candidates": {"type": "array"},
+            "selected": {"type": ["string", "null"]},
+            "evidence": {"type": "array"}
+          }
+        },
+        "constraints": {
+          "type": "object",
+          "properties": {
+            "logical": {"type": "array"},
+            "syntactic": {"type": "array"},
+            "morphological": {"type": "array"},
+            "phonological": {"type": "array"}
+          }
+        }
+      }
+    },
+    "layers": {
+      "type": "array",
+      "items": {"$ref": "#/definitions/LayerTrace"}
+    },
+    "judgment": {
+      "type": "object",
+      "properties": {
+        "J": {
+          "type": "object",
+          "properties": {
+            "subject": {"type": ["object", "null"]},
+            "predicate": {"type": ["object", "null"]},
+            "constraints": {"type": "array"},
+            "scope": {"type": "object"}
+          }
+        },
+        "epistemic": {
+          "type": "object",
+          "properties": {
+            "consistency": {"type": ["number", "null"]},
+            "predicate_type": {"type": ["string", "null"]},
+            "needs_hearing": {"type": ["boolean", "null"]},
+            "world_verifiable": {"type": ["boolean", "null"]}
+          }
+        }
+      }
+    },
+    "audit": {
+      "type": "object",
+      "properties": {
+        "soundness": {
+          "type": "object",
+          "properties": {
+            "passed": {"type": ["boolean", "null"]},
+            "notes": {"type": "array", "items": {"type": "string"}}
+          }
+        },
+        "completeness": {
+          "type": "object",
+          "properties": {
+            "covered": {"type": ["boolean", "null"]},
+            "notes": {"type": "array", "items": {"type": "string"}}
+          }
+        },
+        "traceability": {
+          "type": "object",
+          "properties": {
+            "passed": {"type": "boolean"},
+            "missing_steps": {"type": "array", "items": {"type": "string"}}
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "LayerTrace": {
+      "type": "object",
+      "required": ["layer", "step", "input_ref", "payload", "effects", "rules_applied", "quality"],
+      "properties": {
+        "layer": {
+          "type": "string",
+          "enum": ["phonology", "syllable", "morphology", "syntax", "i3rab_bina", "semantics", "pragmatics"]
+        },
+        "step": {"type": "integer", "minimum": 1},
+        "input_ref": {
+          "type": "object",
+          "properties": {
+            "tokens": {"type": "array", "items": {"type": "integer"}},
+            "span": {"type": "array", "items": {"type": "integer"}}
+          }
+        },
+        "payload": {"type": "object"},
+        "effects": {
+          "type": "object",
+          "properties": {
+            "scope_delta": {"type": "array"},
+            "sense_delta": {"type": "array"},
+            "constraints_delta": {"type": "array"}
+          }
+        },
+        "rules_applied": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "rule_id": {"type": "string"},
+              "because": {"type": "array", "items": {"type": "string"}},
+              "trace_tags": {"type": "array", "items": {"type": "string"}}
+            }
+          }
+        },
+        "quality": {
+          "type": "object",
+          "properties": {
+            "status": {"type": "string", "enum": ["ok", "warning", "error"]},
+            "warnings": {"type": "array", "items": {"type": "string"}}
+          }
+        }
+      }
+    }
+  }
+}

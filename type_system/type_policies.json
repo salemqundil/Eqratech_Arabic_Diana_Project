@@ -1,0 +1,539 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Arabic NLP Type System - Executable Type Policies",
+  "description": "قواعد الأنواع القابلة للتنفيذ - تحويل Typing Calculus إلى سياسات قابلة للفحص الآلي",
+  
+  "node_types": {
+    "TokenNode": {
+      "description": "عقدة وحدة سطحية (كلمة/أداة/ملصق)",
+      "required_fields": ["id", "surface", "tags"],
+      "optional_fields": ["phon_form", "syllables", "morph", "syntax_role"],
+      "capabilities": []
+    },
+    
+    "RootNode": {
+      "description": "عقدة جذر (gender/event/quality)",
+      "required_fields": ["id", "radicals", "root_kind"],
+      "root_kinds": {
+        "GenderRoot": {
+          "ar_name": "جذر جامد (اسم جنس/ذات)",
+          "capabilities": ["CanWriteSubject"],
+          "cannot": ["CanWritePredicate (إلا عبر Gate)"],
+          "allowed_gates": ["GenderToEventGate", "GenderToQualityGate"]
+        },
+        "EventRoot": {
+          "ar_name": "جذر حدث (فعل)",
+          "capabilities": ["CanWriteSubject", "CanWritePredicate"],
+          "cannot": [],
+          "allowed_gates": ["EventToGenderGate (مصدر)", "EventToQualityGate (اسم فاعل/مفعول)"]
+        },
+        "QualityRoot": {
+          "ar_name": "جذر صفة",
+          "capabilities": ["CanModify"],
+          "cannot": ["CanWriteSubject (إلا عبر Gate)", "CanInstantiateAsGender"],
+          "allowed_gates": ["QualityToGenderGate (nominalization)"]
+        }
+      },
+      "hard_invariant": "تغيير root_kind يتطلب DerivationGate مع trace"
+    },
+    
+    "Ma3aniToolNode": {
+      "description": "عقدة أداة معاني (نفي/شرط/استثناء/تخصيص/توكيد...)",
+      "required_fields": ["id", "tool_class"],
+      "tool_classes": [
+        "NEG", "COND", "EXCEPT", "ONLY", "EMPHASIS",
+        "REASON", "PURPOSE", "RESULT", "SWEAR"
+      ],
+      "capabilities": ["CanProduceScope", "CanProduceConstraint"],
+      "cannot": ["CanWriteSubject", "CanWritePredicate"],
+      "hard_invariant_5_1": {
+        "rule": "ممنوع كتابة Subject أو Predicate",
+        "violation": "Type Error → ∞ cost → Reject",
+        "proof_obligation": "في كل خطوة بناء J، فحص: هل المصدر Ma3aniToolNode؟"
+      },
+      "allowed_writes": ["J.scope", "J.constraints"],
+      "forbidden_writes": ["J.subject", "J.predicate"]
+    },
+    
+    "MabniRefNode": {
+      "description": "عقدة مبني إحالي (ضمير/إشارة/موصول)",
+      "required_fields": ["id", "ref_type"],
+      "ref_types": ["PRONOUN", "DEMONSTRATIVE", "RELATIVE", "CONDITIONAL"],
+      "capabilities": ["CanProduceRef"],
+      "cannot": ["CanInstantiateRoot", "CanInstantiateQuality"],
+      "hard_invariant_5_2": {
+        "rule": "ممنوع المعاملة كجذر أو صفة",
+        "violation": "Type Error → ∞ cost → Reject",
+        "proof_obligation": "في كل خطوة instantiation، فحص: هل المصدر MabniRefNode؟"
+      },
+      "allowed_productions": ["RefNode + COREFERS edge", "RefNode + RESTRICTED_BY edge"],
+      "forbidden_productions": ["RootNode", "QualityRoot", "AdjectiveNode"]
+    },
+    
+    "PatternGateNode": {
+      "description": "عقدة بوابة وزن (فَعَلَ/فاعل/مفعول/مصدر/هيئة...)",
+      "required_fields": ["id", "pattern_name", "sem_signature"],
+      "sem_signature_fields": ["agency", "temporality", "intensity", "mode"],
+      "capabilities": ["CanInstantiatePattern"],
+      "compatibility": {
+        "description": "كل وزن متوافق مع أنواع جذور محددة",
+        "rules": [
+          "VERB_PATTERN → EventRoot",
+          "MASDAR_PATTERN → EventRoot (تحويل إلى GenderRoot)",
+          "ACTIVE_PARTICIPLE → EventRoot (تحويل إلى QualityRoot)",
+          "PASSIVE_PARTICIPLE → EventRoot (تحويل إلى QualityRoot)",
+          "SIFA_MUSHABBAHA → QualityRoot",
+          "ISM_ALA → QualityRoot"
+        ]
+      }
+    },
+    
+    "RefNode": {
+      "description": "عقدة مرجع (ناتجة من MabniRefNode)",
+      "required_fields": ["id", "ref_source"],
+      "capabilities": ["CanCoRefer", "CanBeRestricted"],
+      "allowed_edges": ["COREFERS → Antecedent", "RESTRICTED_BY → Restrictor"],
+      "production_rule": "RefNode = MabniRefGate(MabniRefNode)"
+    },
+    
+    "ScopeOperatorNode": {
+      "description": "عقدة مشغّل نطاق (نفي/شرط/استثناء/حصر...)",
+      "required_fields": ["id", "operator_type", "arity", "span", "priority"],
+      "operator_types": [
+        "NEG", "IF_THEN", "EXCEPT", "ONLY", 
+        "FOR_ALL", "THERE_EXISTS", "EMPHASIS"
+      ],
+      "capabilities": ["CanModifyScope"],
+      "production_rule": "ScopeOp = Ma3aniScopeGate(Ma3aniToolNode)"
+    }
+  },
+  
+  "edge_types": {
+    "phonological": {
+      "HAS_PHONEME": {
+        "from": "TokenNode",
+        "to": "PhonemeNode",
+        "constraints": []
+      },
+      "FORMS_SYLLABLE": {
+        "from": ["PhonemeNode"],
+        "to": "SyllableNode",
+        "constraints": ["syllable_type ∈ {CV, CVC, CVV, CVVC, CVCC}"]
+      },
+      "TRANSITION_TO": {
+        "from": "SyllableNode",
+        "to": "SyllableNode",
+        "constraints": ["weight_balance check"]
+      }
+    },
+    
+    "morphological": {
+      "ROOT_OF": {
+        "from": "RootNode",
+        "to": "TokenNode",
+        "constraints": ["radicals present in surface form"]
+      },
+      "INSTANTIATES_PATTERN": {
+        "from": "RootNode",
+        "to": "PatternGateNode",
+        "constraints": ["compatibility(root.kind, pattern.target_kind)"],
+        "produces": "Stem"
+      },
+      "HAS_AFFIX": {
+        "from": "TokenNode",
+        "to": "AffixNode",
+        "constraints": ["position (prefix/infix/suffix)"]
+      },
+      "DERIVES_TO": {
+        "from": "RootNode",
+        "to": "RootNode",
+        "constraints": ["requires DerivationGate", "trace required"],
+        "hard_check": "ممنوع بدون Gate"
+      }
+    },
+    
+    "syntactic": {
+      "GOVERNS": {
+        "from": "OperatorNode",
+        "to": "TermNode",
+        "constraints": ["arity check", "role compatibility"]
+      },
+      "PREDICATES": {
+        "from": "PredicateNode",
+        "to": "SubjectNode",
+        "constraints": ["ISN relation"]
+      },
+      "MODIFIES": {
+        "from": "QualityRoot | AdjectiveNode",
+        "to": "GenderRoot | NounNode",
+        "constraints": ["syntax_adjacent", "agreement (gender/number)"],
+        "sem_effect": "Restrictor(adj) applied_to Ref(noun)"
+      },
+      "COREFERS": {
+        "from": "RefNode",
+        "to": "RootNode | RefNode",
+        "constraints": ["binding_domain", "c-command"],
+        "production": "via MabniRefGate"
+      },
+      "RESTRICTED_BY": {
+        "from": "RefNode",
+        "to": "QualityRoot | RelativeClause",
+        "constraints": []
+      }
+    },
+    
+    "semantic": {
+      "BUILDS_SUBJECT": {
+        "from": "RootNode(GenderRoot | EventRoot) | RefNode",
+        "to": "J.subject",
+        "type_check": "source has CanWriteSubject",
+        "violation": "if source is Ma3aniToolNode → ⟂"
+      },
+      "BUILDS_PREDICATE": {
+        "from": "RootNode(EventRoot) | VerbPhrase",
+        "to": "J.predicate",
+        "type_check": "source has CanWritePredicate",
+        "violation": "if source is Ma3aniToolNode → ⟂"
+      },
+      "ADDS_SCOPE_OPERATOR": {
+        "from": "Ma3aniToolNode",
+        "to": "J.scope",
+        "type_check": "source has CanProduceScope",
+        "allowed": true
+      },
+      "ADDS_CONSTRAINT": {
+        "from": "Ma3aniToolNode | ModifierNode",
+        "to": "J.constraints",
+        "type_check": "source has CanProduceConstraint",
+        "allowed": true
+      },
+      "BINDS_REF": {
+        "from": "MabniRefNode",
+        "to": "RefNode",
+        "production": "via MabniRefGate only"
+      }
+    }
+  },
+  
+  "gate_types": {
+    "SyllabifyGate": {
+      "input_space": "PhonoSpace",
+      "output_space": "SyllableSpace",
+      "correctness": "output ∈ {CV, CVC, CVV, CVVC, CVCC} ∪ {REPAIR, REJECT}"
+    },
+    
+    "Ma3aniScopeGate": {
+      "input": "Ma3aniToolNode",
+      "output": "ScopeOperatorNode",
+      "type_safety": {
+        "ensures": "Ma3aniToolNode → ScopeOp only",
+        "forbids": "Ma3aniToolNode → Subject/Predicate"
+      },
+      "examples": {
+        "من (COND)": "IF_THEN",
+        "لا (NEG)": "NEG",
+        "إلا (EXCEPT)": "EXCEPT",
+        "إنما (ONLY)": "ONLY"
+      }
+    },
+    
+    "MabniRefGate": {
+      "input": "MabniRefNode",
+      "output": "RefNode + edges(COREFERS | RESTRICTED_BY)",
+      "type_safety": {
+        "ensures": "MabniRefNode → RefNode only",
+        "forbids": "MabniRefNode → RootNode | QualityRoot"
+      },
+      "examples": {
+        "هو (PRONOUN)": "RefNode + COREFERS",
+        "الذي (RELATIVE)": "RefNode + RESTRICTED_BY clause"
+      }
+    },
+    
+    "PatternGate": {
+      "input": "RootNode + Pattern",
+      "output": "Stem + sem_signature",
+      "compatibility_matrix": {
+        "VERB_PATTERN": ["EventRoot"],
+        "MASDAR_PATTERN": ["EventRoot → GenderRoot"],
+        "ACTIVE_PARTICIPLE": ["EventRoot → QualityRoot"],
+        "SIFA_MUSHABBAHA": ["QualityRoot"]
+      },
+      "type_safety": "compatibility check before application"
+    },
+    
+    "DerivationGate": {
+      "input": "RootNode(kind₁)",
+      "output": "RootNode(kind₂) + trace",
+      "types": {
+        "GenderToEventGate": "GenderRoot → EventRoot (denominalization)",
+        "GenderToQualityGate": "GenderRoot → QualityRoot (adjectivization)",
+        "EventToGenderGate": "EventRoot → GenderRoot (masdar)",
+        "EventToQualityGate": "EventRoot → QualityRoot (participle)",
+        "QualityToGenderGate": "QualityRoot → GenderRoot (nominalization)"
+      },
+      "hard_requirement": "تغيير root_kind بدون Gate → Type Error"
+    }
+  },
+  
+  "hard_invariants": {
+    "INV_MA3ANI_5_1": {
+      "rule_id": "5.1",
+      "description": "أدوات المعاني لا تكتب Subject/Predicate",
+      "formal": "∀ step: if node.type = Ma3aniToolNode then writes ∉ {subject, predicate}",
+      "check_at": ["semantic_construction", "J_building"],
+      "violation_action": "return ∞ cost → Reject",
+      "proof_method": "type_check_at_write"
+    },
+    
+    "INV_MABNI_5_2": {
+      "rule_id": "5.2",
+      "description": "المبنيات لا تُعامل كجذر/صفة",
+      "formal": "∀ step: if node.type = MabniRefNode then instantiation.type ∉ {RootNode, QualityRoot}",
+      "check_at": ["instantiation", "pattern_application"],
+      "violation_action": "return ∞ cost → Reject",
+      "proof_method": "type_check_at_instantiation"
+    },
+    
+    "INV_DERIVATION": {
+      "rule_id": "5.3",
+      "description": "تغيير نوع الجذر يتطلب Gate",
+      "formal": "∀ step: if change(root.kind from K₁ to K₂) then ∃ gate: gate.type = DerivationGate",
+      "check_at": ["root_kind_change"],
+      "violation_action": "return ∞ cost → Reject",
+      "proof_method": "trace_validation"
+    },
+    
+    "INV_SEMANTIC_EPISTEM_SEPARATION": {
+      "rule_id": "5.4",
+      "description": "فصل SemSpace عن EpistemicSpace",
+      "formal": "J (linguistic judgment) ≠ T (truth value)",
+      "explanation": "اللغة تُنتج J، العقل يُقيّمه",
+      "spaces": {
+        "SemSpace": "ينتج J = (Subject, Predicate, Constraints, Scope)",
+        "EpistemicSpace": "يصنف J إلى: Rational / World-Verify / Hearing-Required"
+      },
+      "forbidden": "Language system ممنوع من تقييم الصدق"
+    }
+  },
+  
+  "capability_matrix": {
+    "CanWriteSubject": {
+      "granted_to": ["RootNode(GenderRoot)", "RootNode(EventRoot)", "RefNode"],
+      "denied_to": ["Ma3aniToolNode", "MabniRefNode (بدون Gate)", "QualityRoot (بدون Gate)"]
+    },
+    
+    "CanWritePredicate": {
+      "granted_to": ["RootNode(EventRoot)", "VerbPhraseNode"],
+      "denied_to": ["Ma3aniToolNode", "MabniRefNode", "RootNode(GenderRoot بدون Gate)"]
+    },
+    
+    "CanProduceScope": {
+      "granted_to": ["Ma3aniToolNode"],
+      "denied_to": ["RootNode", "MabniRefNode"]
+    },
+    
+    "CanProduceConstraint": {
+      "granted_to": ["Ma3aniToolNode", "ModifierNode", "QualityRoot"],
+      "denied_to": []
+    },
+    
+    "CanProduceRef": {
+      "granted_to": ["MabniRefNode (via MabniRefGate)"],
+      "denied_to": ["Ma3aniToolNode", "RootNode"]
+    },
+    
+    "CanInstantiateRoot": {
+      "granted_to": ["RootNode"],
+      "denied_to": ["MabniRefNode", "Ma3aniToolNode"]
+    }
+  },
+  
+  "proof_obligations": {
+    "at_semantic_construction": [
+      {
+        "check": "type_of_subject_producer",
+        "rule": "source ∈ {RootNode(GenderRoot|EventRoot), RefNode}",
+        "violation": "if source = Ma3aniToolNode → INV_MA3ANI_5_1 violated → ⟂"
+      },
+      {
+        "check": "type_of_predicate_producer",
+        "rule": "source ∈ {RootNode(EventRoot), VerbPhrase}",
+        "violation": "if source = Ma3aniToolNode → INV_MA3ANI_5_1 violated → ⟂"
+      },
+      {
+        "check": "type_of_scope_producer",
+        "rule": "source = Ma3aniToolNode",
+        "violation": "if source ≠ Ma3aniToolNode → warning (soft)"
+      }
+    ],
+    
+    "at_instantiation": [
+      {
+        "check": "source_type_for_root_instantiation",
+        "rule": "source = RootNode",
+        "violation": "if source = MabniRefNode → INV_MABNI_5_2 violated → ⟂"
+      },
+      {
+        "check": "pattern_compatibility",
+        "rule": "compatible(root.kind, pattern.target_kind)",
+        "violation": "incompatible → Type Error → ⟂"
+      }
+    ],
+    
+    "at_root_kind_change": [
+      {
+        "check": "gate_existence",
+        "rule": "∃ gate: gate.type = DerivationGate",
+        "violation": "no gate → INV_DERIVATION violated → ⟂"
+      },
+      {
+        "check": "trace_recorded",
+        "rule": "trace contains gate_id + input/output kinds",
+        "violation": "no trace → audit failure"
+      }
+    ]
+  },
+  
+  "spaces": {
+    "S0_PhonoSpace": {
+      "elements": ["phonemes", "harakat", "features"],
+      "output": "phoneme_stream (feature-tagged)"
+    },
+    
+    "S1_SyllableSpace": {
+      "elements": ["syllables (typed)", "weights", "transitions"],
+      "output": "syllabification + weight + transitions"
+    },
+    
+    "S2_MorphSpace": {
+      "elements": ["RootNode", "PatternGate", "AffixNodes"],
+      "output": "Stem + جامد/مشتق distinction + root_kind"
+    },
+    
+    "S3_SyntaxSpace": {
+      "elements": ["syntax tree/graph", "operators", "positions"],
+      "output": "syntax graph + scope operators"
+    },
+    
+    "S4_IrabSpace": {
+      "elements": ["case markers", "mood markers", "bina markers"],
+      "output": "final case assignment"
+    },
+    
+    "S5_SemSpace": {
+      "elements": ["J = (Subject, Predicate, Constraints, Scope)"],
+      "output": "linguistic judgment (لا صدق هنا)",
+      "forbidden": "truth evaluation"
+    },
+    
+    "S6_EpistemicSpace": {
+      "elements": ["predicate classification", "truth mode", "verification method"],
+      "output": "Decision: Rational / World-Verify / Hearing-Required",
+      "input": "J from SemSpace"
+    }
+  },
+  
+  "examples": {
+    "valid_derivation_1": {
+      "sentence": "من يكذب يعاقب",
+      "steps": [
+        {
+          "step": 1,
+          "action": "Γ ⊢ Token('من') : TokenNode",
+          "rule": "T-TOKEN"
+        },
+        {
+          "step": 2,
+          "action": "Γ ⊢ Ma3aniTool(COND) : Ma3aniToolNode",
+          "rule": "T-MA3ANI-TOOL"
+        },
+        {
+          "step": 3,
+          "action": "Γ ⊢ apply(Ma3aniScopeGate, Ma3aniTool) : ScopeOp(IF_THEN)",
+          "rule": "GATE-MA3ANI-SCOPE"
+        },
+        {
+          "step": 4,
+          "action": "Γ ⊢ J.scope ← IF_THEN : Valid",
+          "rule": "BUILD-SCOPE",
+          "check": "Ma3aniTool has CanProduceScope ✓"
+        },
+        {
+          "step": 5,
+          "action": "Γ ⊢ Root(['ك','ذ','ب'], EventRoot) : RootNode(EventRoot)",
+          "rule": "T-ROOT"
+        },
+        {
+          "step": 6,
+          "action": "Γ ⊢ J.predicate ← Root.produce('يكذب') : Valid",
+          "rule": "BUILD-PREDICATE",
+          "check": "EventRoot has CanWritePredicate ✓"
+        }
+      ],
+      "result": "✓ All type checks pass, INV-MA3ANI satisfied"
+    },
+    
+    "invalid_derivation_1": {
+      "sentence": "محاولة: من ينتج predicate مباشرة",
+      "steps": [
+        {
+          "step": 1,
+          "action": "Γ ⊢ Ma3aniTool(COND) : Ma3aniToolNode",
+          "rule": "T-MA3ANI-TOOL"
+        },
+        {
+          "step": 2,
+          "action": "Γ ⊢ J.predicate ← Ma3aniTool.produce(_) : ?",
+          "rule": "BUILD-PREDICATE (attempted)",
+          "check": "Ma3aniTool ⊬ CanWritePredicate",
+          "violation": "INV_MA3ANI_5_1",
+          "result": "⟂ Type Error"
+        }
+      ],
+      "result": "✗ Derivation fails at step 2"
+    },
+    
+    "invalid_derivation_2": {
+      "sentence": "محاولة: هو كجذر",
+      "steps": [
+        {
+          "step": 1,
+          "action": "Γ ⊢ MabniRef('هو', PRONOUN) : MabniRefNode",
+          "rule": "T-MABNI-REF"
+        },
+        {
+          "step": 2,
+          "action": "Γ ⊢ Root(MabniRef) : ?",
+          "rule": "instantiate as Root (attempted)",
+          "check": "MabniRef ⊬ CanInstantiateRoot",
+          "violation": "INV_MABNI_5_2",
+          "result": "⟂ Type Error"
+        }
+      ],
+      "result": "✗ Derivation fails at step 2"
+    }
+  },
+  
+  "integration_with_maqam_theory": {
+    "energy_function": "E(x, y) = ∑ HardGates(x,y) + ∑ SoftTerms(x,y)",
+    "type_checking_as_hard_gates": {
+      "HardGate_Ma3ani": {
+        "check": "∀ node ∈ y.nodes: node.type = Ma3aniToolNode ⇒ node.writes ∉ {subject, predicate}",
+        "cost_if_violated": "∞",
+        "cost_if_satisfied": "0"
+      },
+      "HardGate_Mabni": {
+        "check": "∀ node ∈ y.nodes: node.type = MabniRefNode ⇒ node.instantiation ∉ {RootNode, QualityRoot}",
+        "cost_if_violated": "∞",
+        "cost_if_satisfied": "0"
+      },
+      "HardGate_Derivation": {
+        "check": "∀ change ∈ y.root_kind_changes: ∃ gate ∈ y.gates: gate.type = DerivationGate",
+        "cost_if_violated": "∞",
+        "cost_if_satisfied": "0"
+      }
+    },
+    "argmin_with_type_safety": "y⋆ = argmin_{y ∈ Y_admiss} E(x,y) where Y_admiss = {y : all type checks pass}"
+  }
+}
