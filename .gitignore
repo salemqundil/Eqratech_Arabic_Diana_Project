@@ -28,3 +28,39 @@ Thumbs.db
 
 # Temporary workbook files
 ~$*
+# macOS
+.DS_Store
+
+# Python
+*.pyc
+__pycache__/
+*.pyo
+*.pyd
+.Python
+
+# Project specific
+*.tar.gz
+out.txt
+extraction_results*.txt
+benchmark_report.json
+*.log
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Virtual environments
+venv/
+env/
+.env
+src/fvafk.egg-info/
+
+# Coq build artifacts
+coq/**/*.vo
+coq/**/*.vos
+coq/**/*.vok
+coq/**/*.glob
+coq/**/*.aux
+

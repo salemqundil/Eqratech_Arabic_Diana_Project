@@ -1,0 +1,128 @@
+============================================================
+QURAN I3RAB COVERAGE REPORT
+Generated: 2026-02-18 23:36:50
+============================================================
+
+Summary:
+  Surahs with data : 114/114
+  Total word rows  : 77,374
+
+Per-Surah Details:
+ Surah  Expected   Found   Words Status
+-------------------------------------------------------
+     1         7       7      29  ok
+     2       286     286    6117  ok
+     3       200     200    3481  ok
+     4       176     176    3747  ok
+     5       120     120    2804  ok
+     6       165     165    3050  ok
+     7       206     206    3320  ok
+     8        75      75    1234  ok
+     9       129     129    2498  ok
+    10       109     109    1833  ok
+    11       123     123    1917  ok
+    12       111     111    1777  ok
+    13        43      43     854  ok
+    14        52      52     830  ok
+    15        99      99     654  ok
+    16       128     128    1844  ok
+    17       111     111    1556  ok
+    18       110     110    1579  ok
+    19        98      98     961  ok
+    20       135     135    1335  ok
+    21       112     112    1169  ok
+    22        78      78    1274  ok
+    23       118     118    1050  ok
+    24        64      64    1316  ok
+    25        77      77     893  ok
+    26       227     227    1318  ok
+    27        93      93    1151  ok
+    28        88      88    1430  ok
+    29        69      69     976  ok
+    30        60      60     817  ok
+    31        34      34     546  ok
+    32        30      30     372  ok
+    33        73      73    1287  ok
+    34        54      54     883  ok
+    35        45      45     775  ok
+    36        83      83     725  ok
+    37       182     182     861  ok
+    38        88      88     733  ok
+    39        75      75    1172  ok
+    40        85      85    1219  ok
+    41        54      54     794  ok
+    42        53      53     860  ok
+    43        89      89     830  ok
+    44        59      59     346  ok
+    45        37      37     488  ok
+    46        35      35     643  ok
+    47        38      38     539  ok
+    48        29      29     560  ok
+    49        18      18     347  ok
+    50        45      45     373  ok
+    51        60      60     360  ok
+    52        49      49     312  ok
+    53        62      62     360  ok
+    54        55      55     342  ok
+    55        78      78     351  ok
+    56        96      96     379  ok
+    57        29      29     574  ok
+    58        68      22     472  ok (missing 46 ayahs)
+    59        72      24     445  ok (missing 48 ayahs)
+    60        56      13     348  ok (missing 43 ayahs)
+    61        37      14     221  ok (missing 23 ayahs)
+    62        40      11     175  ok (missing 29 ayahs)
+    63        31      11     180  ok (missing 20 ayahs)
+    64       114      18     241  ok (missing 96 ayahs)
+    65        54      12     287  ok (missing 42 ayahs)
+    66        77      12     249  ok (missing 65 ayahs)
+    67        46      30     333  ok (missing 16 ayahs)
+    68        26      50     283  ok
+    69        50      50     251  ok
+    70        30      44     217  ok
+    71        24      28     226  ok
+    72        31      28     285  ok (missing 3 ayahs)
+    73        34      20     199  ok (missing 14 ayahs)
+    74        45      50     221  ok
+    75        46      40     164  ok (missing 6 ayahs)
+    76        29      31     243  ok
+    77        79      50     181  ok (missing 29 ayahs)
+    78        68      40     173  ok (missing 28 ayahs)
+    79        60      46     179  ok (missing 14 ayahs)
+    80        44      42     133  ok (missing 2 ayahs)
+    81        64      29     104  ok (missing 35 ayahs)
+    82        63      19      80  ok (missing 44 ayahs)
+    83        10      36     169  ok
+    84        63      25     107  ok (missing 38 ayahs)
+    85        72      22     109  ok (missing 50 ayahs)
+    86        40      17      61  ok (missing 23 ayahs)
+    87        46      19      72  ok (missing 27 ayahs)
+    88        54      26      92  ok (missing 28 ayahs)
+    89        42      30     137  ok (missing 12 ayahs)
+    90        46      20      82  ok (missing 26 ayahs)
+    91        30      15      54  ok (missing 15 ayahs)
+    92        29      21      71  ok (missing 8 ayahs)
+    93        57      11      40  ok (missing 46 ayahs)
+    94        98       8      27  ok (missing 90 ayahs)
+    95        95       8      34  ok (missing 87 ayahs)
+    96        61      19      72  ok (missing 42 ayahs)
+    97        53       5      30  ok (missing 48 ayahs)
+    98        60       8      94  ok (missing 52 ayahs)
+    99        69       8      36  ok (missing 61 ayahs)
+   100        73      11      40  ok (missing 62 ayahs)
+   101        70      11      36  ok (missing 59 ayahs)
+   102        30       8      28  ok (missing 22 ayahs)
+   103        32       3      14  ok (missing 29 ayahs)
+   104        32       9      33  ok (missing 23 ayahs)
+   105        28       5      23  ok (missing 23 ayahs)
+   106        83       4      17  ok (missing 79 ayahs)
+   107        28       7      25  ok (missing 21 ayahs)
+   108        24       3      10  ok (missing 21 ayahs)
+   109        61       6      26  ok (missing 55 ayahs)
+   110        28       3      19  ok (missing 25 ayahs)
+   111        31       5      23  ok (missing 26 ayahs)
+   112        40       4      15  ok (missing 36 ayahs)
+   113        45       5      23  ok (missing 40 ayahs)
+   114        26       6      20  ok (missing 20 ayahs)
+
+⚠ Problem surahs: [58, 59, 60, 61, 62, 63, 64, 65, 66, 67, 72, 73, 75, 77, 78, 79, 80, 81, 82, 84, 85, 86, 87, 88, 89, 90, 91, 92, 93, 94, 95, 96, 97, 98, 99, 100, 101, 102, 103, 104, 105, 106, 107, 108, 109, 110, 111, 112, 113, 114]

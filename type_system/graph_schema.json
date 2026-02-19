@@ -1,0 +1,580 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Unified Graph Schema with Type Constraints",
+  "description": "مخطط رسم موحّد يربط: Spaces + Nodes + Edges + Vectors + Parameters مع قيود نوعية صارمة",
+  
+  "graph_structure": {
+    "nodes": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id", "kind"],
+        "properties": {
+          "id": {"type": "string"},
+          "kind": {
+            "enum": [
+              "TokenNode",
+              "RootNode",
+              "Ma3aniToolNode",
+              "MabniRefNode",
+              "PatternGateNode",
+              "RefNode",
+              "ScopeOperatorNode",
+              "PhonemeNode",
+              "SyllableNode",
+              "AffixNode"
+            ]
+          },
+          "data": {
+            "oneOf": [
+              {"$ref": "#/definitions/TokenNodeData"},
+              {"$ref": "#/definitions/RootNodeData"},
+              {"$ref": "#/definitions/Ma3aniToolNodeData"},
+              {"$ref": "#/definitions/MabniRefNodeData"}
+            ]
+          },
+          "capabilities": {
+            "type": "array",
+            "items": {
+              "enum": [
+                "CAN_WRITE_SUBJECT",
+                "CAN_WRITE_PREDICATE",
+                "CAN_PRODUCE_SCOPE",
+                "CAN_PRODUCE_CONSTRAINT",
+                "CAN_PRODUCE_REF",
+                "CAN_INSTANTIATE_ROOT",
+                "CAN_INSTANTIATE_QUALITY",
+                "CAN_MODIFY"
+              ]
+            }
+          },
+          "vectors": {
+            "$ref": "#/definitions/Vectors"
+          }
+        }
+      }
+    },
+    
+    "edges": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["type", "from", "to"],
+        "properties": {
+          "type": {
+            "enum": [
+              "HAS_PHONEME",
+              "FORMS_SYLLABLE",
+              "TRANSITION_TO",
+              "ROOT_OF",
+              "INSTANTIATES_PATTERN",
+              "HAS_AFFIX",
+              "DERIVES_TO",
+              "GOVERNS",
+              "PREDICATES",
+              "MODIFIES",
+              "COREFERS",
+              "RESTRICTED_BY",
+              "BUILDS_SUBJECT",
+              "BUILDS_PREDICATE",
+              "ADDS_SCOPE_OPERATOR",
+              "ADDS_CONSTRAINT",
+              "BINDS_REF"
+            ]
+          },
+          "from": {"type": "string"},
+          "to": {"type": "string"},
+          "constraints": {
+            "$ref": "#/definitions/EdgeConstraints"
+          },
+          "payload": {"type": "object"}
+        }
+      }
+    },
+    
+    "typing_context": {
+      "type": "object",
+      "properties": {
+        "capabilities": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "array",
+            "items": {"type": "string"}
+          }
+        },
+        "hard_invariants": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/HardInvariant"
+          }
+        }
+      }
+    },
+    
+    "judgment": {
+      "$ref": "#/definitions/LinguisticJudgment"
+    },
+    
+    "traces": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/GateTrace"
+      }
+    }
+  },
+  
+  "definitions": {
+    "TokenNodeData": {
+      "type": "object",
+      "required": ["surface"],
+      "properties": {
+        "surface": {"type": "string"},
+        "tags": {"type": "array", "items": {"type": "string"}},
+        "phon_form": {"type": "string"},
+        "syllables": {"type": "array"},
+        "morph": {"type": "object"},
+        "syntax_role": {"type": "string"}
+      }
+    },
+    
+    "RootNodeData": {
+      "type": "object",
+      "required": ["radicals", "root_kind"],
+      "properties": {
+        "radicals": {
+          "type": "array",
+          "items": {"type": "string"},
+          "minItems": 2,
+          "maxItems": 5
+        },
+        "root_kind": {
+          "enum": ["GenderRoot", "EventRoot", "QualityRoot"]
+        }
+      }
+    },
+    
+    "Ma3aniToolNodeData": {
+      "type": "object",
+      "required": ["tool_class"],
+      "properties": {
+        "tool_class": {
+          "enum": [
+            "NEG", "COND", "EXCEPT", "ONLY",
+            "EMPHASIS", "REASON", "PURPOSE",
+            "RESULT", "SWEAR"
+          ]
+        }
+      },
+      "constraints": {
+        "hard_invariant_5_1": {
+          "forbidden_capabilities": [
+            "CAN_WRITE_SUBJECT",
+            "CAN_WRITE_PREDICATE"
+          ]
+        }
+      }
+    },
+    
+    "MabniRefNodeData": {
+      "type": "object",
+      "required": ["ref_type"],
+      "properties": {
+        "ref_type": {
+          "enum": ["PRONOUN", "DEMONSTRATIVE", "RELATIVE", "CONDITIONAL"]
+        }
+      },
+      "constraints": {
+        "hard_invariant_5_2": {
+          "forbidden_capabilities": [
+            "CAN_INSTANTIATE_ROOT",
+            "CAN_INSTANTIATE_QUALITY"
+          ]
+        }
+      }
+    },
+    
+    "Vectors": {
+      "type": "object",
+      "properties": {
+        "v_phoneme": {
+          "type": "array",
+          "items": {"type": "number"},
+          "description": "متجه فونيم (مخرج/صفة/جهر/تفخيم...)"
+        },
+        "v_syllable": {
+          "type": "array",
+          "items": {"type": "number"},
+          "description": "متجه مقطع (type/weight/boundary)"
+        },
+        "v_pattern": {
+          "type": "array",
+          "items": {"type": "number"},
+          "description": "متجه وزن (semantic signature)"
+        },
+        "v_root": {
+          "type": "array",
+          "items": {"type": "number"},
+          "description": "متجه جذر (semantic core)"
+        },
+        "v_sem": {
+          "type": "array",
+          "items": {"type": "number"},
+          "description": "متجه دلالي"
+        }
+      }
+    },
+    
+    "EdgeConstraints": {
+      "type": "object",
+      "properties": {
+        "type_check": {
+          "type": "object",
+          "properties": {
+            "from_capabilities": {
+              "type": "array",
+              "items": {"type": "string"}
+            },
+            "to_capabilities": {
+              "type": "array",
+              "items": {"type": "string"}
+            },
+            "violation_action": {
+              "enum": ["REJECT", "WARN", "REPAIR"]
+            }
+          }
+        },
+        "syntax_constraints": {
+          "type": "array",
+          "items": {"type": "string"}
+        },
+        "semantic_effects": {
+          "type": "array",
+          "items": {"type": "string"}
+        }
+      }
+    },
+    
+    "HardInvariant": {
+      "type": "object",
+      "required": ["rule_id", "description", "check_at"],
+      "properties": {
+        "rule_id": {"type": "string"},
+        "description": {"type": "string"},
+        "formal": {"type": "string"},
+        "check_at": {
+          "type": "array",
+          "items": {"type": "string"}
+        },
+        "violation_action": {
+          "enum": ["∞", "REJECT", "TYPE_ERROR"]
+        },
+        "proof_method": {"type": "string"}
+      }
+    },
+    
+    "LinguisticJudgment": {
+      "type": "object",
+      "properties": {
+        "subject": {
+          "oneOf": [
+            {"type": "string"},
+            {"type": "null"}
+          ],
+          "description": "node id of subject"
+        },
+        "predicate": {
+          "oneOf": [
+            {"type": "string"},
+            {"type": "null"}
+          ],
+          "description": "node id of predicate"
+        },
+        "constraints": {
+          "type": "array",
+          "items": {"type": "string"},
+          "description": "constraint node ids"
+        },
+        "scope": {
+          "type": "array",
+          "items": {"type": "string"},
+          "description": "scope operator node ids"
+        }
+      },
+      "meta": {
+        "separation_from_truth": "J ≠ T (truth value)",
+        "role": "linguistic extraction only, no epistemic evaluation"
+      }
+    },
+    
+    "GateTrace": {
+      "type": "object",
+      "required": ["gate_type", "input_node_id", "output_node_id"],
+      "properties": {
+        "gate_type": {"type": "string"},
+        "input_node_id": {"type": "string"},
+        "output_node_id": {"type": "string"},
+        "trace": {"type": "object"}
+      }
+    }
+  },
+  
+  "edge_type_rules": {
+    "BUILDS_SUBJECT": {
+      "from_types": ["RootNode(GenderRoot)", "RootNode(EventRoot)", "RefNode"],
+      "to_type": "J.subject",
+      "type_check": {
+        "required_capability": "CAN_WRITE_SUBJECT",
+        "forbidden_types": ["Ma3aniToolNode"],
+        "violation": {
+          "if": "from is Ma3aniToolNode",
+          "then": "INV_MA3ANI_5.1 violated → ∞"
+        }
+      }
+    },
+    
+    "BUILDS_PREDICATE": {
+      "from_types": ["RootNode(EventRoot)", "VerbPhraseNode"],
+      "to_type": "J.predicate",
+      "type_check": {
+        "required_capability": "CAN_WRITE_PREDICATE",
+        "forbidden_types": ["Ma3aniToolNode"],
+        "violation": {
+          "if": "from is Ma3aniToolNode",
+          "then": "INV_MA3ANI_5.1 violated → ∞"
+        }
+      }
+    },
+    
+    "ADDS_SCOPE_OPERATOR": {
+      "from_types": ["Ma3aniToolNode"],
+      "to_type": "J.scope",
+      "type_check": {
+        "required_capability": "CAN_PRODUCE_SCOPE",
+        "allowed": true
+      }
+    },
+    
+    "BINDS_REF": {
+      "from_types": ["MabniRefNode"],
+      "to_type": "RefNode",
+      "type_check": {
+        "required_gate": "MabniRefGate",
+        "forbidden_direct": true,
+        "violation": {
+          "if": "no MabniRefGate applied",
+          "then": "Type Error"
+        }
+      }
+    },
+    
+    "DERIVES_TO": {
+      "from_types": ["RootNode"],
+      "to_type": "RootNode",
+      "type_check": {
+        "required_gate": "DerivationGate",
+        "required_trace": true,
+        "violation": {
+          "if": "root_kind changes without gate",
+          "then": "INV_DERIVATION violated → ∞"
+        }
+      }
+    },
+    
+    "MODIFIES": {
+      "from_types": ["RootNode(QualityRoot)", "AdjectiveNode"],
+      "to_types": ["RootNode(GenderRoot)", "NounNode"],
+      "constraints": [
+        "syntax_adjacent(from, to)",
+        "agreement(from.gender, to.gender)",
+        "agreement(from.number, to.number)"
+      ],
+      "semantic_effect": "Restrictor(from) applied_to Ref(to)"
+    },
+    
+    "COREFERS": {
+      "from_types": ["RefNode"],
+      "to_types": ["RootNode", "RefNode"],
+      "constraints": [
+        "binding_domain(from, to)",
+        "c_command(from, to)"
+      ]
+    }
+  },
+  
+  "gate_correctness_conditions": {
+    "Ma3aniScopeGate": {
+      "input_type": "Ma3aniToolNode",
+      "output_type": "ScopeOperatorNode",
+      "ensures": "Ma3aniToolNode → ScopeOp only",
+      "forbids": "Ma3aniToolNode → Subject/Predicate"
+    },
+    
+    "MabniRefGate": {
+      "input_type": "MabniRefNode",
+      "output_type": "RefNode + edges(COREFERS | RESTRICTED_BY)",
+      "ensures": "MabniRefNode → RefNode only",
+      "forbids": "MabniRefNode → RootNode | QualityRoot"
+    },
+    
+    "DerivationGate": {
+      "input_type": "RootNode(kind₁)",
+      "output_type": "RootNode(kind₂) + trace",
+      "ensures": "kind change with trace",
+      "forbids": "kind change without gate"
+    },
+    
+    "PatternGate": {
+      "input_type": "RootNode + Pattern",
+      "output_type": "Stem + sem_signature",
+      "ensures": "compatibility(root.kind, pattern.target_kind)",
+      "forbids": "incompatible pattern application"
+    }
+  },
+  
+  "space_separation": {
+    "S5_SemSpace": {
+      "produces": "J = (Subject, Predicate, Constraints, Scope)",
+      "forbidden": "truth evaluation, epistemic classification",
+      "output_to": "S6_EpistemicSpace"
+    },
+    
+    "S6_EpistemicSpace": {
+      "input_from": "S5_SemSpace",
+      "produces": "predicate_type + truth_mode + verification_method",
+      "classification": {
+        "Rational": "عقلي - يُقيّم بالعقل",
+        "World_Verify": "واقعي - يُتحقق في العالم",
+        "Hearing_Required": "سمعي - يحتاج نص شرعي"
+      },
+      "forbidden": "Language system cannot perform this classification"
+    }
+  },
+  
+  "validation_pipeline": [
+    {
+      "stage": 1,
+      "name": "Node Type Validation",
+      "checks": [
+        "all nodes have valid kind",
+        "capabilities consistent with kind",
+        "Ma3aniToolNode: CAN_PRODUCE_SCOPE ∧ ¬CAN_WRITE_SUBJECT ∧ ¬CAN_WRITE_PREDICATE",
+        "MabniRefNode: CAN_PRODUCE_REF ∧ ¬CAN_INSTANTIATE_ROOT"
+      ]
+    },
+    {
+      "stage": 2,
+      "name": "Edge Type Validation",
+      "checks": [
+        "from/to nodes exist",
+        "edge type compatible with from/to types",
+        "BUILDS_SUBJECT: from ≠ Ma3aniToolNode",
+        "BUILDS_PREDICATE: from ≠ Ma3aniToolNode",
+        "BINDS_REF: from = MabniRefNode ∧ exists MabniRefGate trace",
+        "DERIVES_TO: exists DerivationGate trace"
+      ]
+    },
+    {
+      "stage": 3,
+      "name": "Hard Invariants Validation",
+      "checks": [
+        "INV_MA3ANI_5.1: no Ma3aniToolNode writes Subject/Predicate",
+        "INV_MABNI_5.2: no MabniRefNode instantiates Root/Quality",
+        "INV_DERIVATION: all root_kind changes have gate trace"
+      ]
+    },
+    {
+      "stage": 4,
+      "name": "Judgment Consistency",
+      "checks": [
+        "J.subject node has CAN_WRITE_SUBJECT",
+        "J.predicate node has CAN_WRITE_PREDICATE",
+        "J.scope nodes all ScopeOperatorNode",
+        "J is linguistic judgment, not truth evaluation"
+      ]
+    }
+  ],
+  
+  "example_valid_graph": {
+    "nodes": [
+      {
+        "id": "t1",
+        "kind": "TokenNode",
+        "data": {"surface": "من", "tags": ["Ma3aniTool"]},
+        "capabilities": []
+      },
+      {
+        "id": "m1",
+        "kind": "Ma3aniToolNode",
+        "data": {"tool_class": "COND"},
+        "capabilities": ["CAN_PRODUCE_SCOPE", "CAN_PRODUCE_CONSTRAINT"]
+      },
+      {
+        "id": "scope1",
+        "kind": "ScopeOperatorNode",
+        "data": {"operator_type": "IF_THEN"},
+        "capabilities": []
+      },
+      {
+        "id": "r2",
+        "kind": "RootNode",
+        "data": {"radicals": ["ك", "ذ", "ب"], "root_kind": "EventRoot"},
+        "capabilities": ["CAN_WRITE_SUBJECT", "CAN_WRITE_PREDICATE"]
+      }
+    ],
+    "edges": [
+      {
+        "type": "ADDS_SCOPE_OPERATOR",
+        "from": "m1",
+        "to": "scope1",
+        "constraints": {
+          "type_check": {
+            "from_capabilities": ["CAN_PRODUCE_SCOPE"],
+            "violation_action": "REJECT"
+          }
+        }
+      },
+      {
+        "type": "BUILDS_PREDICATE",
+        "from": "r2",
+        "to": "J.predicate",
+        "constraints": {
+          "type_check": {
+            "from_capabilities": ["CAN_WRITE_PREDICATE"],
+            "violation_action": "REJECT"
+          }
+        }
+      }
+    ],
+    "typing_context": {
+      "hard_invariants": [
+        {
+          "rule_id": "INV_MA3ANI_5.1",
+          "description": "أدوات المعاني لا تكتب Subject/Predicate",
+          "check_at": ["semantic_construction"],
+          "violation_action": "∞"
+        }
+      ]
+    },
+    "judgment": {
+      "subject": null,
+      "predicate": "r2",
+      "constraints": [],
+      "scope": ["scope1"]
+    },
+    "traces": [
+      {
+        "gate_type": "Ma3aniScopeGate",
+        "input_node_id": "m1",
+        "output_node_id": "scope1",
+        "trace": {"tool_class": "COND", "operator_type": "IF_THEN"}
+      }
+    ],
+    "validation_result": {
+      "stage1": "PASS",
+      "stage2": "PASS",
+      "stage3": "PASS",
+      "stage4": "PASS",
+      "overall": "VALID"
+    }
+  }
+}
