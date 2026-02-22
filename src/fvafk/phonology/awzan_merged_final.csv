@@ -1,0 +1,305 @@
+الوزن,source,CV,Detailed_CV,Advanced_CV,الاسم,الوصف,ملاحظات,مثال,الجذر,نمط_الحركات,Matched_Example
+أَفَاعِل,claude,CVCVVCVC,C-Va-C-Va-Va-C-Vi-C,CVaCVaVaCViC,,,,,,,
+أَفَاعِلَة,claude,CVCVVCVCVC,C-Va-C-Va-Va-C-Vi-C-Va-C,CVaCVaVaCViCVaC,,,,,,,
+أَفَاعِيل,claude,CVCVVCVVC,C-Va-C-Va-Va-C-Vi-Vi-C,CVaCVaVaCViViC,,,,,,,
+أَفَاعِيلَة,claude,CVCVVCVVCVC,C-Va-C-Va-Va-C-Vi-Vi-C-Va-C,CVaCVaVaCViViCVaC,,,,,,,
+أَفْعَل,atwah,CVCCVC,C-Va-C-C-Va-C,CVaCCVaC,,صفة مشبهة (لون): تصف شيئًا يتصف باللون الأسود.,,أَسوَد,سود,همزة/فتحة/سكون/فتحة/سكون,أَسوَد
+أَفْعَلَ,form_iv,CVCCVCV,ʔa-C-C-Va-C-Va,ʔaCCVaCVa,,,,,,,
+أَفْعَلَّ,atwah,CVCCVCCV,C-Va-C-C-Va-C-C-Va,CVaCCVaCCVa,,فعل مضارع + ضمير: يطيل لهم في المهلة أو يزيدهم.,,وَيَمُدُّهُمْ,مدد,واو/فتحة/ياء/فتحة/ميم/ضمة/دال/شدّة/ضمة/هاء/ضمة/ميم/سكون,وَيَمُدُّهُمْ
+أَفْعَلُوا,form_iv,CVCCVCVV,ʔa-C-C-Va-C-Voo,ʔaCCVaCVoo,,,,,,,
+أَفْعَلْتُ,form_iv,CVCCVCCV,ʔa-C-C-Va-C-C-V,ʔaCCVaCCV,,,,,,,
+أَفْعَلْتُمْ,form_iv,CVCCVCCVC,ʔa-C-C-Va-C-C-V-C,ʔaCCVaCCVC,,,,,,,
+أَفْعَلْنَا,form_iv,CVCCVCCVV,ʔa-C-C-Va-C-C-Vaa,ʔaCCVaCCVaa,,,,,,,
+أَفْعُل,claude,CVCCVC,C-Va-C-C-Vo-C,CVaCCVoC,,,,,,,
+أَفْعِلَة,atwah,CVCCVCVC,C-Va-C-C-Vi-C-Va-C,CVaCCViCVaC,,"جمع تكسير (جمع قلة): جمع كلمة ""كلب""، وتدل على عدد قليل (من 3 إلى 10).",,أَكْلِبَة,كلب,همزة/فتحة/كاف/سكون/لام/كسرة/باء/فتحة/تاء مربوطة,أَكْلِبَة
+أَفْعِلْ,form_iv,CVCCVC,ʔa-C-C-Vi-C,ʔaCCViC,,,,,,,
+أَكْثَرَ,manual,CVCCVC,C-Va-C-C-Va-C,CVaCCVaC,,,,,,,
+أُفْعُول,claude,CVCCVVC,C-Vo-C-C-Vo-Vo-C,CVoCCVoVoC,,,,,,,
+أُفْعِلَ,missing,VoCCViCVa,Vo-C-C-Vi-C-Va,VoCCViCVa,,,,,,,
+أُفْعِلُ,form_iv,CVCCVCV,ʔo-C-C-Vi-C-Vo,ʔoCCViCVo,,,,,,,
+إِفْعَال,claude,CVCCVVC,C-Vi-C-C-Va-Va-C,CViCCVaVaC,,,,,,,
+إِفْعَالٌ,form_iv,CVCCVVC,ʔi-C-C-Vaa-C,ʔiCCVaaC,,,,,,,
+إِفْعِيلَال,claude,CVCCVVCVVC,C-Vi-C-C-Vi-Vi-C-Va-Va-C,CViCCViViCVaVaC,,,,,,,
+اسْتَفْعَالَة,claude,VVCCVCCVVCVC,Va-C-C-Va-C-C-Va-Va-C-Va-C,VaVaCCVaCCVaVaCVaC,,,,,,,
+اسْتَفْعَلَ,atwah,VVCCVCCVCV,Va-C-C-Va-C-C-Va-C-Va,VaVaCCVaCCVaCVa,,فعل ثلاثي مزيد بثلاثة أحرف، يدل على الطلب (السعي للحصول على شيء)، التحول، أو الاعتقاد.,,اسْتَخْرَجَ,خرج,همزة وصل / س، ت / سكون / فَتْحَة / فَتْحَة,اسْتَغْفَرَ
+اسْتَفْعَلُوا,atwah,VVCCVCCVCVVVV,Va-C-C-Va-C-C-Va-C-Vo-Vo-Va,VaVaCCVaCCVaCVoVoVaVa,,فعل ماضٍ: لبّوا الدعوة وأطاعوا الأمر.,,اسْتَجَابُوا,جوب,همزة/وصل/سين/سكون/تاء/فتحة/جيم/فتحة/ألف/سكون/باء/ضمة/واو/سكون/ألف/سكون,اسْتَجَابُوا
+اسْتَفْعِلْ,atwah,VVCCVCCVC,Va-C-C-Va-C-C-Vi-C,VaVaCCVaCCViC,,فعل ماضٍ: طلب السقيا (الماء أو المطر) من الله.,,اسْتَسْقَى,سقي,همزة/وصل/سين/سكون/تاء/فتحة/سين/سكون/قاف/فتحة/ألف مقصورة/سكون,اسْتَسْقَى
+اسْتِفْعَال,atwah,VVCCVCCVVC,Va-C-C-Vi-C-C-Va-Va-C,VaVaCCViCCVaVaC,,مصدر (فعل مزيد): تدل على عملية استخدام شيء لغرض معين.,,اسْتِعْمَال,عمل,همزة وصل/سين/سكون/تاء/كسرة/فتحة طويلة/سكون,اسْتِعْمَال
+اسْتِفْعَالَات,claude,VVCCVCCVVCVVC,Va-C-C-Vi-C-C-Va-Va-C-Va-Va-C,VaVaCCViCCVaVaCVaVaC,,,,,,,
+اسْتِفْعَالِيَّة,claude,VVCCVCCVVCVCCVC,Va-C-C-Vi-C-C-Va-Va-C-Vi-C-C-Va-C,VaVaCCViCCVaVaCViCCVaC,,,,,,,
+افْتَعَلَ,atwah,VVCCVCVCV,Va-C-C-Va-C-Va-C-Va,VaVaCCVaCVaCVa,,فعل ثلاثي مزيد بحرفين، يدل على الاتخاذ، الاجتهاد، أو المطاوعة.,,أَتَتَّخِذُنَا,أخذ,همزة/فتحة/تاء/فتحة/تاء/شدّة/فتحة/خاء/كسرة/ذال/ضمة/نون/فتحة/ألف/سكون,أَتَتَّخِذُنَا
+افْتَعَلْ,atwah,VVCCVCVC,Va-C-C-Va-C-Va-C,VaVaCCVaCVaC,,فعل ماضٍ: اعتدل، نضج، أو علا وارتفع (حسب السياق).,,اسْتَوَى,سوي,همزة/وصل/سين/سكون/تاء/فتحة/واو/فتحة/ألف مقصورة/سكون,اسْتَوَى
+افْتَعِل,atwah,VVCCVCVC,Va-C-C-Va-C-Vi-C,VaVaCCVaCViC,,فعل أمر (جمع): سارعوا وتنافسوا في فعل الخيرات.,,فَاسْتَبِقُوا,سبق,فاء/فتحة/ألف/وصل/سين/سكون/تاء/فتحة/باء/كسرة/قاف/ضمة/واو/سكون/ألف/سكون,فَاسْتَبِقُوا
+افْتِعَال,atwah,VVCCVCVVC,Va-C-C-Vi-C-Va-Va-C,VaVaCCViCVaVaC,,مصدر (فعل مزيد): تدل على شعور العزة والاعتزاز بالنفس أو بالآخرين.,,افْتِخَار,فخر,همزة وصل/سكون/تاء/كسرة/فتحة طويلة/سكون,افْتِخَار
+افْعَالَّ,claude,VVCCVVCCV,Va-C-C-Va-Va-C-C-Va,VaVaCCVaVaCCVa,,,,,,,
+افْعَالَّ,user_extras,VVCCVVCCV,Va-C-C-Va-Va-C-C-Va,VaVaCCVaVaCCVa,,,,,,,
+افْعَلَلَّ,atwah,VVCCVCVCCV,Va-C-C-Va-C-Va-C-C-Va,VaVaCCVaCVaCCVa,,لام التعليل + فعل: ليسكن قلبه ويثبت ويرتاح.,,لِيَطْمَئِنَّ,طمأن,لام/كسرة/ياء/فتحة/طاء/سكون/ميم/فتحة/همزة/كسرة/نون/شدّة/فتحة,لِيَطْمَئِنَّ
+افْعَلَّ,claude,VVCCVCCV,Va-C-C-Va-C-C-Va,VaVaCCVaCCVa,,,,,,,
+افْعَلُ,atwah,VVCCVCV,Va-C-C-Va-C-Vo,VaVaCCVaCVo,,فعل ماضٍ (جمع): استبدلوا أو أخذوا (الضلالة) وتركوا (الهدى).,,اشْتَرَوْا,شري,همزة/وصل/شين/سكون/تاء/فتحة/راء/فتحة/واو/سكون/ألف/سكون,اشْتَرَوْا
+افْعَلَّ,user_extras,VVCCVCCV,Va-C-C-Va-C-C-Va,VaVaCCVaCCVa,,,,,,,
+افْعَلْ,atwah,VVCCVC,Va-C-C-Va-C,VaVaCCVaC,,فعل أمر: طلب البقاء في المكان أو الاستقرار فيه.,,اسْكُنْ,سكن,همزة/وصل/سين/سكون/كاف/ضمة/نون/سكون,اسْكُنْ
+افْعَنْلَلَ,user_extras,VVCCVCCVCV,Va-C-C-Va-C-C-Va-C-Va,VaVaCCVaCCVaCVa,,,,,,,
+افْعَوَّلَ,claude,VVCCVCCVCV,Va-C-C-Va-C-C-Va-C-Va,VaVaCCVaCCVaCVa,,,,,,,
+افْعَوَّلَ,user_extras,VVCCVCCVCV,Va-C-C-Va-C-C-Va-C-Va,VaVaCCVaCCVaCVa,,,,,,,
+افْعَوْعَلَ,claude,VVCCVCCVCV,Va-C-C-Va-C-C-Va-C-Va,VaVaCCVaCCVaCVa,,,,,,,
+افْعُ,atwah,VVCCV,Va-C-C-Vo,VaVaCCVo,,جار ومجرور: الباء للاستعانة، واسم (بداية).,,بِسْمِ,سمو,باء/كسرة/سين/سكون/ميم/كسرة,بِسْمِ
+افْعِلَال,claude,VVCCVCVVC,Va-C-C-Vi-C-Va-Va-C,VaVaCCViCVaVaC,,,,,,,
+افْعِوَّال,claude,VVCCVCCVVC,Va-C-C-Vi-C-C-Va-Va-C,VaVaCCViCCVaVaC,,,,,,,
+افْعِيعَال,claude,VVCCVVCVVC,Va-C-C-Vi-Vi-C-Va-Va-C,VaVaCCViViCVaVaC,,,,,,,
+انْفَعَلَ,atwah,VVCCVCVCV,Va-C-C-Va-C-Va-C-Va,VaVaCCVaCVaCVa,,فعل ثلاثي مزيد بحرفين، يدل على المطاوعة، الانفعال، أو حدوث الفعل تلقائيًا بدون فاعل ظاهر.,,انْكَسَرَ,كسر,همزة وصل/سكون / فَتْحَة / فَتْحَة / فَتْحَة,فَانْفَجَرَتْ
+انْفِعَال,claude,VVCCVCVVC,Va-C-C-Vi-C-Va-Va-C,VaVaCCViCVaVaC,,,,,,,
+تَفَاعَلَ,atwah,CVCVVCVCV,C-Va-C-Va-Va-C-Va-C-Va,CVaCVaVaCVaCVa,,فعل ثلاثي مزيد بحرفين، يدل على المشاركة أو التظاهر بصفة ما.,,تَجَاهَلَ,جهل,تاء / فَتْحَة / مدّ / فَتْحَة / فَتْحَة,وَتَعَاوَنُوا
+تَفَاعُل,atwah,CVCVVCVC,C-Va-C-Va-Va-C-Vo-C,CVaCVaVaCVoC,,مصدر (فعل مزيد): تدل على استمرارية الاتصال أو التفاعل بين طرفين أو أكثر.,,تَواصُل,وصل,تاء/فتحة/ألف/ضمة طويلة/سكون,تَواصُل
+تَفَاعِيل,claude,CVCVVCVVC,C-Va-C-Va-Va-C-Vi-Vi-C,CVaCVaVaCViViC,,,,,,,
+تَفَاعِيلَة,claude,CVCVVCVVCVC,C-Va-C-Va-Va-C-Vi-Vi-C-Va-C,CVaCVaVaCViViCVaC,,,,,,,
+تَفَعَّلَ,claude,CVCVCCVCV,C-Va-C-Va-C-C-Va-C-Va,CVaCVaCCVaCVa,,,,,,,
+تَفَعَّلْنَا,missing,CVaCVaCCVaCCVaC,C-Va-C-Va-C-C-Va-C-C-Va-C,CVaCVaCCVaCCVaC,,,,,,,
+تَفَعُّل,claude,CVCVCCVC,C-Va-C-Va-C-C-Vo-C,CVaCVaCCVoC,,,,,,,
+تَفَعَّلَ,atwah,CVCVCCVCV,C-Va-C-Va-C-C-Va-C-Va,CVaCVaCCVaCVa,,فعل ثلاثي مزيد مضعّف، يدل على التكثير، التعدية (جعل الفعل متعديًا)، أو الكثرة والتكرار.,,تَعَلَّمَ,علم,تاء / فَتْحَة / شَدّة / فَتْحَة / فَتْحَة,تَعَجَّلَ
+تَفَعَّلُ,atwah,CVCVCCVCV,C-Va-C-Va-C-C-Va-C-Vo,CVaCVaCCVaCVo,,فعل ماضٍ: تنصلوا، قطعوا الصلة، وتخلصوا من المسؤولية.,,تَبَرَّءُوا,برأ,تاء/فتحة/باء/فتحة/راء/شدّة/فتحة/همزة/ضمة/واو/سكون/ألف/سكون,تَبَرَّءُوا
+تَفَعُّل,atwah,CVCVCCVC,C-Va-C-Va-C-C-Vo-C,CVaCVaCCVoC,,مصدر (فعل مزيد): تدل على عملية اكتساب المعرفة أو المهارات.,,تَعَلُّم,علم,تاء/فتحة/شدة/ضمة طويلة/سكون,تَعَلُّم
+تَفَعْلَلَ,user_extras,CVCVCCVCV,C-Va-C-Va-C-C-Va-C-Va,CVaCVaCCVaCVa,,,,,,,
+تَفْعُل,atwah,CVCCVC,C-Va-C-C-Vo-C,CVaCCVoC,,,,,,,
+تَفْعُلُ,atwah,CVCCVCV,C-Va-C-C-Vo-C-Vo,CVaCCVoCVo,,,,,,,
+تَفْعِيل,atwah,CVCCVVC,C-Va-C-C-Vi-Vi-C,CVaCCViViC,,مصدر (فعل مزيد): تدل على عملية جعل الشيء أفضل أو أجمل.,,تَقْطِيع,قطع,تاء/فتحة/سكون/كسرة طويلة/سكون,تَقْطِيع
+تَفْعِيلَة,atwah,CVCCVVCVC,C-Va-C-C-Vi-Vi-C-Va-C,CVaCCViViCVaC,,اسم مرة أو اسم نوع: تدل على توجيه أو إرشاد محدد يُعطى للقيام بشيء ما.,,تَعْلِيمَة,علم,تاء/فتحة/سكون/كسرة طويلة/فتحة,تَعْلِيمَة
+تَفْعِيلِيّ,atwah,CVCCVVCVCC,C-Va-C-C-Vi-Vi-C-Vi-C-C,CVaCCViViCViCC,,"اسم منسوب: صفة تتعلق بفن التصوير أو الصور، مأخوذة من المصدر ""تصوير"".",,تَصْوِيرِيّ,صور,تاء/فتحة/صاد/سكون/واو/كسرة/ياء/سكون/راء/كسرة/ياء/شدّة,تَصْوِيرِيّ
+تُفْعِلُ,form_iv,CVCCVCV,to-C-C-Vi-C-Vo,toCCViCVo,,,,,,,
+تِفْعَال,claude,CVCCVVC,C-Vi-C-C-Va-Va-C,CViCCVaVaC,,,,,,,
+ضَلَّ,manual,CVCC,C-Va-C-C,CVaCC,,,,,,,
+عِ,atwah,CV,C-Vi,CVi,,واو عطف + فعل أمر (دعاء): احفظنا واحمِنا من السوء.,,وَقِنَا,وقي,واو/فتحة/قاف/كسرة/نون/فتحة/ألف/سكون,وَقِنَا
+فاعِل,user_extras,CVVCVC,C-Va-C-Vi-C,CVaVaCViC,,,,,,,
+فاعِل (منقوص),user_extras,CVVCVCCCCCCCCC,C-Va-C-Vi-C-C-C-C-C-C-C-C-C,CVaVaCViCCCCCCCCC,,,,,,,
+فاعِل (همزة),user_extras,CVVCVCCCCCCCC,C-Va-C-Vi-C-C-C-C-C-C-C-C,CVaVaCViCCCCCCCC,,,,,,,
+فَاعَلَ,atwah,CVVCVCV,C-Va-Va-C-Va-C-Va,CVaVaCVaCVa,,فعل ثلاثي مزيد بألف، يدل على المشاركة، المفاعلة المتبادلة، أو المحاولة.,,كاتَبَ,كتب,فَتْحَة / مَدّ (ألف) / فَتْحَة / فَتْحَة,عَاهَدَ
+فَاعُول,claude,CVVCVVC,C-Va-Va-C-Vo-Vo-C,CVaVaCVoVoC,,,,,,,
+فَاعِل,atwah,CVVCVC,C-Va-Va-C-Vi-C,CVaVaCViC,اسم فاعل,من قام بالفعل أو اتصف به,غير ثابت غالبًا,الضَّالِّينَ,ضلل,ألف/وصل/لام/شمسية/ضاد/شدّة/فتحة/ألف/سكون/لام/شدّة/كسرة/ياء/سكون/نون/فتحة,الضَّالِّينَ
+فَاعِلٌ,atwah,CVVCVCV,C-Va-Va-C-Vi-C-Vo-C,CVaVaCViCVo,,اسم فاعل، يدل على من قام بالفعل.,,عَارِفٌ,عرف,فَتْحَة / مَدّ (ألف) / كَسْرَة / ضَمَّة,جَاعِلٌ
+فَاعِلَات,claude,CVVCVCVVC,C-Va-Va-C-Vi-C-Va-Va-C,CVaVaCViCVaVaC,,,,,,,
+فَاعِلَة,claude,CVVCVCVC,C-Va-Va-C-Vi-C-Va-C,CVaVaCViCVaC,,,,,,,
+فَاعِلُون,claude,CVVCVCVVC,C-Va-Va-C-Vi-C-Vo-Vo-C,CVaVaCViCVoVoC,,,,,,,
+فَاعِلِ,atwah,CVVCVCV,C-Va-Va-C-Vi-C-Vi,CVaVaCViCVi,,اسم فاعل: صاحب المُلك والسلطان والمتصرف في الشيء.,,مَالِكِ,ملك,ميم/فتحة/ألف/سكون/لام/كسرة/كاف/كسرة,مَالِكِ
+فَاعِلِيَّة,claude,CVVCVCVCCVC,C-Va-Va-C-Vi-C-Vi-C-C-Va-C,CVaVaCViCViCCVaC,,,,,,,
+فَاعِيل,claude,CVVCVVC,C-Va-Va-C-Vi-Vi-C,CVaVaCViViC,,,,,,,
+فَعَ,atwah,CVCV,C-Va-C-Va,CVaCVa,,فعل ماضٍ (جمع): قابلوا أو واجهوا.,,لَقُوا,لقي,لام/فتحة/قاف/ضمة/واو/سكون/ألف/سكون,لَقُوا
+فَعَائِل,atwah,CVCVVCVC,C-Va-C-Va-Va-C-Vi-C,CVaCVaVaCViC,,صيغة منتهى الجموع (جمع تكسير).,,عَجَائِز,عجز,فتحة / ألف / ألف طويلة / كسرة / سكون,عَجَائِز
+فَعَال,claude,CVCVVC,C-Va-C-Va-Va-C,CVaCVaVaC,,,,,,,
+فَعَالٌ,missing,CVaCVaVaC,C-Va-C-Va-Va-C,CVaCVaVaC,,,,,,,
+فَعَالَة,claude,CVCVVCVC,C-Va-C-Va-Va-C-Va-C,CVaCVaVaCVaC,,,,,,,
+فَعَالَى,atwah,CVCVVCVV,C-Va-C-Va-Va-C-Va-C,CVaCVaVaCVaVa,,جمع تكسير + ضمير: ذنوبكم وأخطاؤكم.,,خَطَايَاكُمْ,خطأ,خاء/فتحة/طاء/فتحة/ألف/سكون/ياء/فتحة/ألف/سكون/كاف/ضمة/ميم/سكون,خَطَايَاكُمْ
+فَعَالِل,claude,CVCVVCVC,C-Va-C-Va-Va-C-Vi-C,CVaCVaVaCViC,,,,,,,
+فَعَالِلَة,claude,CVCVVCVCVC,C-Va-C-Va-Va-C-Vi-C-Va-C,CVaCVaVaCViCVaC,,,,,,,
+فَعَالِيل,claude,CVCVVCVVC,C-Va-C-Va-Va-C-Vi-Vi-C,CVaCVaVaCViViC,,,,,,,
+فَعَالِيلَة,claude,CVCVVCVVCVC,C-Va-C-Va-Va-C-Vi-Vi-C-Va-C,CVaCVaVaCViViCVaC,,,,,,,
+فَعَالِيَّة,atwah,CVCVVCVCCVC,C-Va-C-Va-Va-C-Vi-C-C-Va-C,CVaCVaVaCViCCVaC,,مصدر صناعي: نسبة إلى العمل، وتدل على الإجراءات أو النشاط التطبيقي.,,عَمَالِيَّة,عمل,عين/فتحة/ميم/فتحة/ألف/سكون/لام/كسرة/ياء/شدّة/فتحة/تاء مربوطة,عَمَالِيَّة
+فَعَلَ,atwah,CVCVCV,C-Va-C-Va-C-Va,CVaCVaCVa,,الفعل الثلاثي المجرد، يدل على حدوث الفعل.,,لِلْمُتَّقِينَ,وقي,لام/كسرة/لام/سكون/ميم/ضمة/تاء/شدّة/فتحة/قاف/كسرة/ياء/سكون/نون/فتحة,لِلْمُتَّقِينَ
+فَعَلَا,missing,CVaCVaCVa,C-Va-C-Va-C-Va,CVaCVaCVa,,,,,,,
+فَعَلَان,claude,CVCVCVVC,C-Va-C-Va-C-Va-Va-C,CVaCVaCVaVaC,,,,,,,
+فَعَلَة,atwah,CVCVCVC,C-Va-C-Va-C-Va-C,CVaCVaCVaC,,جمع تكسير (اسم فاعل): تدل على مجموعة من الأشخاص الذين يقومون بفعل العبادة.,,عَبَدَة,عبد,فتحة/فتحة/فتحة,عَبَدَة
+فَعَلَتْ,missing,CVaCVaCVaC,C-Va-C-Va-C-Va-C,CVaCVaCVaC,,,,,,,
+فَعَلَّ,atwah,CVCVCCV,C-Va-C-Va-C-C-Va,CVaCVaCCVa,,فعل ماضٍ + ضمير: جعلهما يقعان في الزلل والخطأ.,,فَأَزَلَّهُمَا,زلل,فاء/فتحة/همزة/فتحة/زاي/فتحة/لام/شدّة/فتحة/هاء/ضمة/ميم/فتحة/ألف/سكون,فَأَزَلَّهُمَا
+فَعَلُوا,missing,CVaCVaCVoC,C-Va-C-Va-C-Vo-C,CVaCVaCVoC,,,,,,,
+فَعَلِيَّة,claude,CVCVCVCCVC,C-Va-C-Va-C-Vi-C-C-Va-C,CVaCVaCViCCVaC,,,,,,,
+فَعَلِيّ,atwah,CVCVCVCC,C-Va-C-Va-C-Vi-C-C,CVaCVaCViCC,,اسم منسوب: تصف شيئًا أو شخصًا له صلة بالعرب، باللغة العربية، أو بالثقافة العربية.,,عَرَبِيّ,عرب,عين/فتحة/راء/فتحة/باس/كسرة/ياء/شدّة,عَرَبِيّ
+فَعَلْتَ,missing,CVaCVaCCVa,C-Va-C-Va-C-C-Va,CVaCVaCCVa,,,,,,,
+فَعَلْتُ,missing,CVaCVaCCVo,C-Va-C-Va-C-C-Vo,CVaCVaCCVo,,,,,,,
+فَعَلْتُمْ,missing,CVaCVaCCVoC,C-Va-C-Va-C-C-Vo-C,CVaCVaCCVoC,,,,,,,
+فَعَلْتِ,missing,CVaCVaCCVi,C-Va-C-Va-C-C-Vi,CVaCVaCCVi,,,,,,,
+فَعَلْنَا,missing,CVaCVaCCVaC,C-Va-C-Va-C-C-Va-C,CVaCVaCCVaC,,,,,,,
+فَعَوْ,atwah,CVCVC,C-Va-C-Va-C,CVaCVaC,,فعل ماضٍ + ضمائر: أعطيناهم ووهبناهم (نحن - للمتكلم المعظم).,,رَزَقْنَاهُمْ,رزق,راء/فتحة/زاي/فتحة/قاف/سكون/نون/فتحة/ألف/سكون/هاء/ضمة/ميم/سكون,رَزَقْنَاهُمْ
+فَعَى,missing,CVaCVa,C-Va-C-Va,CVaCVa,,,,,,,
+فَعَّ,missing,CVaCC,C-Va-C-C,CVaCC,,,,,,,
+فَعَّال,claude,CVCCVVC,C-Va-C-C-Va-Va-C,CVaCCVaVaC,,,,,,,
+فَعَّالُون,claude,CVCCVVCVVC,C-Va-C-C-Va-Va-C-Vo-Vo-C,CVaCCVaVaCVoVoC,,,,,,,
+فَعَّلَ,claude,CVCCVCV,C-Va-C-C-Va-C-Va,CVaCCVaCVa,,,,,,,
+فَعَّلُوا,missing,CVaCCVaCVoC,C-Va-C-C-Va-C-Vo-C,CVaCCVaCVoC,,,,,,,
+فَعَّلْنَا,missing,CVaCCVaCCVaC,C-Va-C-C-Va-C-C-Va-C,CVaCCVaCCVaC,,,,,,,
+فَعُلَ,atwah,CVCVCV,C-Va-C-Vo-C-Va,CVaCVoCVa,,الفعل الثلاثي المجرد، يدل على صفة ثابتة أو سمة أصيلة.,,ضَرُبَ,ضرب,ضمّة / سكون / سكون,ضَعُفُوا
+فَعُول,claude,CVCVVC,C-Va-C-Vo-Vo-C,CVaCVoVoC,,,,,,,
+فَعُولٌ,user_extras,CVCVVCV,C-Va-C-Vo-Vo-C-Vo-C,CVaCVoVoCVo,,,,,,,
+فَعُولَة,claude,CVCVVCVC,C-Va-C-Vo-Vo-C-Va-C,CVaCVoVoCVaC,,,,,,,
+فَعُولِيَّة,atwah,CVCVVCVCCVC,C-Va-C-Vo-Vo-C-Vi-C-C-Va-C,CVaCVoVoCViCCVaC,,اسم منسوب: ما يتعلق بوقت الصباح، أو ما يُعطى أو يُؤكل فيه.,,صُبُوحِيَّة,صبح,صاد/ضمة/باء/ضمة/واو/سكون/حاء/كسرة/ياء/شدّة/فتحة/تاء مربوطة,صُبُوحِيَّة
+فَعِل,atwah,CVCVC,C-Va-C-Vi-C,CVaCViC,,صيغة مبالغة - تدل على المبالغة في حدوث الفعل أو كثرة القيام به.,,حَذِر,حذر,كسرة / سكون / سكون,عَلِمْتُمُ
+فَعِلَ,atwah,CVCVCV,C-Va-C-Vi-C-Va,CVaCViCVa,,الفعل الثلاثي المجرد، يدل على صفة ذاتية، عاطفة، أو تأثر داخلي.,,فَهِمَ,فهم,فَتْحَة / كَسْرَة / فَتْحَة,رَبِحَتْ
+فَعِلْنَا,missing,CVaCViCCVaC,C-Va-C-Vi-C-C-Va-C,CVaCViCCVaC,,,,,,,
+فَعِيل,atwah,CVCVVC,C-Va-C-Vi-Vi-C,CVaCViViC,صفة مشبهة,صفة ثابتة في الموصوف,أقوى من اسم الفاعل,رَحِيم,رحم,فتحة / كسرة طويلة / سكون,الرَحِيم
+فَعِيلٌ,missing,CVaCViViC,C-Va-C-Vi-Vi-C,CVaCViViC,,,,,,,
+فَعِيلَة,atwah,CVCVVCVC,C-Va-C-Vi-Vi-C-Va-C,CVaCViViCVaC,,صفة مشبهة (مؤنث): تصف شيئًا أو شخصًا يستحق الثناء والحمد، يحمل صفة حسنة دائمة.,,حَمِيدَة,حمد,فتحة/كسرة طويلة/فتحة,حَمِيدَة
+فَعِيَ,missing,CVaCViCVa,C-Va-C-Vi-C-Va,CVaCViCVa,,,,,,,
+فَعِيْلَة,atwah,CVCVVCVC,C-Va-C-Vi-C-C-Va-C,CVaCViViCVaC,,اسم علم مؤنث: اسم شخصي لمؤنث، قد يحمل معنى الجمال أو دلالة على من تتحدث مع الآخرين ليلاً.,,سَمِيرَة,سمر,فتحة/كسرة طويلة/فتحة,سَمِيرَة
+فَعّ,atwah,CVCC,C-Va-C-C,CVaCC,,,,,,,
+فَعَّال,atwah,CVCCVVC,C-Va-C-C-Va-Va-C,CVaCCVaVaC,صيغة مبالغة,كثرة وقوع الفعل,مثال: غفّار,غَفَّار,غفر,ضمة / شدّة / فتحة طويلة / سكون,غَفَّار
+فَعَّالَة,atwah,CVCCVVCVC,C-Va-C-C-Va-Va-C-Va-C,CVaCCVaVaCVaC,,اسم آلة: تدل على أداة تستخدم للقبض على الأشياء أو لقصها.,,كَمَّاشَة,كمش,كاف/ميم/شدّة/فتحة طويلة/شين/فتحة/تاء مربوطة,كَمَّاشَة
+فَعَّلَ,atwah,CVCCVCV,C-Va-C-C-Va-C-Va,CVaCCVaCVa,,فعل ثلاثي مزيد مضعّف، يدل على التكثير، التعدية (جعل الفعل متعديًا)، أو الكثرة والتكرار.,,سَبَّحَ,سبح,فَتْحَة / شَدّة / فَتْحَة / فَتْحَة,سَبَّحَ
+فَعِّيل,atwah,CVCCVVC,C-Va-C-C-Vi-Vi-C,CVaCCViViC,,صيغة مبالغة: تصف الشخص الذي يكثر من الدراسة أو البحث العلمي، وتدل على شدة فعله.,,دَرِّيس,درس,فتحة/شدة/كسرة طويلة/سكون,دَرِّيس
+فَعْل,claude,CVCC,C-Va-C-C,CVaCC,مصدر,أصل الحدث,,,,,
+فَعْلان,atwah,CVCCVVC,C-Va-C-C-Va-C,CVaCCVaVaC,,صفة مشبهة مؤنثه عطشى.,,عَطْشَان,عطش,فتحة / سكون / مدّ ألف / فتحتان,حَيْرَان
+فَعْلٌ,missing,CVaCC,C-Va-C-C,CVaCC,,,,,,,
+فَعْلَاء,atwah,CVCCVVC,C-Va-C-C-Va-Va-C,CVaCCVaVaC,,صفة مشبهة (مؤنث): تصف لونًا.,,خَضْرَاء,خضر,فتحة / سكون / فتحة/سكون,صَفْرَاءُ
+فَعْلَة,atwah,CVCCVC,C-Va-C-C-Va-C,CVaCCVaC,,مصدر المرة.,,ضَرْبَة,ضرب,ضمة طويلة / سكون,ضَرْبَة
+فَعْلَلَ,atwah,CVCCVCV,C-Va-C-C-Va-C-Va,CVaCCVaCVa,,,,دَحْرَجَ,دحرج,,دَحْرَجَ
+فَعْلَوِيَّة,claude,CVCCVCVCCVC,C-Va-C-C-Va-C-Vi-C-C-Va-C,CVaCCVaCViCCVaC,,,,,,,
+فَعْلَى,atwah,CVCCVV,C-Va-C-C-Va-C,CVaCCVaVa,,صفة مشبهة (مؤنث): تصف الأنثى التي تشعر بالعطش الشديد.,,سَلْقَى,سلقى,عين/فتحة/طاء/سكون/شين/فتحة/ألف مقصورة/سكون,سَلْقَى
+فَعْلُ,atwah,CVCCV,C-Va-C-C-Vo,CVaCCVo,,اسم على وزن فَعْلُ (مثل: يَوْمُ).,,يَوْمُ,يوم,فَتْحَة / سُكُون / ضَمَّة,يَوْمُ
+فَعْلِ,atwah,CVCCV,C-Va-C-C-Vi,CVaCCVi,,مصدر معرف بأل: الثناء والشكر لله بصفاته العلا.,,الْحَمْدُ,حمد,ألف/فتحة/لام/سكون/حاء/فتحة/ميم/سكون/دال/ضمة,الْحَمْدُ
+فَعْنَلَ,atwah,CVCCVCV,C-Va-C-C-Va-C-Va,CVaCCVaCVa,,,,قَلْنَسَ,قلنس,,قَلْنَسَ
+فَعْوَلَ,atwah,CVCCVCV,C-Va-C-C-Va-C-Va,CVaCCVaCVa,,,,دَهْوَرَ,دهور,,دَهْوَرَ
+فَعْيَلَ,atwah,CVCCVCV,C-Va-C-C-Va-C-Va,CVaCCVaCVa,,,,عَثْيَرَ,عثير,,عَثْيَرَ
+فَوَاعِل,atwah,CVCVVCVC,C-Va-C-Va-Va-C-Vi-C,CVaCVaVaCViC,,صيغة منتهى الجموع (جمع تكسير).,,فَوَارِس,فرس,فاء/فتحة/واو/فتحة/ألف/سكون/راء/كسرة/سين/سكون,فَوَارِس
+فَوَاعِلِيَّة,claude,CVCVVCVCVCCVC,C-Va-C-Va-Va-C-Vi-C-Vi-C-C-Va-C,CVaCVaVaCViCViCCVaC,,,,,,,
+فَوَاعِيل,claude,CVCVVCVVC,C-Va-C-Va-Va-C-Vi-Vi-C,CVaCVaVaCViViC,,,,,,,
+فَوْعَل,atwah,CVCCVC,C-Va-C-C-Va-C,CVaCCVaC,,اسم جامد: لباس للقدم (كلمة معربة).,,جَوْرَب,جورب,جيم/فتحة/واو/سكون/راء/فتحة/باء/سكون,جَوْرَب
+فَوْعَلَ,atwah,CVCCVCV,C-Va-C-C-Va-C-Va,CVaCCVaCVa,,,,جَوْرَبَ,جورب,,جَوْرَبَ
+فَيْعَلَ,atwah,CVCCVCV,C-Va-C-C-Va-C-Va,CVaCCVaCVa,,,,بَيْطَرَ,بيطر,,بَيْطَرَ
+فُعَال,claude,CVCVVC,C-Vo-C-Va-Va-C,CVoCVaVaC,,,,,,,
+فُعَالٌ,missing,CVoCVaVaC,C-Vo-C-Va-Va-C,CVoCVaVaC,,,,,,,
+فُعَالَة,claude,CVCVVCVC,C-Vo-C-Va-Va-C-Va-C,CVoCVaVaCVaC,,,,,,,
+فُعَالَى,claude,CVCVVCVV,C-Vo-C-Va-Va-C-Va-C,CVoCVaVaCVaVa,,,,,,,
+فُعَالِيل,claude,CVCVVCVVC,C-Vo-C-Va-Va-C-Vi-Vi-C,CVoCVaVaCViViC,,,,,,,
+فُعَل,atwah,CVCVC,C-Vo-C-Va-C,CVoCVaC,,مصدر: تدل على حالة الأرق وقلة النوم.,,سُهَد,سهد,ضمة/فتحة/سكون,سُهَد
+فُعَلَاء,atwah,CVCVCVVC,C-Vo-C-Va-C-Va-Va-C,CVoCVaCVaVaC,,جمع تكسير: تدل على مجموعة من الأشخاص الذين يقومون بفعل العلم والمعرفة، أي أنهم يمتلكون العلم.,,عُلَمَاء,علم,ضمة / فتحة / ألف / همزة / فتحة,عُلَمَاء
+فُعَلَاءُ,atwah,CVCVCVVCV,C-Vo-C-Va-C-Va-Va-C-Vo,CVoCVaCVaVaCVo,,جمع تكسير (صفة): خفاف العقل، الذين لا يحسنون التصرف.,,السُّفَهَاءُ,سفه,ألف/وصل/لام/شمسية/سين/شدّة/ضمة/فاء/فتحة/هاء/فتحة/ألف/سكون/همزة/ضمة,السُّفَهَاءُ
+فُعَيِّل,atwah,CVCVCCVC,C-Vo-C-Va-C-C-Vi-C,CVoCVaCCViC,,"اسم مصغر: تصغير ""رغيف""، ويدل على رغيف خبز صغير الحجم.",,رُغَيِّف,رغف,راء/ضمة/غين/فتحة/ياء/شدّة/كسرة/فاء/سكون,رغف
+فُعَيْعَى,claude,CVCVCCVV,C-Vo-C-Va-C-C-Va-C,CVoCVaCCVaVa,,,,,,,
+فُعَيْعِل,atwah,CVCVCCVC,C-Vo-C-Va-C-C-Vi-C,CVoCVaCCViC,,اسم مصغر: تدل على وحدة نقدية صغيرة.,,دُرَيْهِم,درهم,دال/ضمة/راء/فتحة/ياء/سكون/هاء/كسرة/لام/سكون,دُرَيْهِم
+فُعَيْل,atwah,CVCVCC,C-Vo-C-Va-C-C,CVoCVaCC,,اسم مصغر: تدل على جبل صغير الحجم.,,جُبَيْل,جبل,جيم/ضمة/باء/فتحة/ياء/سكون/لام/سكون,جُبَيْل
+فُعَيْلان,atwah,CVCVCCVVC,C-Vo-C-Va-C-C-Va-C,CVoCVaCCVaVaC,,اسم علم أو اسم مصغر: اسم شخصي، وقد يدل على معنى النعمة أو الراحة، أو هو تصغير للتحبب.,,نُعَيْمَان,نعم,نون/ضمة/عين/فتحة/ياء/سكون/ميم/فتحة طويلة/نون/سكون,نُعَيْمَان
+فُعَيْلَاء,atwah,CVCVCCVVC,C-Vo-C-Va-C-C-Va-Va-C,CVoCVaCCVaVaC,,اسم جامد/مصغر: صيغة نادرة، قد تكون اسماً لعلم أو تصغيراً غير قياسي.,,دُرَيْلَاء,درل,دال/ضمة/راء/فتحة/ياء/سكون/لام/فتحة/ألف/سكون/همزة/سكون,دُرَيْلَاء
+فُعَيْلَان,claude,CVCVCCVVC,C-Vo-C-Va-C-C-Va-Va-C,CVoCVaCCVaVaC,,,,,,,
+فُعَيْلَة,atwah,CVCVCCVC,C-Vo-C-Va-C-C-Va-C,CVoCVaCCVaC,,"اسم مصغر: تصغير ""درع""، وهي أداة حماية صغيرة.",,دُرَيْعَة,درع,دال/ضمة/راء/فتحة/ياء/سكون/عين/فتحة/تاء مربوطة,دُرَيْعَة
+فُعَيْلَى,atwah,CVCVCCVV,C-Vo-C-Va-C-C-Va-C,CVoCVaCCVaVa,,اسم مصغر: قد يكون تصغيراً لاسم علم أو صفة، يستخدم للتحبب أو التقليل.,,فُعَيْلَى,برع,باء/ضمة/راء/فتحة/ياء/سكون/عين/فتحة/ألف مقصورة/سكون,بُرَيْعَى
+فُعَيْلِيَّة,claude,CVCVCCVCCVC,C-Vo-C-Va-C-C-Vi-C-C-Va-C,CVoCVaCCViCCVaC,,,,,,,
+فُعَّال,claude,CVCCVVC,C-Vo-C-C-Va-Va-C,CVoCCVaVaC,,,,,,,
+فُعُل,atwah,CVCVC,C-Vo-C-Vo-C,CVoCVoC,,جمع تكسير (اسم فاعل): تدل على مجموعة من الأشخاص الذين تم إرسالهم برسالة.,,رُسُل,رسل,ضمة/ضمة/سكون,رُسُل
+فُعُول,claude,CVCVVC,C-Vo-C-Vo-Vo-C,CVoCVoVoC,جمع تكسير,جمع عام,,,,,
+فُعُولٌ,missing,CVoCVoVoC,C-Vo-C-Vo-Vo-C,CVoCVoVoC,,,,,,,
+فُعُولَة,claude,CVCVVCVC,C-Vo-C-Vo-Vo-C-Va-C,CVoCVoVoCVaC,,,,,,,
+فُعُولِيّ,atwah,CVCVVCVCC,C-Vo-C-Vo-Vo-C-Vi-C-C,CVoCVoVoCViCC,,اسم منسوب: الشخص المتمسك بالأصول والقواعد والمبادئ الأساسية.,,أُصُوليّ,أصل,همزة/ضمة/صاد/ضمة/واو/سكون/لام/كسرة/ياء/شدّة,أُصُوليّ
+فُعِّلَ,missing,CVoCCViCVa,C-Vo-C-C-Vi-C-Va,CVoCCViCVa,,,,,,,
+فُعُّول,atwah,CVCCVVC,C-Vo-C-C-Vo-Vo-C,CVoCCVoVoC,,اسم آلة: أداة نجار يدوية تستخدم للنحت وتسوية الخشب.,,قُدُّوم,قدم,قاف/ضمة/دال/شدّة/ضمة/واو/سكون/ميم/سكون,قُدُّوم
+فُعْل,claude,CVCC,C-Vo-C-C,CVoCC,,,,,,,
+فُعْلان,atwah,CVCCVVC,C-Vo-C-C-Va-C,CVoCCVaVaC,,مصدر للفعل الثلاثي، أو اسم يدل على الحدث.,,عُمْيَان,عمي,ضمّة / سكون / مدّ ألف / فتحتان,الْقُرْبَى
+فُعْلٌ,missing,CVoCC,C-Vo-C-C,CVoCC,,,,,,,
+فُعْلَان,claude,CVCCVVC,C-Vo-C-C-Va-Va-C,CVoCCVaVaC,,,,,,,
+فُعْلَة,claude,CVCCVC,C-Vo-C-C-Va-C,CVoCCVaC,,,,,,,
+فُعْلَى,claude,CVCCVV,C-Vo-C-C-Va-C,CVoCCVaVa,,,,,,,
+فُعْلُيَّة,claude,CVCCVCCVC,C-Vo-C-C-Vo-C-C-Va-C,CVoCCVoCCVaC,,,,,,,
+فُلْ,atwah,CVC,C-Vo-C,CVoC,,فعل ماضٍ ناقص (ناسخ): اتصاف المخاطبين بصفة في الزمن الماضي.,,كُنْتُمْ,كون,كاف/ضمة/نون/سكون/تاء/ضمة/ميم/سكون,كُنْتُمْ
+فِعَال,atwah,CVCVVC,C-Vi-C-Va-Va-C,CViCVaVaC,مصدر,يدل على الحدث مجردًا,,قِتَال,قتل,كسرة / فتحة / ألف / سكون,قِتَال
+فِعَالٌ,missing,CViCVaVaC,C-Vi-C-Va-Va-C,CViCVaVaC,,,,,,,
+فِعَالَة,atwah,CVCVVCVC,C-Vi-C-Va-Va-C-Va-C,CViCVaVaCVaC,,تشير إلى السلع أو المتاع المعد للبيع والشراء.,,بِطَاقَة,بطق,باء/كسرة/طاء/فتحة/ألف/سكون/قاف/فتحة/تاء مربوطة,بِطَاقَة
+فِعَالِيل,claude,CVCVVCVVC,C-Vi-C-Va-Va-C-Vi-Vi-C,CViCVaVaCViViC,,,,,,,
+فِعَالِيَّة,atwah,CVCVVCVCCVC,C-Vi-C-Va-Va-C-Vi-C-C-Va-C,CViCVaVaCViCCVaC,,مصدر صناعي/منسوب: ما يتعلق بالكتابة والتوثيق، أو وثيقة مكتوبة.,,كِتَابِيَّة,كتب,كاف/كسرة/تاء/فتحة/ألف/سكون/باء/كسرة/ياء/شدّة/فتحة/تاء مربوطة,كِتَابِيَّة
+فِعَل,atwah,CVCVC,C-Vi-C-Va-C,CViCVaC,,مصدر: تدل على صفة كون الشيء صغيرًا في الحجم أو العمر.,,الرِّبَا,ربو,ألف/وصل/لام/شمسية/راء/شدّة/كسرة/باء/فتحة/ألف/سكون,الرِّبَا
+فِعَّالِيَّة,atwah,CVCCVVCVCCVC,C-Vi-C-C-Va-Va-C-Vi-C-C-Va-C,CViCCVaVaCViCCVaC,,اسم منسوب: مرحلة تعليمية (الإعدادية)، أو ما يتعلق بالعد والإحصاء.,,عِدَّادِيَّة,عدد,عين/كسرة/دال/شدّة/فتحة/ألف/سكون/دال/كسرة/ياء/شدّة/فتحة/تاء مربوطة,عِدَّادِيَّة
+فِعِّيل,claude,CVCCVVC,C-Vi-C-C-Vi-Vi-C,CViCCViViC,,,,,,,
+فِعْل,claude,CVCC,C-Vi-C-C,CViCC,,,,,,,
+فِعْلان,atwah,CVCCVVC,C-Vi-C-C-Va-C,CViCCVaVaC,,جمع تكسير: تدل على مجموعة من الأولاد الصغار.,,صِبْيان,صبي,كسرة/سكون/ألف/نون,صِبْيان
+فِعْلٌ,missing,CViCC,C-Vi-C-C,CViCC,,,,,,,
+فِعْلَان,claude,CVCCVVC,C-Vi-C-C-Va-Va-C,CViCCVaVaC,,,,,,,
+فِعْلَة,atwah,CVCCVC,C-Vi-C-C-Va-C,CViCCVaC,,"جمع تكسير (جمع قلة): جمع ""فتى""، وتدل على مجموعة صغيرة من الشبان.",,فِتْيَة,فتي,فاء/كسرة/تاء/سكون/ياء/فتحة/تاء مربوطة,فِتْيَة
+فِعْلَى,atwah,CVCCVV,C-Vi-C-C-Va-C,CViCCVaVa,,صفة مشبهة/اسم: وصف لصفة القوة والشدة، أو اسم لنوع من الحيوانات.,,عِفْرَى,عفر,عين/كسرة/فاء/سكون/راء/فتحة/ألف مقصورة/سكون,عِفْرَى
+فِعْيَال,claude,CVCCVVC,C-Vi-C-C-Va-Va-C,CViCCVaVaC,,,,,,,
+فِلْ,atwah,CVC,C-Vi-C,CViC,,فعل ماضٍ: أردتما ورغبتما (للمثنى المخاطب).,,شِئْتُمَا,شأو,شين/كسرة/همزة/سكون/تاء/ضمة/ميم/فتحة/ألف/سكون,شِئْتُمَا
+فِيعَال,atwah,CVVCVVC,C-Vi-Vi-C-Va-Va-C,CViViCVaVaC,,اسم مضاف: العهد المؤكد والمغلظ (ميثاق + ضمير).,,مِيثَاقِهِ,وثق,ميم/كسرة/ياء/سكون/ثاء/فتحة/ألف/سكون/قاف/كسرة/هاء/كسرة,مِيثَاقِهِ
+كَذَّبَ,manual,CVCCVC,C-Va-C-C-Vi-C,CVaCCViC,,,,,,,
+مَافُلْ,atwah,CVVCVC,C-Va-Va-C-Vo-C,CVaVaCVoC,,اسم فاعل/جامد: الجن (مقابل الإنس)، أو نوع من الحيات السريعة.,,جَانٌّ,جنن,جيم/فتحة/ألف/سكون/نون/شدّة/تنوين ضم,جَانٌّ
+مَفاعِل,atwah,CVCVVCVC,C-Va-C-Va-C-Vi-C,CVaCVaVaCViC,,صيغة منتهى الجموع (جمع تكسير).,,مَسَاجِد,سجد,ميمـ / فتحة / ألف / كسرة / سكون,مَسَاجِد
+مَفَاعِل,claude,CVCVVCVC,C-Va-C-Va-Va-C-Vi-C,CVaCVaVaCViC,,,,,,,
+مَفَاعِلِيَّة,claude,CVCVVCVCVCCVC,C-Va-C-Va-Va-C-Vi-C-Vi-C-C-Va-C,CVaCVaVaCViCViCCVaC,,,,,,,
+مَفَاعِيل,atwah,CVCVVCVVC,C-Va-C-Va-Va-C-Vi-Vi-C,CVaCVaVaCViViC,جمع تكسير,جمع يدل على الكثرة,مثال: مَسَامِير,مَصَابِيح,صبح,ميمـ / فتحة / ألف / كسرة طويلة / سكون,مَصَابِيح
+مَفَاعِيلَة,claude,CVCVVCVVCVC,C-Va-C-Va-Va-C-Vi-Vi-C-Va-C,CVaCVaVaCViViCVaC,,,,,,,
+مَفْعَال,claude,CVCCVVC,C-Va-C-C-Va-Va-C,CVaCCVaVaC,,,,,,,
+مَفْعَل,atwah,CVCCVC,C-Va-C-C-Va-C,CVaCCVaC,,اسم مكان أو زمان - يدل على مكان أو زمان وقوع الفعل.,,مَكْتَب,كتب,ميم/فتحة/كاف/سكون/تاء/فتحة/باء/سكون,مَكْتَب
+مَفْعَلَة,atwah,CVCCVCVC,C-Va-C-C-Va-C-Va-C,CVaCCVaCVaC,,اسم مكان أو زمان - يدل على مكان أو زمان وقوع الفعل.,,مَكْتَبَة,كتب,ميمـ / فتحة / سكون / فتحة / فتحة,مَكْتَبَة
+مَفْعُول,atwah,CVCCVVC,C-Va-C-C-Vo-Vo-C,CVaCCVoVoC,اسم مفعول,ما وقع عليه الفعل,,الْمَغْضُوبِ,غضب,ألف/فتحة/لام/سكون/ميم/فتحة/غين/سكون/ضاد/ضمة/واو/سكون/باء/كسرة,الْمَغْضُوبِ
+مَفْعُولَات,claude,CVCCVVCVVC,C-Va-C-C-Vo-Vo-C-Va-Va-C,CVaCCVoVoCVaVaC,,,,,,,
+مَفْعُولِيَّة,claude,CVCCVVCVCCVC,C-Va-C-C-Vo-Vo-C-Vi-C-C-Va-C,CVaCCVoVoCViCCVaC,,,,,,,
+مَفْعِل,atwah,CVCCVC,C-Va-C-C-Vi-C,CVaCCViC,,اسم مكان أو زمان - يدل على مكان أو زمان وقوع الفعل.,,مَنْزِل,نزل,ميمـ / فتحة / سكون / كسرة / سكون,مَنْزِل
+مَفْعِلَة,claude,CVCCVCVC,C-Va-C-C-Vi-C-Va-C,CVaCCViCVaC,,,,,,,
+مُتَفَاعَل,claude,CVCVCVVCVC,C-Vo-C-Va-C-Va-Va-C-Va-C,CVoCVaCVaVaCVaC,,,,,,,
+مُتَفَاعِل,claude,CVCVCVVCVC,C-Vo-C-Va-C-Va-Va-C-Vi-C,CVoCVaCVaVaCViC,,,,,,,
+مُتَفَاعِلٍ,atwah,CVCVCVVCVCV,C-Vo-C-Va-C-Va-Va-C-Vi-C-Vi-C,CVoCVaCVaVaCViCVi,,اسم فاعل: مائل عن الحق، أو متعمد للإثم (من الجَنَف).,,مُتَجَانِفٍ,جنف,ميم/ضمة/تاء/فتحة/جيم/فتحة/ألف/سكون/نون/كسرة/فاء/تنوين كسر,مُتَجَانِفٍ
+مُتَفَاعِلَ,atwah,CVCVCVVCVCV,C-Vo-C-Va-C-Va-Va-C-Vi-C-Va,CVoCVaCVaVaCViCVa,,اسم فاعل: متماثل في الصفات أو الشكل، يشبه بعضه بعضاً.,,مُتَشَابِهَاً,شبه,ميم/ضمة/تاء/فتحة/شين/فتحة/ألف/سكون/باء/كسرة/هاء/فتحة/تنوين,مُتَشَابِهَاً
+مُتَفَاعِلَات,claude,CVCVCVVCVCVVC,C-Vo-C-Va-C-Va-Va-C-Vi-C-Va-Va-C,CVoCVaCVaVaCViCVaVaC,,,,,,,
+مُتَفَاعِلَة,claude,CVCVCVVCVCVC,C-Vo-C-Va-C-Va-Va-C-Vi-C-Va-C,CVoCVaCVaVaCViCVaC,,,,,,,
+مُتَفَاعِلُون,claude,CVCVCVVCVCVVC,C-Vo-C-Va-C-Va-Va-C-Vi-C-Vo-Vo-C,CVoCVaCVaVaCViCVoVoC,,,,,,,
+مُتَفَعَّل,claude,CVCVCVCCVC,C-Vo-C-Va-C-Va-C-C-Va-C,CVoCVaCVaCCVaC,,,,,,,
+مُتَفَعِّل,claude,CVCVCVCCVC,C-Vo-C-Va-C-Va-C-C-Vi-C,CVoCVaCVaCCViC,,,,,,,
+مُتَفَعِّلَات,claude,CVCVCVCCVCVVC,C-Vo-C-Va-C-Va-C-C-Vi-C-Va-Va-C,CVoCVaCVaCCViCVaVaC,,,,,,,
+مُتَفَعِّلَة,claude,CVCVCVCCVCVC,C-Vo-C-Va-C-Va-C-C-Vi-C-Va-C,CVoCVaCVaCCViCVaC,,,,,,,
+مُتَفَعِّلُون,claude,CVCVCVCCVCVVC,C-Vo-C-Va-C-Va-C-C-Vi-C-Vo-Vo-C,CVoCVaCVaCCViCVoVoC,,,,,,,
+مُتَفَعِّل,atwah,CVCVCVCCVC,C-Vo-C-Va-C-Va-C-C-Vi-C,CVoCVaCVaCCViC,,اسم فاعل + ضمير: قابض روحك، أو رافعك وافياً (من الله لعيسى).,,مُتَوَفِّيكَ,وفي,ميم/ضمة/تاء/فتحة/واو/فتحة/فاء/شدّة/كسرة/ياء/سكون/كاف/فتحة,مُتَوَفِّيكَ
+مُسْتَفْعَل,claude,CVCCVCCVC,C-Vo-C-C-Va-C-C-Va-C,CVoCCVaCCVaC,,,,,,,
+مُسْتَفْعَلٌ,atwah,CVCCVCCVCV,C-Vo-C-C-Va-C-C-Va-C-Vo-C,CVoCCVaCCVaCVo,,اسم مكان/مفعول: مكان الاستقرار والثبات والإقامة.,,مُسْتَقَرٌّ,قرر,ميم/ضمة/سين/سكون/تاء/فتحة/قاف/فتحة/راء/شدّة/تنوين ضم,مُسْتَقَرٌّ
+مُسْتَفْعَلَات,claude,CVCCVCCVCVVC,C-Vo-C-C-Va-C-C-Va-C-Va-Va-C,CVoCCVaCCVaCVaVaC,,,,,,,
+مُسْتَفْعَلَة,claude,CVCCVCCVCVC,C-Vo-C-C-Va-C-C-Va-C-Va-C,CVoCCVaCCVaCVaC,,,,,,,
+مُسْتَفْعَلُون,claude,CVCCVCCVCVVC,C-Vo-C-C-Va-C-C-Va-C-Vo-Vo-C,CVoCCVaCCVaCVoVoC,,,,,,,
+مُسْتَفْعِل,atwah,CVCCVCCVC,C-Vo-C-C-Va-C-C-Vi-C,CVoCCVaCCViC,,فعل مضارع (استفعال): نطلب العون والمساعدة والدعم.,,نَسْتَعِينُ,عون,نون/فتحة/سين/سكون/تاء/فتحة/عين/كسرة/ياء/سكون/نون/ضمة,نَسْتَعِينُ
+مُسْتَفْعِلَات,claude,CVCCVCCVCVVC,C-Vo-C-C-Va-C-C-Vi-C-Va-Va-C,CVoCCVaCCViCVaVaC,,,,,,,
+مُسْتَفْعِلَة,claude,CVCCVCCVCVC,C-Vo-C-C-Va-C-C-Vi-C-Va-C,CVoCCVaCCViCVaC,,,,,,,
+مُسْتَفْعِلُون,claude,CVCCVCCVCVVC,C-Vo-C-C-Va-C-C-Vi-C-Vo-Vo-C,CVoCCVaCCViCVoVoC,,,,,,,
+مُفتعَل,user_extras,CVCCCVC,C-Vo-C-C-C-Va-C,CVoCCCVaC,,,,,,,
+مُفتعِل,user_extras,CVCCCVC,C-Vo-C-C-C-Vi-C,CVoCCCViC,,,,,,,
+مُفعَل,user_extras,CVCCVC,C-Vo-C-C-Va-C,CVoCCVaC,,,,,,,
+مُفعِل,user_extras,CVCCVC,C-Vo-C-C-Vi-C,CVoCCViC,,,,,,,
+مُفَاعَل,atwah,CVCVVCVC,C-Vo-C-Va-Va-C-Va-C,CVoCVaVaCVaC,,اسم فاعل: تصف الشخص الذي يقوم بفعل السفر أو الانتقال من مكان لآخر.,,مُسافَر,سفر,ميم/ضمة/فاء/فتحة طويلة/عين/فتحة/لام/سكون,مُسافَر
+مُفَاعَلَة,atwah,CVCVVCVCVC,C-Vo-C-Va-Va-C-Va-C-Va-C,CVoCVaVaCVaCVaC,,مصدر (فعل مزيد): تدل على عملية المحاربة أو الاشتباك في قتال.,,مُقَاتَلَة,قتل,ميم/ضمة/فاء/فتحة طويلة/عين/فتحة/لام/فتحة,مُقَاتَلَة
+مُفَاعِل,atwah,CVCVVCVC,C-Vo-C-Va-Va-C-Vi-C,CVoCVaVaCViC,,اسم فاعل: تصف الشخص الذي يقوم بفعل المجاهدة والمناضلة لتحقيق هدف أو دفع ضرر.,,مُكافِح,كفح,ميم/ضمة/فاء/فتحة طويلة/عين/كسرة/لام/سكون,مُكافِح
+مُفَاعِلٍ,atwah,CVCVVCVCV,C-Vo-C-Va-Va-C-Vi-C-Vi-C,CVoCVaVaCViCVi,,اسم فاعل: الذي يلحق الضرر والأذى بغيره.,,مُضَارٍّ,ضرر,ميم/ضمة/ضاد/فتحة/ألف/سكون/راء/شدّة/تنوين كسر,مُضَارٍّ
+مُفَعَّل,claude,CVCVCCVC,C-Vo-C-Va-C-C-Va-C,CVoCVaCCVaC,,,,,,,
+مُفَعِّل,claude,CVCVCCVC,C-Vo-C-Va-C-C-Vi-C,CVoCVaCCViC,,,,,,,
+مُفَعِّلٌ,missing,CVoCVaCCViC,C-Vo-C-Va-C-C-Vi-C,CVoCVaCCViC,,,,,,,
+مُفَعَّل,atwah,CVCVCCVC,C-Vo-C-Va-C-C-Va-C,CVoCVaCCVaC,,اسم مفعول: تصف الشيء الذي تم تعليمه أو تم تحديد مكانه بعلامة.,,مُعَلَّم,علم,ميم/ضمة/فاء/فتحة/عين/شدّة/فتحة/لام/سكون,مُعَلَّم
+مُفَعِّل,atwah,CVCVCCVC,C-Vo-C-Va-C-C-Vi-C,CVoCVaCCViC,,اسم فاعل: تصف الشخص الذي يقوم بفعل التعليم أو التدريس.,,مُعَلِّم,علم,ميم/ضمة/فاء/فتحة/عين/شدّة/كسرة/لام/سكون,مُعَلِّم
+مُفَعْلَل,atwah,CVCVCCVC,C-Vo-C-Va-C-C-Va-C,CVoCVaCCVaC,,اسم مفعول: تصف الشيء الذي تم دحرجته (تم تدويره بفعل فاعل).,,مُدَحْرَج,دحرج,ميم/ضمة/دال/فتحة/حاء/سكون/راء/فتحة/جيم/سكون,مُدَحْرَج
+مُفَعْلِل,atwah,CVCVCCVC,C-Vo-C-Va-C-C-Vi-C,CVoCVaCCViC,,اسم فاعل: تصف الشخص أو الشيء الذي يقوم بفعل دحرجة شيء آخر (تدويره).,,مُدَحْرِ,دحرج,ميم/ضمة/دال/فتحة/حاء/سكون//راء/كسرة/جيم/سكون,مُدَحْرِج
+مُفْتَعَل,claude,CVCCVCVC,C-Vo-C-C-Va-C-Va-C,CVoCCVaCVaC,,,,,,,
+مُفْتَعِل,claude,CVCCVCVC,C-Vo-C-C-Va-C-Vi-C,CVoCCVaCViC,,,,,,,
+مُفْتَعِلَة,claude,CVCCVCVCVC,C-Vo-C-C-Va-C-Vi-C-Va-C,CVoCCVaCViCVaC,,,,,,,
+مُفْتَعِلُون,claude,CVCCVCVCVVC,C-Vo-C-C-Va-C-Vi-C-Vo-Vo-C,CVoCCVaCViCVoVoC,,,,,,,
+مُفْعَل,claude,CVCCVC,C-Vo-C-C-Va-C,CVoCCVaC,,,,,,,
+مُفْعَلٌ,form_iv,CVCCVC,mo-C-C-Va-C,moCCVaC,,,,,,,
+مُفْعَوْعَل,claude,CVCCVCCVC,C-Vo-C-C-Va-C-C-Va-C,CVoCCVaCCVaC,,,,,,,
+مُفْعَوْعِل,claude,CVCCVCCVC,C-Vo-C-C-Va-C-C-Vi-C,CVoCCVaCCViC,,,,,,,
+مُفْعِل,claude,CVCCVC,C-Vo-C-C-Vi-C,CVoCCViC,,,,,,,
+مُفْعِلٌ,form_iv,CVCCVC,mo-C-C-Vi-C,moCCViC,,,,,,,
+مُنْفَعَل,claude,CVCCVCVC,C-Vo-C-C-Va-C-Va-C,CVoCCVaCVaC,,,,,,,
+مُنْفَعِل,claude,CVCCVCVC,C-Vo-C-C-Va-C-Vi-C,CVoCCVaCViC,,,,,,,
+مُنْفَعِلَة,claude,CVCCVCVCVC,C-Vo-C-C-Va-C-Vi-C-Va-C,CVoCCVaCViCVaC,,,,,,,
+مُنْفَعِلُون,claude,CVCCVCVCVVC,C-Vo-C-C-Va-C-Vi-C-Vo-Vo-C,CVoCCVaCViCVoVoC,,,,,,,
+مِفْعَال,atwah,CVCCVVC,C-Vi-C-C-Va-Va-C,CViCCVaVaC,اسم آلة,أداة يُؤدَّى بها الفعل,مثال: مِسْمَار، مِفْتَاح,مِقْوَاد,قود,ميمـ / كسرة / سكون / فتحة طويلة / سكون,مِقْوَاد
+مِفْعَل,atwah,CVCCVC,C-Vi-C-C-Va-C,CViCCVaC,اسم آلة,آلة أو مكان,أقل شيوعًا من مِفْعَال,مِشْرَط,شرط,ميمـ / كسرة / سكون / فتحة / سكون,مِشْرَط
+مِفْعَلَة,claude,CVCCVCVC,C-Vi-C-C-Va-C-Va-C,CViCCVaCVaC,اسم آلة / هيئة,آلة أو هيئة الفعل,مثال: مِكْنَسَة,,,,
+مِفْعِل,atwah,CVCCVC,C-Vi-C-C-Vi-C,CViCCViC,,صيغة مبالغة: الشخص كثير التسكع أو الحركة في الطرقات بلا هدف.,,مِسْكِع,سكع,ميم/كسرة/سين/سكون/كاف/كسرة/عين/سكون,مِسْكِع
+نَفْعُل,atwah,CVCCVC,C-Va-C-C-Vo-C,CVaCCVoC,,,,,,,
+نَفْعُلُ,atwah,CVCCVCV,C-Va-C-C-Vo-C-Vo,CVaCCVoCVo,,,,,,,
+نُفْعِلُ,form_iv,CVCCVCV,no-C-C-Vi-C-Vo,noCCViCVo,,,,,,,
+يَتَفَاعَلُ,atwah,CVCVCVVCVCV,C-Va-C-Va-C-Va-Va-C-Va-C-Vo,CVaCVaCVaVaCVaCVo,,فعل مضارع (مثنى): (تكرار) يعودان للإصلاح بينهما.,,يَتَرَاجَعَا,رجع,ياء/فتحة/تاء/فتحة/راء/فتحة/ألف/سكون/جيم/فتحة/عين/فتحة/ألف/سكون,يَتَرَاجَعَا
+يَتَفَاعَلُّ,atwah,CVCVCVVCVCCV,C-Va-C-Va-C-Va-Va-C-Va-C-C-Vo,CVaCVaCVaVaCVaCCVo,,فعل مضارع: يجادل ويخاصم بعضهم بعضاً.,,يَتَحَاجُّونَ,حجج,ياء/فتحة/تاء/فتحة/حاء/فتحة/ألف/سكون/جيم/شدّة/ضمة/واو/سكون/نون/فتحة,يَتَحَاجُّونَ
+يَتَفَعَّلُ,atwah,CVCVCVCCVCV,C-Va-C-Va-C-Va-C-C-Va-C-Vo,CVaCVaCVaCCVaCVo,,فعل مضارع (مطاوعة): يتدفق الماء بقوة واندفاع.,,يَتَفَجَّرُ,فجر,ياء/فتحة/تاء/فتحة/فاء/فتحة/جيم/شدّة/فتحة/راء/ضمة,يَتَفَجَّرُ
+يَتَفَعَّلْ,atwah,CVCVCVCCVC,C-Va-C-Va-C-Va-C-C-Va-C,CVaCVaCVaCCVaC,,فعل مضارع (مثنى): يعودان إلى بعضهما (في الزواج بعد الطلاق).,,يَتَرَبَّصْنَ,ربص,ياء/فتحة/تاء/فتحة/راء/فتحة/ألف/سكون/جيم/فتحة/عين/فتحة/ألف/سكون,يَتَرَبَّصْنَ
+يَسْتَفْعِلُ,atwah,CVCCVCCVCV,C-Va-C-C-Va-C-C-Vi-C-Vo,CVaCCVaCCViCVo,,فعل مضارع: يسخر ويتهكم ويستخف.,,يَسْتَهْزِئُ,هزأ,ياء/فتحة/سين/سكون/تاء/فتحة/هاء/سكون/زاي/كسرة/همزة/ضمة,يَسْتَهْزِئُ
+يَفَاعِيل,claude,CVCVVCVVC,C-Va-C-Va-Va-C-Vi-Vi-C,CVaCVaVaCViViC,,,,,,,
+يَفُعُّ,missing,CVaCVoCC,C-Va-C-Vo-C-C,CVaCVoCC,,,,,,,
+يَفِعُّ,missing,CVaCViCC,C-Va-C-Vi-C-C,CVaCViCC,,,,,,,
+يَفْتَعِلُ,claude,CVCCVCVCV,C-Va-C-C-Va-C-Vi-C-Vo,CVaCCVaCViCVo,,,,,,,
+يَفْعَالُّ,claude,CVCCVVCCV,C-Va-C-C-Va-Va-C-C-Vo,CVaCCVaVaCCVo,,,,,,,
+يَفْعَلَا,missing,CVaCCVaCVa,C-Va-C-C-Va-C-Va,CVaCCVaCVa,,,,,,,
+يَفْعَلُ,atwah,CVCCVCV,C-Va-C-C-Va-C-Vo,CVaCCVaCVo,,فعل مضارع (جمع): يظهرون الخير ويبطنون الشر للإيقاع بالغير.,,يَخْدَعُونَ,خدع,ياء/فتحة/خاء/سكون/دال/فتحة/عين/ضمة/واو/سكون/نون/فتحة,يَخْدَعُونَ
+يَفْعَلُّ,claude,CVCCVCCV,C-Va-C-C-Va-C-C-Vo,CVaCCVaCCVo,,,,,,,
+يَفْعَوْعِلُ,claude,CVCCVCCVCV,C-Va-C-C-Va-C-C-Vi-C-Vo,CVaCCVaCCViCVo,,,,,,,
+يَفْعَى,missing,CVaCCVa,C-Va-C-C-Va,CVaCCVa,,,,,,,
+يَفْعُل,atwah,CVCCVC,C-Va-C-C-Vo-C,CVaCCVoC,,,,,,,
+يَفْعُلُ,atwah,CVCCVCV,C-Va-C-C-Vo-C-Vo,CVaCCVoCVo,,فعل مضارع: يفيد التجدد والاستمرار، (نحن) نطيع ونخضع لله.,,نَعْبُدُ,عبد,نون/فتحة/عين/سكون/باء/ضمة/دال/ضمة,نَعْبُدُ
+يَفْعُلُّ,atwah,CVCCVCCV,C-Va-C-C-Vo-C-C-Vo,CVaCCVoCCVo,,اسم مفعول: الشخص أو الأمر الذي يُؤمَل خيره ويُنتظر نفعه.,,مَرْجُوَّاً,رجو,ميم/فتحة/راء/سكون/جيم/ضمة/واو/شدّة/فتحة/تنوين نصب,مَرْجُوَّاً
+يَفْعِلُ,atwah,CVCCVCV,C-Va-C-C-Vi-C-Vo,CVaCCViCVo,,فعل مضارع (جمع): يخبرون بخلاف الحقيقة والواقع.,,يَكْذِبُونَ,كذب,ياء/فتحة/كاف/سكون/ذال/كسرة/باء/ضمة/واو/سكون/نون/فتحة,يَكْذِبُونَ
+يَنْفَعِلُ,claude,CVCCVCVCV,C-Va-C-C-Va-C-Vi-C-Vo,CVaCCVaCViCVo,,,,,,,
+يُفَاعِلُ,atwah,CVCVVCVCV,C-Vo-C-Va-Va-C-Vi-C-Vo,CVoCVaVaCViCVo,,فعل مضارع (مفاعلة): يحاولون الخداع والمكر (تكرار المعنى).,,يُخَادِعُونَ,خدع,ياء/ضمة/خاء/فتحة/ألف/سكون/دال/كسرة/عين/ضمة/واو/سكون/نون/فتحة,يُخَادِعُونَ
+يُفَعِّلُ,claude,CVCVCCVCV,C-Vo-C-Va-C-C-Vi-C-Vo,CVoCVaCCViCVo,,,,,,,
+يُفَعِّلُ,atwah,CVCVCCVCV,C-Vo-C-Va-C-C-Vi-C-Vo,CVoCVaCCViCVo,,فعل مضارع: ننزه الله ونقدسه عن كل نقص.,,نُسَبِّحُ,سبح,نون/ضمة/سين/فتحة/باء/شدّة/كسرة/حاء/ضمة,نُسَبِّحُ
+يُفْعِل,claude,CVCCVC,C-Vo-C-C-Vi-C,CVoCCViC,,,,,,,
+يُفْعِلُ,form_iv,CVCCVCV,yo-C-C-Vi-C-Vo,yoCCViCVo,,,,,,,
+يُفْعِلُون,claude,CVCCVCVVC,C-Vo-C-C-Vi-C-Vo-Vo-C,CVoCCViCVoVoC,,,,,,,
+يُفْعِلُونَ,form_iv,CVCCVCVVCV,yo-C-C-Vi-C-Voo-C-Va,yoCCViCVooCVa,,,,,,,
+يُفْعِلُّ,atwah,CVCCVCCV,C-Vo-C-C-Vi-C-C-Vo,CVoCCViCCVo,,فعل مضارع (نون النسوة): (النساء) يصدقن ويقررن بالحق.,,يُؤْمِنَّ,أمن,ياء/ضمة/همزة/سكون/ميم/كسرة/نون/شدّة/فتحة,يُؤْمِنَّ

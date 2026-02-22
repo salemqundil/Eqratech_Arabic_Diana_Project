@@ -1,0 +1,36 @@
+# Enforce LF line endings for all text files checked into this repository.
+# This prevents Windows editors from converting LF → CRLF on checkout.
+
+* text=auto eol=lf
+
+# Explicitly mark common text files
+*.py    text eol=lf
+*.md    text eol=lf
+*.txt   text eol=lf
+*.yml   text eol=lf
+*.yaml  text eol=lf
+*.toml  text eol=lf
+*.cfg   text eol=lf
+*.ini   text eol=lf
+*.json  text eol=lf
+*.csv   text eol=lf
+*.rst   text eol=lf
+*.sh    text eol=lf
+*.bat   text eol=crlf
+*.ps1   text eol=crlf
+
+# Binary files — do not touch line endings
+*.xlsx  binary
+*.png   binary
+*.jpg   binary
+*.jpeg  binary
+*.gif   binary
+*.ico   binary
+*.pdf   binary
+*.zip   binary
+*.tar   binary
+*.gz    binary
+*.pyc   binary
+*.pyd   binary
+*.so    binary
+*.dll   binary

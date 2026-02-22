@@ -3,7 +3,7 @@
 Usage:
   python run_server.py [--host 127.0.0.1] [--port 8000]
 
-Falls back to defaults python run_server.pyif args omitted.
+Falls back to defaults if args omitted.
 This avoids shell issues where typing `uvicorn` directly fails.
 """
 from __future__ import annotations

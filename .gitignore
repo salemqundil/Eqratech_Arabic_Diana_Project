@@ -28,3 +28,59 @@ Thumbs.db
 
 # Temporary workbook files
 ~$*
+# macOS
+.DS_Store
+
+# Python
+*.pyc
+__pycache__/
+*.pyo
+*.pyd
+.Python
+
+# Project specific
+*.tar.gz
+out.txt
+extraction_results*.txt
+benchmark_report.json
+*.log
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Virtual environments
+venv/
+env/
+.env
+src/fvafk.egg-info/
+
+# Coq build artifacts
+coq/**/*.vo
+coq/**/*.vos
+coq/**/*.vok
+coq/**/*.glob
+coq/**/*.aux
+
+i3rab/
+
+# Python build artifacts
+dist/
+build/
+*.egg-info/
+.eggs/
+
+# Test and coverage artifacts
+.pytest_cache/
+.coverage
+htmlcov/
+.tox/
+
+# Temporary Microsoft Office lock files
+~$*
+
+# Excel outputs (generated artifacts)
+full_multilayer_grammar.xlsx
+full_multilayer_grammar*.xlsx

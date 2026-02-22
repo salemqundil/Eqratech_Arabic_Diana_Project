@@ -1,0 +1,433 @@
+{
+  "examples": [
+    {
+      "trace_id": "DT-000001",
+      "sentence": "من يكذب يعاقب",
+      "description": "Conditional structure: whoever lies gets punished",
+      "trace": {
+        "trace_id": "DT-000001",
+        "input": {
+          "text": "من يكذب يعاقب",
+          "tokens": [
+            {"id": 0, "surface": "من", "span": [0, 2]},
+            {"id": 1, "surface": "يكذب", "span": [3, 7]},
+            {"id": 2, "surface": "يعاقب", "span": [8, 13]}
+          ]
+        },
+        "context": {
+          "register": "msa",
+          "domain": "general",
+          "speaker": "unknown",
+          "time": "unknown"
+        },
+        "state": {
+          "scope": {
+            "operators": ["IF_THEN"],
+            "negation_scope": null,
+            "condition_scope": {"start": 0, "protasis": 1, "apodosis": 2},
+            "exception_scope": null
+          },
+          "sense": {
+            "candidates": [
+              {"sense": "WORLD_PUNISHMENT", "score": 0.55},
+              {"sense": "OTHERWORLD_PUNISHMENT", "score": 0.45}
+            ],
+            "selected": "WORLD_PUNISHMENT",
+            "evidence": ["default_social_reading", "no_religious_markers"]
+          },
+          "constraints": {
+            "logical": [{"type": "IMPLICATION", "detail": "if lies(x) then punished(x)"}],
+            "syntactic": [{"type": "CONDITIONAL", "detail": "من + jussive + jussive"}],
+            "morphological": [{"type": "JUSSIVE_MOOD", "tokens": [1, 2]}],
+            "phonological": [{"type": "SYLLABLE_VALID", "all_tokens": true}]
+          }
+        },
+        "layers": [
+          {
+            "layer": "phonology",
+            "step": 1,
+            "input_ref": {"tokens": [0, 1, 2], "span": [0, 13]},
+            "payload": {
+              "phoneme_stream": [
+                {
+                  "token_id": 0,
+                  "surface": "من",
+                  "phonemes": [
+                    {"type": "C", "sym": "m", "features": ["CF_PL_001", "CF_MN_004", "CF_VC_002"]},
+                    {"type": "V", "sym": "a", "features": ["VF_LN_001", "VF_QL_001"]},
+                    {"type": "C", "sym": "n", "features": ["CF_PL_004", "CF_MN_004", "CF_VC_002"]}
+                  ]
+                },
+                {
+                  "token_id": 1,
+                  "surface": "يكذب",
+                  "phonemes": [
+                    {"type": "C", "sym": "y", "features": ["CF_PL_006", "CF_MN_007", "CF_VC_002", "CF_RR_002"]},
+                    {"type": "C", "sym": "k", "features": ["CF_PL_007", "CF_MN_001", "CF_VC_001", "CF_RR_001"]},
+                    {"type": "V", "sym": "dh", "features": ["VF_LN_001", "VF_QL_003"]},
+                    {"type": "C", "sym": "dh", "features": ["CF_PL_003", "CF_MN_002", "CF_VC_002", "CF_RR_001"]},
+                    {"type": "V", "sym": "i", "features": ["VF_LN_001", "VF_QL_002"]},
+                    {"type": "C", "sym": "b", "features": ["CF_PL_001", "CF_MN_001", "CF_VC_002", "CF_RR_001"]}
+                  ]
+                },
+                {
+                  "token_id": 2,
+                  "surface": "يعاقب",
+                  "phonemes": [
+                    {"type": "C", "sym": "y", "features": ["CF_PL_006", "CF_MN_007", "CF_VC_002", "CF_RR_002"]},
+                    {"type": "V", "sym": "u", "features": ["VF_LN_001", "VF_QL_003"]},
+                    {"type": "C", "sym": "ʕ", "features": ["CF_PL_009", "CF_MN_002", "CF_VC_002", "CF_RR_001"]},
+                    {"type": "V", "sym": "aa", "features": ["VF_LN_002", "VF_QL_001"]},
+                    {"type": "C", "sym": "q", "features": ["CF_PL_008", "CF_MN_001", "CF_VC_001", "CF_RR_001"]},
+                    {"type": "V", "sym": "a", "features": ["VF_LN_001", "VF_QL_001"]},
+                    {"type": "C", "sym": "b", "features": ["CF_PL_001", "CF_MN_001", "CF_VC_002", "CF_RR_001"]}
+                  ]
+                }
+              ],
+              "repairs": [],
+              "weight_preview": [
+                {"token_id": 0, "estimated_weight": 2},
+                {"token_id": 1, "estimated_weight": 3},
+                {"token_id": 2, "estimated_weight": 4}
+              ]
+            },
+            "effects": {
+              "scope_delta": [],
+              "sense_delta": [],
+              "constraints_delta": [
+                {"type": "phonological", "tag": "phonemes_extracted", "detail": "all tokens processed"}
+              ]
+            },
+            "rules_applied": [
+              {"rule_id": "PH-BASE-01", "because": ["feature_extraction"], "trace_tags": ["phonology"]}
+            ],
+            "quality": {"status": "ok", "warnings": []}
+          },
+          {
+            "layer": "syllable",
+            "step": 2,
+            "input_ref": {"tokens": [0, 1, 2], "span": [0, 13]},
+            "payload": {
+              "syllabification": [
+                {
+                  "token_id": 0,
+                  "syllables": [
+                    {"type": "CVC", "onset": "m", "nucleus": "a", "coda": "n", "weight": "HEAVY", "feature_id": "SY_TP_002"}
+                  ]
+                },
+                {
+                  "token_id": 1,
+                  "syllables": [
+                    {"type": "CVC", "onset": "y", "nucleus": "a", "coda": "k", "weight": "HEAVY", "feature_id": "SY_TP_002"},
+                    {"type": "CVC", "onset": "dh", "nucleus": "i", "coda": "b", "weight": "HEAVY", "feature_id": "SY_TP_002"}
+                  ]
+                },
+                {
+                  "token_id": 2,
+                  "syllables": [
+                    {"type": "CVV", "onset": "y", "nucleus": "u ʕ aa", "coda": null, "weight": "HEAVY", "feature_id": "SY_TP_003"},
+                    {"type": "CVC", "onset": "q", "nucleus": "a", "coda": "b", "weight": "HEAVY", "feature_id": "SY_TP_002"}
+                  ]
+                }
+              ],
+              "transitions": [
+                {
+                  "between": {"from_token": 0, "to_token": 1},
+                  "pattern": {"left": "CVC", "right": "CVC"},
+                  "decision": "keep",
+                  "notes": ["boundary_ok"]
+                },
+                {
+                  "between": {"from_token": 1, "to_token": 2},
+                  "pattern": {"left": "CVC", "right": "CVV"},
+                  "decision": "keep",
+                  "notes": ["boundary_ok"]
+                }
+              ]
+            },
+            "effects": {
+              "scope_delta": [],
+              "sense_delta": [],
+              "constraints_delta": [
+                {"type": "phonological", "tag": "syllable_structure_valid", "detail": "all CV patterns accepted"}
+              ]
+            },
+            "rules_applied": [
+              {"rule_id": "T-06", "because": ["balanced_weight"], "trace_tags": ["syllabification"]}
+            ],
+            "quality": {"status": "ok", "warnings": []}
+          },
+          {
+            "layer": "morphology",
+            "step": 3,
+            "input_ref": {"tokens": [0, 1, 2], "span": [0, 13]},
+            "payload": {
+              "analyses": [
+                {
+                  "token_id": 0,
+                  "surface": "من",
+                  "word_class": "TOOL",
+                  "word_class_id": "MF_WC_009",
+                  "tool_type": "CONDITION",
+                  "tool_type_id": "MT_CL_002",
+                  "derivation": "JAMID",
+                  "root": null,
+                  "features": {"inflection_mode": "MABNI", "inflection_mode_id": "IF_MD_002"}
+                },
+                {
+                  "token_id": 1,
+                  "surface": "يكذب",
+                  "word_class": "VERB",
+                  "word_class_id": "MF_WC_002",
+                  "root": {"radicals": ["ك", "ذ", "ب"], "type": "EVENT_ROOT", "type_id": "MF_RT_002"},
+                  "pattern_gate": "VERB_BAB_GATE",
+                  "derivation": "MUSHTAQ",
+                  "derivation_id": "MF_DR_002",
+                  "affixes": [
+                    {"type": "PREFIX", "surface": "ي", "role": "TENSE_PERSON", "root_relation": "EXTRA", "root_relation_id": "CF_RR_002"}
+                  ],
+                  "features": {
+                    "tense": "PRESENT",
+                    "tense_id": "MF_TN_002",
+                    "voice": "ACTIVE",
+                    "voice_id": "MF_VC_001",
+                    "mood": "JUSSIVE",
+                    "mood_id": "MF_MD_003",
+                    "transitivity": "INTRANSITIVE"
+                  }
+                },
+                {
+                  "token_id": 2,
+                  "surface": "يعاقب",
+                  "word_class": "VERB",
+                  "word_class_id": "MF_WC_002",
+                  "root": {"radicals": ["ع", "ق", "ب"], "type": "EVENT_ROOT", "type_id": "MF_RT_002"},
+                  "pattern_gate": "VERB_MUFAALA_GATE",
+                  "derivation": "MUSHTAQ",
+                  "derivation_id": "MF_DR_002",
+                  "affixes": [
+                    {"type": "PREFIX", "surface": "ي", "role": "TENSE_PERSON", "root_relation": "EXTRA", "root_relation_id": "CF_RR_002"}
+                  ],
+                  "features": {
+                    "tense": "PRESENT",
+                    "tense_id": "MF_TN_002",
+                    "voice": "PASSIVE",
+                    "voice_id": "MF_VC_002",
+                    "mood": "JUSSIVE",
+                    "mood_id": "MF_MD_003",
+                    "transitivity": "UNKNOWN"
+                  }
+                }
+              ]
+            },
+            "effects": {
+              "scope_delta": [],
+              "sense_delta": [],
+              "constraints_delta": [
+                {"type": "morphological", "tag": "roots_extracted", "detail": ["ك-ذ-ب", "ع-ق-ب"]},
+                {"type": "morphological", "tag": "jussive_mood_detected", "detail": "tokens [1,2]"}
+              ]
+            },
+            "rules_applied": [
+              {"rule_id": "MORPH-ROOT-01", "because": ["root_pattern_mapping"], "trace_tags": ["morphology"]}
+            ],
+            "quality": {"status": "ok", "warnings": []}
+          },
+          {
+            "layer": "syntax",
+            "step": 4,
+            "input_ref": {"tokens": [0, 1, 2], "span": [0, 13]},
+            "payload": {
+              "parse": {
+                "type": "CONDITIONAL",
+                "nodes": [
+                  {"id": "n1", "token_id": 0, "class": "COND_TOOL", "role": "OPERATOR", "operator_id": "MT_OP_002"},
+                  {"id": "n2", "token_id": 1, "class": "VERB", "role": "COND_VERB"},
+                  {"id": "n3", "token_id": 2, "class": "VERB", "role": "ANSWER_VERB"}
+                ],
+                "edges": [
+                  {"from": "n1", "to": "n2", "rel": "GOVERNS_MOOD"},
+                  {"from": "n2", "to": "n3", "rel": "CONDITION_IMPLIES"}
+                ]
+              }
+            },
+            "effects": {
+              "scope_delta": [
+                {"op": "push_operator", "operator": "IF_THEN", "operator_id": "MT_OP_002", "source_token_id": 0}
+              ],
+              "sense_delta": [],
+              "constraints_delta": [
+                {"type": "syntactic", "tag": "conditional_structure", "detail": "من => protasis + apodosis"}
+              ]
+            },
+            "rules_applied": [
+              {"rule_id": "SCOPE-COND-01", "because": ["maani_tool_scope"], "trace_tags": ["syntax", "scope"]}
+            ],
+            "quality": {"status": "ok", "warnings": []}
+          },
+          {
+            "layer": "i3rab_bina",
+            "step": 5,
+            "input_ref": {"tokens": [0, 1, 2], "span": [0, 13]},
+            "payload": {
+              "assignments": [
+                {
+                  "token_id": 0,
+                  "mode": "MABNI",
+                  "mode_id": "IF_MD_002",
+                  "case": "LOCKED",
+                  "case_id": "IF_CS_999",
+                  "reason": "COND_TOOL"
+                },
+                {
+                  "token_id": 1,
+                  "mode": "MU3RAB",
+                  "mode_id": "IF_MD_001",
+                  "mood": "JUSSIVE",
+                  "mood_id": "MF_MD_003",
+                  "marker": "SUKUN",
+                  "marker_id": "IF_JM_001",
+                  "reason": "CONDITION_OPERATOR"
+                },
+                {
+                  "token_id": 2,
+                  "mode": "MU3RAB",
+                  "mode_id": "IF_MD_001",
+                  "mood": "JUSSIVE",
+                  "mood_id": "MF_MD_003",
+                  "marker": "SUKUN",
+                  "marker_id": "IF_JM_001",
+                  "reason": "ANSWER_OF_CONDITION"
+                }
+              ]
+            },
+            "effects": {
+              "scope_delta": [],
+              "sense_delta": [],
+              "constraints_delta": [
+                {"type": "syntactic", "tag": "governed_inflection", "detail": "operator affects mood"}
+              ]
+            },
+            "rules_applied": [
+              {"rule_id": "S-10", "because": ["operator_affects_mood"], "trace_tags": ["i3rab"]}
+            ],
+            "quality": {"status": "ok", "warnings": []}
+          },
+          {
+            "layer": "semantics",
+            "step": 6,
+            "input_ref": {"tokens": [0, 1, 2], "span": [0, 13]},
+            "payload": {
+              "J": {
+                "subject": {
+                  "type": "GENERIC_INDIVIDUAL",
+                  "binder": "COND_TOOL",
+                  "description": "any individual satisfying condition"
+                },
+                "predicate": {
+                  "lemma": "يعاقب",
+                  "predicate_type_candidates": ["WORLD_PUNISHMENT", "OTHERWORLD_PUNISHMENT"],
+                  "selected": "WORLD_PUNISHMENT",
+                  "selected_id": "SM_PT_001"
+                },
+                "constraints": [
+                  {"type": "CONDITION", "if": "يكذب(x)", "then": "يعاقب(x)"}
+                ],
+                "scope": {"operators": ["IF_THEN"]}
+              },
+              "sense_selection": {
+                "candidates": [
+                  {"sense": "WORLD_PUNISHMENT", "sense_id": "SM_PT_001", "evidence": ["default_social_reading"], "score": 0.55},
+                  {"sense": "OTHERWORLD_PUNISHMENT", "sense_id": "SM_PT_004", "evidence": ["needs_religious_context"], "score": 0.45}
+                ],
+                "selected": "WORLD_PUNISHMENT",
+                "selected_id": "SM_PT_001"
+              }
+            },
+            "effects": {
+              "scope_delta": [],
+              "sense_delta": [
+                {"op": "select_sense", "selected": "WORLD_PUNISHMENT", "selected_id": "SM_PT_001", "token_id": 2}
+              ],
+              "constraints_delta": [
+                {"type": "logical", "tag": "implication", "detail": "if P then Q"}
+              ]
+            },
+            "rules_applied": [
+              {"rule_id": "SENSE-SEL-01", "because": ["context_default"], "trace_tags": ["semantics", "sense_selection"]}
+            ],
+            "quality": {"status": "ok", "warnings": ["context_unknown_low_confidence"]}
+          },
+          {
+            "layer": "pragmatics",
+            "step": 7,
+            "input_ref": {"tokens": [0, 1, 2], "span": [0, 13]},
+            "payload": {
+              "context_inference": {
+                "domain": "unknown",
+                "likely_frame": ["social_norm", "education", "law", "religion"],
+                "selected_frame": "social_norm"
+              },
+              "decision": {
+                "predicate_type": "SENSIBLE_WORLD_CLAIM",
+                "predicate_type_id": "SM_PT_001",
+                "world_verifiable": true,
+                "needs_hearing": false,
+                "truth_mode": "WORLD_VERIFICATION",
+                "truth_mode_id": "SM_TM_003"
+              }
+            },
+            "effects": {
+              "scope_delta": [],
+              "sense_delta": [],
+              "constraints_delta": [
+                {"type": "epistemic", "tag": "classification", "detail": "world-claim => verify in W"}
+              ]
+            },
+            "rules_applied": [
+              {"rule_id": "EPI-DECIDE-01", "because": ["predicate_in_world_scope"], "trace_tags": ["pragmatics", "epistemic_gate"]}
+            ],
+            "quality": {"status": "ok", "warnings": []}
+          }
+        ],
+        "judgment": {
+          "J": {
+            "subject": {
+              "type": "GENERIC_INDIVIDUAL",
+              "quantifier": "UNIVERSAL_IN_SCOPE"
+            },
+            "predicate": "WORLD_PUNISHMENT",
+            "predicate_id": "SM_PT_001",
+            "constraints": [
+              {"type": "CONDITION", "if": "lies(x)", "then": "punished(x)"}
+            ],
+            "scope": {"operators": ["IF_THEN"]}
+          },
+          "epistemic": {
+            "consistency": 0.95,
+            "predicate_type": "SENSIBLE_WORLD_CLAIM",
+            "predicate_type_id": "SM_PT_001",
+            "needs_hearing": false,
+            "world_verifiable": true,
+            "truth_mode": "WORLD_VERIFICATION",
+            "truth_mode_id": "SM_TM_003"
+          }
+        },
+        "audit": {
+          "soundness": {
+            "passed": true,
+            "notes": ["all layers completed", "no contradictions"]
+          },
+          "completeness": {
+            "covered": true,
+            "notes": ["all 7 layers traced"]
+          },
+          "traceability": {
+            "passed": true,
+            "missing_steps": []
+          }
+        }
+      }
+    }
+  ]
+}
