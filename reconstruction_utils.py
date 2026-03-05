@@ -36,8 +36,16 @@ def _full_utf8(token: str) -> str:
     return ' '.join(str(ch.encode('utf-8')) for ch in t)
 
 
+from functools import lru_cache
+
+
+@lru_cache(maxsize=1)
 def load_maps() -> Tuple[Dict[str, str], Dict[str, str]]:
-    """Load phoneme and harakat UTF-8 maps from their engines."""
+    """Load phoneme and harakat UTF-8 maps from their engines.
+
+    Results are cached after the first call to avoid repeated module imports
+    during batch processing.
+    """
     from phonemes_engine import PhonemesEngine
     from harakat_engine import حركات
 

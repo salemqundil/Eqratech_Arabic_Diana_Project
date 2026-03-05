@@ -1,0 +1,57 @@
+{
+  "particles": {
+    "في": {"type": "حرف_جر", "function": "ظرفية", "weight_bearing": false},
+    "على": {"type": "حرف_جر", "function": "استعلاء", "weight_bearing": false},
+    "من": {"type": "حرف_جر", "function": "ابتداء", "weight_bearing": false},
+    "إلى": {"type": "حرف_جر", "function": "انتهاء", "weight_bearing": false},
+    "الواو": {"type": "حرف_عطف", "function": "عطف", "weight_bearing": false},
+    "ثم": {"type": "حرف_عطف", "function": "ترتيب", "weight_bearing": false},
+    "لا": {"type": "حرف_نفي", "function": "نفي", "weight_bearing": false},
+    "ما": {"type": "حرف_نفي", "function": "نفي", "weight_bearing": false},
+    "لم": {"type": "حرف_جزم", "function": "نفي_جزم", "weight_bearing": false},
+    "لن": {"type": "حرف_نصب", "function": "نفي_نصب", "weight_bearing": false},
+    "أن": {"type": "حرف_مصدري", "function": "مصدرية", "weight_bearing": false},
+    "إن": {"type": "حرف_شرط", "function": "شرط", "weight_bearing": false},
+    "قد": {"type": "حرف_تحقيق", "function": "تحقيق", "weight_bearing": false}
+  },
+  "pronouns": {
+    "هو": {"type": "ضمير_منفصل", "function": "مبتدأ", "weight_bearing": true},
+    "هي": {"type": "ضمير_منفصل", "function": "مبتدأ", "weight_bearing": true},
+    "هم": {"type": "ضمير_منفصل", "function": "مبتدأ", "weight_bearing": true},
+    "هن": {"type": "ضمير_منفصل", "function": "مبتدأ", "weight_bearing": true},
+    "أنا": {"type": "ضمير_منفصل", "function": "مبتدأ", "weight_bearing": true},
+    "نحن": {"type": "ضمير_منفصل", "function": "مبتدأ", "weight_bearing": true},
+    "أنت": {"type": "ضمير_منفصل", "function": "مبتدأ", "weight_bearing": true},
+    "أنتم": {"type": "ضمير_منفصل", "function": "مبتدأ", "weight_bearing": true}
+  },
+  "demonstratives": {
+    "هذا": {"type": "اسم_إشارة", "function": "إشارة_قريب", "weight_bearing": true},
+    "هذه": {"type": "اسم_إشارة", "function": "إشارة_قريب", "weight_bearing": true},
+    "ذلك": {"type": "اسم_إشارة", "function": "إشارة_بعيد", "weight_bearing": true},
+    "تلك": {"type": "اسم_إشارة", "function": "إشارة_بعيد", "weight_bearing": true}
+  },
+  "relatives": {
+    "الذي": {"type": "اسم_موصول", "function": "وصل", "weight_bearing": true},
+    "التي": {"type": "اسم_موصول", "function": "وصل", "weight_bearing": true},
+    "الذين": {"type": "اسم_موصول", "function": "وصل", "weight_bearing": true}
+  },
+  "interrogatives": {
+    "من": {"type": "اسم_استفهام", "function": "استفهام_عاقل", "weight_bearing": true},
+    "ما": {"type": "اسم_استفهام", "function": "استفهام_غير_عاقل", "weight_bearing": true},
+    "متى": {"type": "اسم_استفهام", "function": "استفهام_زمان", "weight_bearing": true},
+    "أين": {"type": "اسم_استفهام", "function": "استفهام_مكان", "weight_bearing": true},
+    "كيف": {"type": "اسم_استفهام", "function": "استفهام_حال", "weight_bearing": true},
+    "كم": {"type": "اسم_استفهام", "function": "استفهام_عدد", "weight_bearing": true}
+  },
+  "conditionals": {
+    "إن": {"type": "أداة_شرط", "function": "شرط_جازم", "weight_bearing": false},
+    "لو": {"type": "أداة_شرط", "function": "شرط_امتناعي", "weight_bearing": false},
+    "كلما": {"type": "أداة_شرط", "function": "شرط_كلما", "weight_bearing": false},
+    "من": {"type": "أداة_شرط", "function": "شرط_عاقل", "weight_bearing": false},
+    "مهما": {"type": "أداة_شرط", "function": "شرط_غير_عاقل", "weight_bearing": false}
+  },
+  "mabni_verbs": {
+    "كان": {"type": "فعل_مبني", "function": "كان_ناقص", "weight_bearing": true},
+    "ليس": {"type": "فعل_مبني", "function": "نفي_حال", "weight_bearing": true}
+  }
+}

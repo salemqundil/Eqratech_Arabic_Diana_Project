@@ -1,0 +1,23 @@
+-R theories FractalHub
+
+# Core layer
+theories/Core/FractalHubSpec.v
+theories/Core/FractalHubGates.v
+theories/Core/FractalHubDerivation.v
+
+# Phonology layer
+theories/Phonology/FractalHubPhonology.v
+
+# Syntax layer
+theories/Syntax/FractalHubSyntaxDerivation.v
+
+# Codec layer
+theories/Codec/FractalHubCodecRoundTrip.v
+
+# Facade files (for backward compatibility)
+theories/FractalHubSpec.v
+theories/FractalHubGates.v
+theories/FractalHubDerivation.v
+theories/FractalHubPhonology.v
+theories/FractalHubSyntaxDerivation.v
+theories/FractalHubCodecRoundTrip.v

@@ -36,32 +36,32 @@ class DemonstrativesEngine:
             'الفونيمات', 'عدد الفونيمات', 'الحركات'
         ]
         data = []
-        for name, phonemes_list, harakats_list in demonstratives:
+        for demonstrative_name, phonemes_list, harakats_list in demonstratives:
             phonemes = ' '.join(phonemes_list)
             harakats = ' '.join(harakats_list)
-            unicode_val = ' '.join([f"U+{ord(l):04X}" for l in phonemes_list])
-            utf8_letters = ' '.join([phoneme_utf8.get(l, 'غير متوفر') for l in phonemes_list])
-            utf8_harakat = ' '.join([haraka_utf8.get(h, 'غير متوفر') for h in harakats_list])
+            unicode_val = ' '.join([f"U+{ord(letter):04X}" for letter in phonemes_list])
+            utf8_letters = ' '.join([phoneme_utf8.get(letter, 'غير متوفر') for letter in phonemes_list])
+            utf8_harakat = ' '.join([haraka_utf8.get(haraka, 'غير متوفر') for haraka in harakats_list])
             utf8_full = utf8_letters + ' ' + utf8_harakat
-            makhraj = '،'.join([phoneme_makhraj.get(l, 'غير متوفر') for l in phonemes_list])
+            makhraj = '،'.join([phoneme_makhraj.get(letter, 'غير متوفر') for letter in phonemes_list])
             row = {
-                'اسم الاشارة': name,
+                'اسم الاشارة': demonstrative_name,
                 'الوظيفة النحوية': 'اسم إشارة يُستخدم للدلالة على المشار إليه في الجملة',
-                'الوظيفة الدلالية': f'إشارة إلى {name}',
+                'الوظيفة الدلالية': f'إشارة إلى {demonstrative_name}',
                 'الوظيفة الصرفية': 'مبني على السكون/الفتح حسب السياق',
                 'الوظيفة الصوتية': f'تتكون من الفونيمات: {phonemes} والحركات: {harakats}',
                 'الوظيفة الاشتقاقية': 'غير مشتق، يُركب من الحروف والحركات',
                 'Unicode': unicode_val,
                 'UTF-8': utf8_full,
                 'المخرج': makhraj,
-                'ملاحظات': f'اسم إشارة حقيقي: {name}',
+                'ملاحظات': f'اسم إشارة حقيقي: {demonstrative_name}',
                 'الأثر الإعرابي': 'مبني دائماً في محل رفع أو نصب أو جر حسب موقعه',
                 'شرط/سياق': 'يستخدم للإشارة في سياقات متعددة حسب الحاجة',
                 'الفونيمات': phonemes,
                 'عدد الفونيمات': len(phonemes_list),
                 'الحركات': harakats
             }
-            print(f"اسم الاشارة: {name}")
+            print(f"اسم الاشارة: {demonstrative_name}")
             print(f"  الفونيمات: {phonemes}")
             print(f"  الحركات: {harakats}")
             print(f"  Unicode: {unicode_val}")
@@ -69,19 +69,19 @@ class DemonstrativesEngine:
             print(f"  المخرج: {makhraj}")
             print(f"  ---")
             data.append(row)
-        df = pd.DataFrame(data, columns=columns)
+        result_dataframe = pd.DataFrame(data, columns=columns)
         print("\n--- DataFrame الناتج ---")
-        print(df)
-        return df
+        print(result_dataframe)
+        return result_dataframe
 
     @staticmethod
     def export_to_excel():
-        df = DemonstrativesEngine.make_df()
+        result_dataframe = DemonstrativesEngine.make_df()
         out_path = r"C:\Users\user\Downloads\Cam_Eqraatech\Diana\full_multilayer_grammar.xlsx"
         # إذا كان الملف موجوداً، نضيف الشيت، وإلا ننشئ ملف جديد
         if os.path.exists(out_path):
             with pd.ExcelWriter(out_path, engine='openpyxl', mode='a', if_sheet_exists='replace') as writer:
-                df.to_excel(writer, sheet_name='اسم_الإشارة', index=False)
+                result_dataframe.to_excel(writer, sheet_name='اسم_الإشارة', index=False)
         else:
             with pd.ExcelWriter(out_path, engine='openpyxl') as writer:
-                df.to_excel(writer, sheet_name='اسم_الإشارة', index=False)
+                result_dataframe.to_excel(writer, sheet_name='اسم_الإشارة', index=False)

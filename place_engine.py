@@ -676,5 +676,5 @@ class PlaceEngine(BaseReconstructionEngine):
                 "ملاحظات": "يستخدم للدلالة على المكان"
             }
         ]
-        df = pd.DataFrame(PLACE_WORDS)
-        return reconstruct_from_base_df(df)
+        dataframe = pd.DataFrame(PLACE_WORDS)
+        return reconstruct_from_base_df(dataframe)

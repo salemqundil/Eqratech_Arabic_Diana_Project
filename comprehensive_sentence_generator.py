@@ -116,7 +116,7 @@ class ComprehensiveSentenceGenerator:
                 
                 # تحميل البيانات
                 df = engine_class.make_df()
-                if not df.empty:
+                if not dataframe.empty:
                     self.engines_data[engine_name] = df
                     loaded_count += 1
                     try:
@@ -150,7 +150,7 @@ class ComprehensiveSentenceGenerator:
             return []
         
         df = self.engines_data[engine_name]
-        if df.empty:
+        if dataframe.empty:
             return []
         
         # البحث عن العمود المناسب للأدوات
@@ -158,13 +158,13 @@ class ComprehensiveSentenceGenerator:
         tool_column = None
         
         for col in possible_columns:
-            if col in df.columns:
+            if col in dataframe.columns:
                 tool_column = col
                 break
         
         if not tool_column:
             # استخدام العمود الأول كافتراضي
-            tool_column = df.columns[0]
+            tool_column = dataframe.columns[0]
         
         tools = []
         for item in df[tool_column].head(limit):
@@ -576,8 +576,8 @@ class ComprehensiveSentenceGenerator:
         
         # تحويل إلى DataFrame
         if self.sentences:
-            df = pd.DataFrame(self.sentences)
-            print(f"[SUCCESS] تم إنشاء DataFrame بـ {len(df)} صف و {len(df.columns)} عمود")
+            dataframe = pd.DataFrame(self.sentences)
+            print(f"[SUCCESS] تم إنشاء DataFrame بـ {len(df)} صف و {len(dataframe.columns)} عمود")
             return df
         else:
             print("[WARNING] لم يتم توليد أي جمل")
@@ -587,9 +587,9 @@ class ComprehensiveSentenceGenerator:
         """حفظ الجمل المولدة في ملف Excel"""
         df = self.generate_all_sentences()
         
-        if not df.empty:
+        if not dataframe.empty:
             try:
-                df.to_excel(filename, index=False, sheet_name='جُمَل_مولدة_شاملة')
+                dataframe.to_excel(filename, index=False, sheet_name='جُمَل_مولدة_شاملة')
                 print(f"[SUCCESS] تم حفظ {len(df)} جملة في {filename}")
                 return True
             except Exception as e:

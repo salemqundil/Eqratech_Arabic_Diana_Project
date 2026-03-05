@@ -29,5 +29,5 @@ class AdadNamesEngine(BaseReconstructionEngine):
                 "الوظيفة الاشتقاقية": "غير مشتق",
                 "ملاحظات": "يستخدم للدلالة على العدد"
             })
-        df = pd.DataFrame(data)
-        return reconstruct_from_base_df(df)
+        dataframe = pd.DataFrame(data)
+        return reconstruct_from_base_df(dataframe)

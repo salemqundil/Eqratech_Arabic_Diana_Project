@@ -26,5 +26,5 @@ class A3lamManqulaEngine(BaseReconstructionEngine):
                 "الوظيفة الاشتقاقية": "مشتق غالبًا",
                 "ملاحظات": "اسم منقول من صفة أو فعل"
             })
-        df = pd.DataFrame(data)
-        return reconstruct_from_base_df(df)
+        dataframe = pd.DataFrame(data)
+        return reconstruct_from_base_df(dataframe)

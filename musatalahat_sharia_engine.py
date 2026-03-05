@@ -24,5 +24,5 @@ class MusatalahatShariaEngine(BaseReconstructionEngine):
                 "الوظيفة الاشتقاقية": "جامد غالبًا",
                 "ملاحظات": "مصطلح شرعي جامد لا يقبل الاشتقاق غالبًا"
             })
-        df = pd.DataFrame(data)
-        return reconstruct_from_base_df(df)
+        dataframe = pd.DataFrame(data)
+        return reconstruct_from_base_df(dataframe)

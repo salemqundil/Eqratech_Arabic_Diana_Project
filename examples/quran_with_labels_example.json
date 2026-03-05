@@ -1,0 +1,17 @@
+[
+  {
+    "verse": "بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ",
+    "category": "basmala",
+    "surah": "al-fatiha"
+  },
+  {
+    "verse": "الْحَمْدُ لِلَّهِ رَبِّ الْعَالَمِينَ",
+    "category": "praise",
+    "surah": "al-fatiha"
+  },
+  {
+    "verse": "الرَّحْمَٰنِ الرَّحِيمِ",
+    "category": "attribute",
+    "surah": "al-fatiha"
+  }
+]

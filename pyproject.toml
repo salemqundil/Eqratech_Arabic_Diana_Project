@@ -1,0 +1,46 @@
+[build-system]
+requires = ["setuptools>=45", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "bayan-fvafk"
+version = "0.1.0"  # See src/fvafk/__version__.py
+description = "Arabic NLP pipeline: phonology, morphology, and syntax analysis"
+authors = [{name = "Hussein Hiyassat"}]
+readme = "README.md"
+requires-python = ">=3.10"
+license = {text = "MIT"}
+keywords = ["arabic", "nlp", "phonology", "morphology", "syntax"]
+
+dependencies = [
+    "numpy>=1.20.0",
+    "scipy>=1.7.0",
+    "pydantic>=2.0.0",
+    "fastapi>=0.111.0",
+    "uvicorn>=0.30.1",
+    "pandas>=1.3.0",
+    "openpyxl>=3.0.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=7.0.0",
+    "pytest-cov>=4.0.0",
+    "hypothesis>=6.0.0",
+]
+
+[project.scripts]
+fvafk = "fvafk.cli.main:main"
+
+[project.urls]
+Homepage = "https://github.com/sonaiso/Eqratech_Hussein_Hiyassat_Project"
+Repository = "https://github.com/sonaiso/Eqratech_Hussein_Hiyassat_Project"
+
+[tool.setuptools]
+package-dir = {"" = "src"}
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.coverage.run]
+source = ["src"]

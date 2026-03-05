@@ -1,0 +1,55 @@
+word,pos,case,number,gender,definiteness,grammatical_role,parent_word,notes
+محمدٌ,noun,nominative,singular,masculine,indefinite,مبتدأ,,خبر مبتدأ محذوف تقديره: هو محمد
+رسول,noun,nominative,singular,masculine,indefinite,بدل,محمد,بدل من محمد أو خبر المبتدأ
+الله,noun,genitive,singular,masculine,definite,مضاف إليه,رسول,لفظ الجلالة
+والذين,noun,nominative,plural,masculine,definite,مبتدأ,,اسم موصول معطوف
+معه,particle,unknown,singular,masculine,indefinite,ظرف مكان,,متعلق بصلة الموصول المحذوفة
+أشداء,noun,nominative,plural,masculine,indefinite,خبر,الذين,خبر أول للمبتدأ الذين
+على,particle,unknown,singular,masculine,indefinite,حرف جر,,,
+الكفار,noun,genitive,plural,masculine,definite,مجرور,على,متعلق بأشداء
+رحماء,noun,nominative,plural,masculine,indefinite,خبر ثانٍ,الذين,خبر ثان للمبتدأ الذين
+بينهم,particle,unknown,plural,masculine,indefinite,ظرف مكان,,متعلق برحماء
+تراهم,verb,unknown,plural,masculine,indefinite,خبر ثالث,الذين,فعل مضارع - خبر ثالث
+ركعاً,noun,accusative,plural,masculine,indefinite,حال,,حال منصوبة
+سجداً,noun,accusative,plural,masculine,indefinite,حال,,حال منصوبة
+يبتغون,verb,unknown,plural,masculine,indefinite,خبر رابع,الذين,فعل مضارع - خبر رابع
+فضلاً,noun,accusative,singular,masculine,indefinite,مفعول به,يبتغون,مفعول به
+من,particle,unknown,singular,masculine,indefinite,حرف جر,,,
+الله,noun,genitive,singular,masculine,definite,مجرور,من,متعلق بصفة محذوفة
+ورضواناً,noun,accusative,singular,masculine,indefinite,مفعول به,يبتغون,معطوف على فضلاً
+سيماهم,noun,nominative,singular,feminine,indefinite,مبتدأ,,مبتدأ جملة جديدة
+في,particle,unknown,singular,masculine,indefinite,حرف جر,,,
+وجوههم,noun,genitive,plural,masculine,indefinite,مجرور,في,متعلق بخبر سيماهم
+من,particle,unknown,singular,masculine,indefinite,حرف جر,,,
+أثر,noun,genitive,singular,masculine,indefinite,مجرور,من,متعلق بسيماهم
+السجود,noun,genitive,singular,masculine,definite,مضاف إليه,أثر,مضاف إليه
+ذلك,pronoun,nominative,singular,masculine,definite,مبتدأ,,اسم إشارة مبتدأ
+مثلهم,noun,nominative,singular,masculine,indefinite,خبر,ذلك,خبر ذلك
+في,particle,unknown,singular,masculine,indefinite,حرف جر,,,
+التوراة,noun,genitive,singular,feminine,definite,مجرور,في,متعلق بصفة محذوفة
+ومثلهم,noun,nominative,singular,masculine,indefinite,خبر,ذلك,معطوف على مثلهم الأول
+في,particle,unknown,singular,masculine,indefinite,حرف جر,,,
+الإنجيل,noun,genitive,singular,masculine,definite,مجرور,في,متعلق بصفة محذوفة
+كزرع,noun,genitive,singular,masculine,indefinite,خبر محذوف,,خبر مبتدأ محذوف: هم كزرع
+أخرج,verb,unknown,singular,masculine,indefinite,فعل ماضٍ,,نعت لزرع
+شطأه,noun,accusative,singular,masculine,indefinite,مفعول به,أخرج,مفعول به
+فآزره,verb,unknown,singular,masculine,indefinite,فعل ماضٍ,,معطوف على أخرج
+فاستغلظ,verb,unknown,singular,masculine,indefinite,فعل ماضٍ,,معطوف على آزره
+فاستوى,verb,unknown,singular,masculine,indefinite,فعل ماضٍ,,معطوف على استغلظ
+على,particle,unknown,singular,masculine,indefinite,حرف جر,,,
+سوقه,noun,genitive,singular,masculine,indefinite,مجرور,على,متعلق باستوى
+يعجب,verb,unknown,singular,masculine,indefinite,فعل مضارع,,حال من فاعل استوى
+الزراع,noun,accusative,plural,masculine,definite,مفعول به,يعجب,مفعول به
+ليغيظ,verb,unknown,singular,masculine,indefinite,فعل مضارع منصوب,,للتعليل
+بهم,particle,unknown,plural,masculine,indefinite,حرف جر,,,
+الكفار,noun,accusative,plural,masculine,definite,مفعول به,يغيظ,مفعول به
+وعد,verb,unknown,singular,masculine,indefinite,فعل ماضٍ,,فعل ماضٍ
+الله,noun,nominative,singular,masculine,definite,فاعل,وعد,لفظ الجلالة فاعل
+الذين,noun,accusative,plural,masculine,definite,مفعول به,وعد,اسم موصول مفعول به
+آمنوا,verb,unknown,plural,masculine,indefinite,فعل ماضٍ,,صلة الموصول
+وعملوا,verb,unknown,plural,masculine,indefinite,فعل ماضٍ,,معطوف على آمنوا
+الصالحات,noun,accusative,plural,feminine,definite,مفعول به,عملوا,جمع مؤنث سالم
+منهم,particle,unknown,plural,masculine,indefinite,حرف جر,,,
+مغفرة,noun,accusative,singular,feminine,indefinite,مفعول به ثانٍ,وعد,مفعول به ثان
+وأجراً,noun,accusative,singular,masculine,indefinite,مفعول به,وعد,معطوف على مغفرة
+عظيماً,noun,accusative,singular,masculine,indefinite,صفة,أجر,صفة لأجر

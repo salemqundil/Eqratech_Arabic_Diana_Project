@@ -1,0 +1,13 @@
+name: Coq CI (manual)
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Disabled (replaced coq-community/coq-action)
+        run: |
+          echo "Disabled: this workflow referenced a missing action (coq-community/coq-action@v1)."
+          echo "Use CI / coq-skeleton in .github/workflows/ci.yml instead."

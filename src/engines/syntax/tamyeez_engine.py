@@ -1,0 +1,21 @@
+import pandas as pd
+from engines.base import BaseReconstructionEngine, EngineLayer
+from reconstruction_utils import reconstruct_from_base_df
+
+
+class TamyeezEngine(BaseReconstructionEngine):
+    SHEET_NAME = 'التمييز'
+    LAYER = EngineLayer.SYNTAX
+    GROUP = "4.2"
+    SUBGROUP = "4.2.4"
+    GROUP_AR = "المتممات"
+    SUBGROUP_AR = "التمييز"
+
+    @classmethod
+    def make_df(cls):
+        rows = [
+            {"الأداة": "طاب زيدٌ نفسًا", "القالب/التركيب": "تمييز ذات", "الفونيمات": "", "الحركات": "", "شرط/سياق": "تمييز يوضح المبهم من الذات", "الوظيفة النحوية": "تمييز", "الوظيفة الدلالية": "إزالة إبهام", "الوظيفة الصرفية": "اسم منصوب", "الوظيفة الصوتية": "تركيب", "الوظيفة الاشتقاقية": "مشتق", "ملاحظات": "مثال"},
+            {"الأداة": "اشتريت عشرين كتابًا", "القالب/التركيب": "تمييز عدد", "الفونيمات": "", "الحركات": "", "شرط/سياق": "تمييز بعد عدد", "الوظيفة النحوية": "تمييز", "الوظيفة الدلالية": "بيان المعدود", "الوظيفة الصرفية": "اسم منصوب", "الوظيفة الصوتية": "تركيب", "الوظيفة الاشتقاقية": "مشتق", "ملاحظات": "مثال"}
+        ]
+        df = pd.DataFrame(rows)
+        return reconstruct_from_base_df(df)

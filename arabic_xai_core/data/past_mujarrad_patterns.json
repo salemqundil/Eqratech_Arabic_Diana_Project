@@ -1,0 +1,43 @@
+[
+  {
+    "pattern": "فَعَلَ",
+    "vowel_seq": [
+      "َ",
+      "َ",
+      "َ"
+    ],
+    "tri_quad": "ثلاثي",
+    "mujarrad": true
+  },
+  {
+    "pattern": "فَعِلَ",
+    "vowel_seq": [
+      "َ",
+      "ِ",
+      "َ"
+    ],
+    "tri_quad": "ثلاثي",
+    "mujarrad": true
+  },
+  {
+    "pattern": "فَعُلَ",
+    "vowel_seq": [
+      "َ",
+      "ُ",
+      "َ"
+    ],
+    "tri_quad": "ثلاثي",
+    "mujarrad": true
+  },
+  {
+    "pattern": "فَعْلَلَ",
+    "vowel_seq": [
+      "َ",
+      "ْ",
+      "َ",
+      "َ"
+    ],
+    "tri_quad": "رباعي",
+    "mujarrad": true
+  }
+]

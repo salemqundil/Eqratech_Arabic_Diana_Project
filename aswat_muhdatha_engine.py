@@ -24,5 +24,5 @@ class AswatMuhdathaEngine(BaseReconstructionEngine):
                 "الوظيفة الاشتقاقية": "جامد غالبًا",
                 "ملاحظات": "اسم صوت محدث"
             })
-        df = pd.DataFrame(data)
-        return reconstruct_from_base_df(df)
+        dataframe = pd.DataFrame(data)
+        return reconstruct_from_base_df(dataframe)

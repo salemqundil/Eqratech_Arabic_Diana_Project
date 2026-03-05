@@ -11,9 +11,9 @@ def _iter_engine_modules():
     base_dir = Path(__file__).parent
     for module_info in pkgutil.iter_modules([str(base_dir)]):
         name = module_info.name
-        if not name.endswith('_engine') and not name.endswith('_engine'.replace('_', '')):
-            # keep only *engine.py style modules by loose heuristic
-            pass
+        if not name.endswith('_engine') and not name.endswith('engine'):
+            # keep only *_engine.py style modules
+            continue
         try:
             yield importlib.import_module(name)
         except Exception:

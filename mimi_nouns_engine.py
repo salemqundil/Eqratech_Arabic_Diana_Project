@@ -136,5 +136,5 @@ class MimiNounsEngine(BaseReconstructionEngine):
                 "ملاحظات": "مؤنث بالتاء المربوطة"
             },
         ]
-        df = pd.DataFrame(MIMI_NOUNS)
-        return reconstruct_from_base_df(df)
+        dataframe = pd.DataFrame(MIMI_NOUNS)
+        return reconstruct_from_base_df(dataframe)

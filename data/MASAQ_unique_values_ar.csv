@@ -1,0 +1,215 @@
+field,value,arabic
+Morph_Type,Other_i3rab,أخرى/علامات إعراب
+Morph_Type,Prefix,بادئة
+Morph_Type,Stem,جِذع/أصل الكلمة
+Morph_Type,Suffix,لاحقة
+Case_Mood,ACCUSATIVE,منصوب
+Case_Mood,GENITIVE,مجرور
+Case_Mood,INVARIABLE,مبني/غير معرب
+Case_Mood,JUSSIVE,مجزوم
+Case_Mood,NOMINATIVE,مرفوع
+Case_Mood_Marker,ALIF,ألف
+Case_Mood_Marker,DEL_NUN,حذف النون
+Case_Mood_Marker,DEL_VOWEL,حذف الحركة
+Case_Mood_Marker,DHAMMA,ضمة
+Case_Mood_Marker,FATHA,فتحة
+Case_Mood_Marker,FATHA_DIPTOTE,فتحة (ممنوع من الصرف)
+Case_Mood_Marker,IMP_DHAMMA,ضمة (علامة أمر)
+Case_Mood_Marker,IMP_FATHA,فتحة (علامة أمر)
+Case_Mood_Marker,IMP_KASRA,كسرة (علامة أمر)
+Case_Mood_Marker,KASRA,كسرة
+Case_Mood_Marker,NUN,نون
+Case_Mood_Marker,SUKUN,سكون
+Case_Mood_Marker,WAW,واو
+Case_Mood_Marker,YAA,ياء
+Syntactic_Role,ACC_SPECIF,تمييز/نصب اختصاص
+Syntactic_Role,ACRON,اختصار
+Syntactic_Role,ADJ,صفة
+Syntactic_Role,ADV_PLCE,ظرف مكان
+Syntactic_Role,ADV_TIME,ظرف زمان
+Syntactic_Role,AGNT,فاعل/عامل
+Syntactic_Role,ANNUL_PART,حرف ناسخ
+Syntactic_Role,APPOS,بدل/عطف بيان
+Syntactic_Role,CERT_PART,أداة توكيد/تحقيق
+Syntactic_Role,CIRCUM,حال/متعلَّق ظرفي
+Syntactic_Role,COGN,مفعول مطلق
+Syntactic_Role,COMIT,مفعول معه
+Syntactic_Role,COMPL,متمّم/تكملة
+Syntactic_Role,CONJ,عطف
+Syntactic_Role,CONJ_N,اسم معطوف
+Syntactic_Role,CV,فعل أمر
+Syntactic_Role,CV_COP,فعل أمر رابط
+Syntactic_Role,EXCP,مستثنى
+Syntactic_Role,EXPLET,حشو/زائد (لا محل له)
+Syntactic_Role,GEN_CONS,مضاف إليه
+Syntactic_Role,INTENCIF,مؤكِّد/مكثِّف
+Syntactic_Role,INTERJ_CV,اعتراضي (أمر)
+Syntactic_Role,INTERJ_IV,اعتراضي (مضارع)
+Syntactic_Role,INTERJ_PV,اعتراضي (ماضٍ)
+Syntactic_Role,IV,فعل مضارع
+Syntactic_Role,IV_COP,فعل مضارع رابط
+Syntactic_Role,IV_PASS,فعل مضارع مبني للمجهول
+Syntactic_Role,NEG,نفي
+Syntactic_Role,NEG_CAT,نفي (كان/ناسخ)
+Syntactic_Role,NEG_MAA,نفي بـ(ما)
+Syntactic_Role,NEG_PROH,نهي
+Syntactic_Role,NON_INFLECT,غير معرب
+Syntactic_Role,NOUN_CONS,اسم مضاف/مركب إضافي
+Syntactic_Role,NUM_COMP,مركّب عددي
+Syntactic_Role,OBJ,مفعول به
+Syntactic_Role,PART_CONDITION,أداة شرط
+Syntactic_Role,PART_COP_PRED,أداة ربط خبرية
+Syntactic_Role,PART_EXCEPT,أداة استثناء
+Syntactic_Role,PART_INHIB,أداة نهي/منع
+Syntactic_Role,PART_INTERROG,أداة استفهام
+Syntactic_Role,PART_JUSSIVE,أداة جزم
+Syntactic_Role,PART_PREV,أداة استقبال
+Syntactic_Role,PASS_SUBJ,نائب فاعل
+Syntactic_Role,PRED,خبر/مسند
+Syntactic_Role,PREP,حرف جر
+Syntactic_Role,PREP_OBJ,اسم مجرور
+Syntactic_Role,PURP,تعليل/غاية
+Syntactic_Role,SUBJ,فاعل
+Syntactic_Role,SUBJUNC_PART,أداة نصب
+Syntactic_Role,SUBJ_COP_PART,أداة ربط (مبتدأ/خبر)
+Syntactic_Role,SUBJ_COP_V,فعل رابط (مبتدأ/خبر)
+Syntactic_Role,SUBJ_DELA,فاعل/مبتدأ مؤخر
+Syntactic_Role,SUBJ_NEG_CAT,مبتدأ مع نفي ناسخ
+Syntactic_Role,SUBOR_ANN_CONJ,حرف ربط ناسخ/تابع
+Syntactic_Role,SUBOR_CONJ,حرف ربط/تابع
+Syntactic_Role,SUBS_COG_ACC,نائب مفعول مطلق
+Syntactic_Role,VOC,منادى
+Syntactic_Role,VOC_PART,أداة نداء
+Syntactic_Role,V_COP_PRED,فعل رابط خبري
+Morph_Tag,ABBREV,اختصار
+Morph_Tag,ADJ_COMP,صفة مقارنة/تفضيل
+Morph_Tag,ADJ_INTENS,صفة مبالغة/شدة
+Morph_Tag,ADJ_QUALIT,صفة نوعية
+Morph_Tag,ADV,ظرف
+Morph_Tag,ANNUL_PART,حرف ناسخ
+Morph_Tag,CASE_DEF_ACC,علامة نصب (معرّف)
+Morph_Tag,CASE_DEF_GEN,علامة جر (معرّف)
+Morph_Tag,CASE_DEF_NOM,علامة رفع (معرّف)
+Morph_Tag,CASE_INDEF_(ACC_GEN),علامة نصب/جر (نكرة)
+Morph_Tag,CASE_INDEF_ACC,علامة نصب (نكرة)
+Morph_Tag,CASE_INDEF_GEN,علامة جر (نكرة)
+Morph_Tag,CASE_INDEF_NOM,علامة رفع (نكرة)
+Morph_Tag,CERT_PART,أداة توكيد/تحقيق
+Morph_Tag,CONDITION_PART,أداة شرط
+Morph_Tag,CONJ,حرف عطف
+Morph_Tag,CURRENCY,عملة
+Morph_Tag,CV,فعل أمر
+Morph_Tag,CVSUFF_SUBJ:2MP,لاحقة أمر: ضمير فاعل (مخاطب مذكر جمع)
+Morph_Tag,CVSUFF_SUBJ:2MS,لاحقة أمر: ضمير فاعل (مخاطب مذكر مفرد)
+Morph_Tag,CV_PREF,بادئة أمر
+Morph_Tag,DEM_PRON,اسم إشارة
+Morph_Tag,DEM_PRON_F,اسم إشارة مؤنث
+Morph_Tag,DEM_PRON_FS,اسم إشارة مؤنث مفرد
+Morph_Tag,DEM_PRON_MP,اسم إشارة مذكر جمع
+Morph_Tag,DEM_PRON_MS,اسم إشارة مذكر مفرد
+Morph_Tag,DET,أداة تعريف/تحديد
+Morph_Tag,EMPHATIC_NUN,نون التوكيد
+Morph_Tag,EXCEPT_NOUN,اسم استثناء
+Morph_Tag,EXCEPT_PART,أداة استثناء
+Morph_Tag,FOREIGN,لفظ أعجمي
+Morph_Tag,FUTURE_PART,أداة استقبال
+Morph_Tag,FUTUR_PART,أداة استقبال
+Morph_Tag,FUT_PART,أداة استقبال
+Morph_Tag,GERUND,مصدر
+Morph_Tag,GERUND_INSTANT,مصدر مرة/لحظي
+Morph_Tag,GERUND_MEEM,مصدر ميمي
+Morph_Tag,GERUND_PROFESSION,مصدر صنعة/حرفة
+Morph_Tag,GERUND_STATE,مصدر هيئة/حالة
+Morph_Tag,IMPERF_PREF,بادئة المضارع
+Morph_Tag,INF_ANNUL_PART,حرف ناسخ (مصدري)
+Morph_Tag,INF_SUBJUNC_PART,حرف نصب (مصدري)
+Morph_Tag,INTERROG,استفهام
+Morph_Tag,INTERROG_PART,أداة استفهام
+Morph_Tag,INTERROG_PRON,ضمير استفهام
+Morph_Tag,IV,فعل مضارع
+Morph_Tag,IV1P,فعل مضارع (متكلم جمع)
+Morph_Tag,IV1S,فعل مضارع (متكلم مفرد)
+Morph_Tag,IV2MP,فعل مضارع (مخاطب مذكر جمع)
+Morph_Tag,IV3FS,فعل مضارع (غائبة مؤنث مفرد)
+Morph_Tag,IV3MP,فعل مضارع (غائب مذكر جمع)
+Morph_Tag,IV3MS,فعل مضارع (غائب مذكر مفرد)
+Morph_Tag,IVSUFF_DO:3MS,لاحقة مضارع: ضمير مفعول به (غائب مذكر مفرد)
+Morph_Tag,IVSUFF_SUBJ:MP_MOOD:I,لاحقة مضارع: واو الجماعة/فاعل (حالة رفع)
+Morph_Tag,IVSUFF_SUBJ:MP_MOOD:SJ,لاحقة مضارع: واو الجماعة/فاعل (حالة نصب)
+Morph_Tag,IV_PASS,مضارع مبني للمجهول
+Morph_Tag,JUSSIVE_PART,أداة جزم
+Morph_Tag,KAAFA_MAKFOUFA,كاف مكفوفة
+Morph_Tag,NEG_PART,أداة نفي
+Morph_Tag,NOON_V5,نون الأفعال الخمسة
+Morph_Tag,NOUN,اسم
+Morph_Tag,NOUN_ABSTRACT,اسم معنوي/مجرد
+Morph_Tag,NOUN_ACTIVE_PART,اسم فاعل
+Morph_Tag,NOUN_CONCRETE,اسم محسوس
+Morph_Tag,NOUN_DIMINUTIVE,اسم تصغير
+Morph_Tag,NOUN_FIVE,الأسماء الخمسة
+Morph_Tag,NOUN_INSTRUMENT,اسم آلة
+Morph_Tag,NOUN_NUM,اسم عدد
+Morph_Tag,NOUN_PASSIVE_PART,اسم مفعول
+Morph_Tag,NOUN_PROP,اسم علم
+Morph_Tag,NOUN_PROP_FOREIGN,اسم علم أعجمي
+Morph_Tag,NOUN_RELATIVE,اسم موصول
+Morph_Tag,NOUN_TIME_PLACE,اسم زمان/مكان
+Morph_Tag,NOUN_VERB_LIKE,اسم فعل
+Morph_Tag,NSUFF_FEM_DU_ACC,لاحقة اسمية: تثنية مؤنث (نصب)
+Morph_Tag,NSUFF_FEM_DU_GEN,لاحقة اسمية: تثنية مؤنث (جر)
+Morph_Tag,NSUFF_FEM_DU_NOM,لاحقة اسمية: تثنية مؤنث (رفع)
+Morph_Tag,NSUFF_FEM_PL,لاحقة اسمية: جمع مؤنث سالم
+Morph_Tag,NSUFF_FEM_SG,لاحقة اسمية: علامة مؤنث مفرد
+Morph_Tag,NSUFF_MASC_DU_ACC,لاحقة اسمية: تثنية مذكر (نصب)
+Morph_Tag,NSUFF_MASC_DU_GEN,لاحقة اسمية: تثنية مذكر (جر)
+Morph_Tag,NSUFF_MASC_DU_GEN_POSS,لاحقة اسمية: تثنية مذكر (جر) مع إضافة/ملكية
+Morph_Tag,NSUFF_MASC_DU_NOM,لاحقة اسمية: تثنية مذكر (رفع)
+Morph_Tag,NSUFF_MASC_PL_ACC,لاحقة اسمية: جمع مذكر سالم (نصب)
+Morph_Tag,NSUFF_MASC_PL_GEN,لاحقة اسمية: جمع مذكر سالم (جر)
+Morph_Tag,NSUFF_MASC_PL_NOM,لاحقة اسمية: جمع مذكر سالم (رفع)
+Morph_Tag,None,غير محدد
+Morph_Tag,OBJ_PRON,ضمير مفعول به (متصل)
+Morph_Tag,OTHER,أخرى
+Morph_Tag,PART,حرف/أداة
+Morph_Tag,POSS_PRON,ضمير ملكية (متصل)
+Morph_Tag,POSS_PRON_1P,ضمير ملكية: متكلم جمع
+Morph_Tag,POSS_PRON_1S,ضمير ملكية: متكلم مفرد
+Morph_Tag,POSS_PRON_2MS,ضمير ملكية: مخاطب مذكر مفرد
+Morph_Tag,POSS_PRON_3D,ضمير ملكية: غائب مثنى
+Morph_Tag,POSS_PRON_3FS,ضمير ملكية: غائبة مؤنث مفرد
+Morph_Tag,POSS_PRON_3MP,ضمير ملكية: غائب مذكر جمع
+Morph_Tag,POSS_PRON_3MS,ضمير ملكية: غائب مذكر مفرد
+Morph_Tag,PREFIX,بادئة (عام)
+Morph_Tag,PREP,حرف جر
+Morph_Tag,PRON,ضمير
+Morph_Tag,PRON_1P,ضمير منفصل: متكلم جمع
+Morph_Tag,PRON_1S,ضمير منفصل: متكلم مفرد
+Morph_Tag,PRON_2MP,ضمير منفصل: مخاطب مذكر جمع
+Morph_Tag,PRON_2MS,ضمير منفصل: مخاطب مذكر مفرد
+Morph_Tag,PRON_3D,ضمير منفصل: غائب مثنى
+Morph_Tag,PRON_3FP,ضمير منفصل: غائبة مؤنث جمع
+Morph_Tag,PRON_3FS,ضمير منفصل: غائبة مؤنث مفرد
+Morph_Tag,PRON_3MP,ضمير منفصل: غائب مذكر جمع
+Morph_Tag,PRON_3MS,ضمير منفصل: غائب مذكر مفرد
+Morph_Tag,PROTECT_NUN,نون الوقاية
+Morph_Tag,PV,فعل ماضٍ
+Morph_Tag,PVSUFF_DO:3FS,لاحقة ماضٍ: ضمير مفعول به (غائبة مؤنث مفرد)
+Morph_Tag,PVSUFF_DO:3MP,لاحقة ماضٍ: ضمير مفعول به (غائب مذكر جمع)
+Morph_Tag,PVSUFF_DO:3MS,لاحقة ماضٍ: ضمير مفعول به (غائب مذكر مفرد)
+Morph_Tag,PVSUFF_SUBJ:1P,لاحقة ماضٍ: ضمير فاعل (متكلم جمع)
+Morph_Tag,PVSUFF_SUBJ:1S,لاحقة ماضٍ: ضمير فاعل (متكلم مفرد)
+Morph_Tag,PVSUFF_SUBJ:2MP,لاحقة ماضٍ: ضمير فاعل (مخاطب مذكر جمع)
+Morph_Tag,PVSUFF_SUBJ:3FS,لاحقة ماضٍ: ضمير فاعل (غائبة مؤنث مفرد)
+Morph_Tag,PVSUFF_SUBJ:3MP,لاحقة ماضٍ: ضمير فاعل (غائب مذكر جمع)
+Morph_Tag,PVSUFF_SUBJ:3MS,لاحقة ماضٍ: ضمير فاعل (غائب مذكر مفرد)
+Morph_Tag,PV_PASS,ماضٍ مبني للمجهول
+Morph_Tag,RELATIVE_YA,ياء النسب/ياء الموصول
+Morph_Tag,REL_ADV,ظرف موصول
+Morph_Tag,REL_PRON,اسم موصول
+Morph_Tag,SUBJUNC_PART,أداة نصب
+Morph_Tag,SUBJ_PRON,ضمير فاعل (متصل)
+Morph_Tag,SUFF,لاحقة (عام)
+Morph_Tag,SUFF_FEM_TA,تاء التأنيث
+Morph_Tag,UNINFLECTED_VERB,فعل جامد/غير متصرف
+Morph_Tag,VOC_PART,أداة نداء
+Morph_Tag,YES_NO_RESP_PART,أداة جواب (نعم/لا)

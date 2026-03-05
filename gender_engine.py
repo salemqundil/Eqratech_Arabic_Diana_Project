@@ -88,5 +88,5 @@ class GenderEngine(BaseReconstructionEngine):
                 "ملاحظات": "مثل: هند، دار"
             }
         ]
-        df = pd.DataFrame(data)
-        return reconstruct_from_base_df(df)
+        dataframe = pd.DataFrame(data)
+        return reconstruct_from_base_df(dataframe)

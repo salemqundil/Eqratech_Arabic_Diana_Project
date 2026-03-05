@@ -190,10 +190,10 @@ def main():
     # حفظ جميع البيانات في ملف إكسل
     target_excel = "full_multilayer_grammar.xlsx"
     with pd.ExcelWriter(target_excel) as writer:
-        for sheet_name, df in dfs.items():
-            df.to_excel(writer, sheet_name=sheet_name, index=False)
+        for sheet_name, dataframe in dfs.items():
+            dataframe.to_excel(writer, sheet_name=sheet_name, index=False)
             print(f"--- سامبل من شيت: {sheet_name} ---")
-            print(df.head(3))
+            print(dataframe.head(3))
             print("------------------------------\n")
 
     # بعد كتابة كل الشيتات نعيد بناء شيت الحركات ليحتوي فقط 8 حركات أساسية بالأعمدة المطلوبة (الاسم، النوع، أثرها ... إلخ)

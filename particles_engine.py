@@ -16,19 +16,19 @@ class ParticlesEngine(BaseReconstructionEngine):
             ("ليت", "حرف مشبه بالفعل", "تمني"),
         ]
         rows = []
-        for form, kind, function in particles:
+        for particle_form, particle_kind, particle_function in particles:
             rows.append({
-                "الأداة": form,
-                "القالب/التركيب": kind,
-                "الفونيمات": " ".join(list(form)),
+                "الأداة": particle_form,
+                "القالب/التركيب": particle_kind,
+                "الفونيمات": " ".join(list(particle_form)),
                 "الحركات": "",
-                "شرط/سياق": function,
-                "الوظيفة النحوية": kind,
-                "الوظيفة الدلالية": function,
+                "شرط/سياق": particle_function,
+                "الوظيفة النحوية": particle_kind,
+                "الوظيفة الدلالية": particle_function,
                 "الوظيفة الصرفية": "حرف مبني",
                 "الوظيفة الصوتية": "قصير",
                 "الوظيفة الاشتقاقية": "غير مشتق",
                 "ملاحظات": "حرف مشبه بالفعل"
             })
-        df = pd.DataFrame(rows)
-        return reconstruct_from_base_df(df)
+        dataframe = pd.DataFrame(rows)
+        return reconstruct_from_base_df(dataframe)

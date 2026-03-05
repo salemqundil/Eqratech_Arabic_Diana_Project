@@ -81,7 +81,7 @@ class EnhancedSentenceGenerationEngine(BaseReconstructionEngine):
         # استخراج العينات من كل محرك
         samples = {}
         for key, df in engines.items():
-            if not df.empty and 'الأداة' in df.columns:
+            if not dataframe.empty and 'الأداة' in dataframe.columns:
                 samples[key] = df['الأداة'].dropna().head(20).tolist()
             else:
                 samples[key] = []

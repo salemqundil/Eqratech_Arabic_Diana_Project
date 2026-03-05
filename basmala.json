@@ -1,0 +1,50 @@
+{
+  "input": "بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ",
+  "success": true,
+  "c1": {
+    "num_units": 34,
+    "units": null
+  },
+  "c2a": {
+    "gates": [
+      {
+        "gate_id": "G_SUKUN",
+        "status": "ACCEPT",
+        "time_ms": 0.025033950805664062,
+        "deltas": 0,
+        "reason": null
+      },
+      {
+        "gate_id": "G_SHADDA",
+        "status": "ACCEPT",
+        "time_ms": 0.0069141387939453125,
+        "deltas": 0,
+        "reason": null
+      },
+      {
+        "gate_id": "G_IDGHAM",
+        "status": "ACCEPT",
+        "time_ms": 0.007867813110351562,
+        "deltas": 0,
+        "reason": null
+      },
+      {
+        "gate_id": "G_MADD",
+        "status": "ACCEPT",
+        "time_ms": 0.012159347534179688,
+        "deltas": 1,
+        "reason": null
+      }
+    ],
+    "syllables": {
+      "count": 15,
+      "syllables": null
+    }
+  },
+  "stats": {
+    "c1_time_ms": 0.041961669921875,
+    "c2a_time_ms": 0.07700920104980469,
+    "total_time_ms": 0.11992454528808594,
+    "gates_count": 4
+  }
+}

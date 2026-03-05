@@ -55,22 +55,22 @@ class SimpleSentenceGenerator:
                 
                 # تحميل البيانات بطريقة آمنة
                 try:
-                    df = engine_class.make_df()
-                    if not df.empty:
-                        self.engines_data[engine_name] = df
+                    dataframe = engine_class.make_df()
+                    if not dataframe.empty:
+                        self.engines_data[engine_name] = dataframe
                         loaded_count += 1
-                        self.safe_print(f"[OK] {engine_name}: {len(df)} items")
+                        self.safe_print(f"[OK] {engine_name}: {len(dataframe)} items")
                     else:
                         self.safe_print(f"[WARN] {engine_name}: empty")
-                except Exception as inner_e:
-                    self.safe_print(f"[SKIP] {engine_name}: data error - {str(inner_e)}")
+                except Exception as inner_error:
+                    self.safe_print(f"[SKIP] {engine_name}: data error - {str(inner_error)}")
                     self.engines_data[engine_name] = pd.DataFrame()
                     
             except ImportError:
                 self.safe_print(f"[SKIP] {engine_name}: module not found")
                 self.engines_data[engine_name] = pd.DataFrame()
-            except Exception as e:
-                self.safe_print(f"[FAIL] {engine_name}: {str(e)}")
+            except Exception as error:
+                self.safe_print(f"[FAIL] {engine_name}: {str(error)}")
                 self.engines_data[engine_name] = pd.DataFrame()
         
         self.safe_print(f"[SUMMARY] Loaded {loaded_count} engines successfully")
@@ -81,8 +81,8 @@ class SimpleSentenceGenerator:
         if engine_name not in self.engines_data:
             return []
         
-        df = self.engines_data[engine_name]
-        if df.empty:
+        dataframe = self.engines_data[engine_name]
+        if dataframe.empty:
             return []
         
         # البحث عن العمود المناسب
@@ -90,25 +90,25 @@ class SimpleSentenceGenerator:
         tool_column = None
         
         for col in possible_columns:
-            if col in df.columns:
+            if col in dataframe.columns:
                 tool_column = col
                 break
         
-        if not tool_column and len(df.columns) > 0:
-            tool_column = df.columns[0]
+        if not tool_column and len(dataframe.columns) > 0:
+            tool_column = dataframe.columns[0]
         
         if not tool_column:
             return []
         
         tools = []
         try:
-            for item in df[tool_column].head(limit):
+            for item in dataframe[tool_column].head(limit):
                 if pd.notna(item):
                     tool_str = str(item).strip()
                     if tool_str and tool_str not in tools:
                         tools.append(tool_str)
-        except Exception as e:
-            self.safe_print(f"[ERROR] Error extracting tools from {engine_name}: {str(e)}")
+        except Exception as error:
+            self.safe_print(f"[ERROR] Error extracting tools from {engine_name}: {str(error)}")
             return []
         
         return tools
@@ -159,66 +159,66 @@ class SimpleSentenceGenerator:
         fael_tools = self.get_tools_safe('fael', 15)
         verb_tools = self.get_tools_safe('verbs', 15)
         
-        count1 = 0
+        verbal_count = 0
         for fael in fael_tools:
             for verb in verb_tools:
                 if self.add_sentence_simple(f"{fael} {verb}", 'fael+verb', 'verbal', 
                                           [('fael', fael), ('verb', verb)]):
-                    count1 += 1
+                    verbal_count += 1
                 if len(self.sentences) >= self.MAX_SENTENCES:
                     break
             if len(self.sentences) >= self.MAX_SENTENCES:
                 break
         
-        self.safe_print(f"  Generated {count1} basic verbal sentences")
+        self.safe_print(f"  Generated {verbal_count} basic verbal sentences")
         
         # 2. الجمل الاسمية
         self.safe_print("[GEN] Nominal sentences...")
         noun_tools = self.get_tools_safe('generic_nouns', 15)
         adj_tools = self.get_tools_safe('adjective', 10)
         
-        count2 = 0
+        nominal_count = 0
         for noun in noun_tools[:10]:
             for adj in adj_tools[:10]:
                 if noun != adj:
                     if self.add_sentence_simple(f"{noun} {adj}", 'noun+adj', 'nominal', 
                                               [('mubtada', noun), ('khabar', adj)]):
-                        count2 += 1
+                        nominal_count += 1
                 if len(self.sentences) >= self.MAX_SENTENCES:
                     break
             if len(self.sentences) >= self.MAX_SENTENCES:
                 break
         
-        self.safe_print(f"  Generated {count2} nominal sentences")
+        self.safe_print(f"  Generated {nominal_count} nominal sentences")
         
         # 3. شبه الجمل
         self.safe_print("[GEN] Prepositional phrases...")
         jar_tools = self.get_tools_safe('jar', 10)
         
-        count3 = 0
+        prepositional_count = 0
         for jar in jar_tools:
             for noun in noun_tools[:10]:
                 if self.add_sentence_simple(f"{jar} {noun}", 'jar+noun', 'prepositional', 
                                           [('jar', jar), ('majroor', noun)]):
-                    count3 += 1
+                    prepositional_count += 1
                 if len(self.sentences) >= self.MAX_SENTENCES:
                     break
             if len(self.sentences) >= self.MAX_SENTENCES:
                 break
         
-        self.safe_print(f"  Generated {count3} prepositional phrases")
+        self.safe_print(f"  Generated {prepositional_count} prepositional phrases")
         
         # 4. الجمل الاستفهامية
         self.safe_print("[GEN] Interrogative sentences...")
         istifham_tools = self.get_tools_safe('istifham', 8)
         
-        count4 = 0
+        interrogative_count = 0
         for istifham in istifham_tools:
             for fael in fael_tools[:8]:
                 for verb in verb_tools[:8]:
                     if self.add_sentence_simple(f"{istifham} {fael} {verb}", 'istifham+fael+verb', 'interrogative', 
                                               [('istifham', istifham), ('fael', fael), ('verb', verb)]):
-                        count4 += 1
+                        interrogative_count += 1
                     if len(self.sentences) >= self.MAX_SENTENCES:
                         break
                 if len(self.sentences) >= self.MAX_SENTENCES:
@@ -226,19 +226,19 @@ class SimpleSentenceGenerator:
             if len(self.sentences) >= self.MAX_SENTENCES:
                 break
         
-        self.safe_print(f"  Generated {count4} interrogative sentences")
+        self.safe_print(f"  Generated {interrogative_count} interrogative sentences")
         
         # 5. الجمل المنفية
         self.safe_print("[GEN] Negative sentences...")
         nafi_tools = self.get_tools_safe('nafi', 5)
         
-        count5 = 0
+        negative_count = 0
         for nafi in nafi_tools:
             for fael in fael_tools[:8]:
                 for verb in verb_tools[:8]:
                     if self.add_sentence_simple(f"{nafi} {fael} {verb}", 'nafi+fael+verb', 'negative', 
                                               [('nafi', nafi), ('fael', fael), ('verb', verb)]):
-                        count5 += 1
+                        negative_count += 1
                     if len(self.sentences) >= self.MAX_SENTENCES:
                         break
                 if len(self.sentences) >= self.MAX_SENTENCES:
@@ -246,24 +246,24 @@ class SimpleSentenceGenerator:
             if len(self.sentences) >= self.MAX_SENTENCES:
                 break
         
-        self.safe_print(f"  Generated {count5} negative sentences")
+        self.safe_print(f"  Generated {negative_count} negative sentences")
         
         # 6. الجمل مع أسماء الإشارة
         self.safe_print("[GEN] Demonstrative sentences...")
         demo_tools = self.get_tools_safe('demonstratives', 8)
         
-        count6 = 0
+        demonstrative_count = 0
         for demo in demo_tools:
             for noun in noun_tools[:10]:
                 if self.add_sentence_simple(f"{demo} {noun}", 'demo+noun', 'demonstrative', 
                                           [('demonstrative', demo), ('noun', noun)]):
-                    count6 += 1
+                    demonstrative_count += 1
                 if len(self.sentences) >= self.MAX_SENTENCES:
                     break
             if len(self.sentences) >= self.MAX_SENTENCES:
                 break
         
-        self.safe_print(f"  Generated {count6} demonstrative sentences")
+        self.safe_print(f"  Generated {demonstrative_count} demonstrative sentences")
         
         # 7. الجمل مع الظروف
         self.safe_print("[GEN] Adverbial sentences...")
@@ -272,13 +272,13 @@ class SimpleSentenceGenerator:
         time_tools = self.get_tools_safe('time', 8)
         all_advs = adv_tools + place_tools + time_tools
         
-        count7 = 0
+        adverbial_count = 0
         for fael in fael_tools[:6]:
             for verb in verb_tools[:6]:
                 for adv in all_advs[:12]:
                     if self.add_sentence_simple(f"{fael} {verb} {adv}", 'fael+verb+adv', 'adverbial', 
                                               [('fael', fael), ('verb', verb), ('adverb', adv)]):
-                        count7 += 1
+                        adverbial_count += 1
                     if len(self.sentences) >= self.MAX_SENTENCES:
                         break
                 if len(self.sentences) >= self.MAX_SENTENCES:
@@ -286,13 +286,13 @@ class SimpleSentenceGenerator:
             if len(self.sentences) >= self.MAX_SENTENCES:
                 break
         
-        self.safe_print(f"  Generated {count7} adverbial sentences")
+        self.safe_print(f"  Generated {adverbial_count} adverbial sentences")
         
         # 8. الجمل مع العطف
         self.safe_print("[GEN] Conjunctive sentences...")
         atf_tools = self.get_tools_safe('atf', 6)
         
-        count8 = 0
+        conjunctive_count = 0
         for fael1 in fael_tools[:5]:
             for verb1 in verb_tools[:5]:
                 for atf in atf_tools[:4]:
@@ -303,7 +303,7 @@ class SimpleSentenceGenerator:
                                 if self.add_sentence_simple(sentence, 'fael+verb+atf+fael+verb', 'compound', 
                                                           [('fael1', fael1), ('verb1', verb1), ('atf', atf), 
                                                            ('fael2', fael2), ('verb2', verb2)]):
-                                    count8 += 1
+                                    conjunctive_count += 1
                             if len(self.sentences) >= self.MAX_SENTENCES:
                                 break
                         if len(self.sentences) >= self.MAX_SENTENCES:
@@ -315,30 +315,32 @@ class SimpleSentenceGenerator:
             if len(self.sentences) >= self.MAX_SENTENCES:
                 break
         
-        self.safe_print(f"  Generated {count8} conjunctive sentences")
+        self.safe_print(f"  Generated {conjunctive_count} conjunctive sentences")
         
-        total_generated = count1 + count2 + count3 + count4 + count5 + count6 + count7 + count8
+        total_generated = (verbal_count + nominal_count + prepositional_count + 
+                          interrogative_count + negative_count + demonstrative_count + 
+                          adverbial_count + conjunctive_count)
         self.safe_print(f"\n=== Generation complete: {total_generated} sentences ===")
         
         if self.sentences:
-            df = pd.DataFrame(self.sentences)
-            self.safe_print(f"[SUCCESS] Created DataFrame with {len(df)} rows and {len(df.columns)} columns")
-            return df
+            result_dataframe = pd.DataFrame(self.sentences)
+            self.safe_print(f"[SUCCESS] Created DataFrame with {len(result_dataframe)} rows and {len(result_dataframe.columns)} columns")
+            return result_dataframe
         else:
             self.safe_print("[WARNING] No sentences generated")
             return pd.DataFrame()
     
     def save_to_excel_safe(self, filename="safe_comprehensive_sentences.xlsx"):
         """حفظ الجمل بطريقة آمنة"""
-        df = self.generate_sentences_safe()
+        result_dataframe = self.generate_sentences_safe()
         
-        if not df.empty:
+        if not result_dataframe.empty:
             try:
-                df.to_excel(filename, index=False, sheet_name='Generated_Sentences')
-                self.safe_print(f"[SUCCESS] Saved {len(df)} sentences to {filename}")
+                result_dataframe.to_excel(filename, index=False, sheet_name='Generated_Sentences')
+                self.safe_print(f"[SUCCESS] Saved {len(result_dataframe)} sentences to {filename}")
                 return True
-            except Exception as e:
-                self.safe_print(f"[ERROR] Failed to save: {str(e)}")
+            except Exception as error:
+                self.safe_print(f"[ERROR] Failed to save: {str(error)}")
                 return False
         else:
             self.safe_print("[ERROR] No sentences to save")

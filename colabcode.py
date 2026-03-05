@@ -1,6 +1,11 @@
 # ✅ Colab-ready: PyTorch + CUDA check
 import platform
-import torch
+
+try:
+    import torch
+except ImportError:
+    print("PyTorch is not installed. Run: pip install torch")
+    raise SystemExit(1)
 
 print(f"Python:  {platform.python_version()}")
 print(f"PyTorch: {torch.__version__}")

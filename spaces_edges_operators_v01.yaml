@@ -1,0 +1,790 @@
+# Spaces, Edges, Operators Configuration v0.1
+# Unified schema for FractalHub graph-based linguistic analysis
+
+# ==============================================================================
+# 1. SPACE DEFINITIONS
+# ==============================================================================
+# Spaces represent different linguistic layers or dimensions
+spaces:
+  phonological:
+    id: phono_space
+    description: "Phonological space for sound patterns and constraints"
+    dimensions:
+      - name: vowel_length
+        type: discrete
+        values: [0, 1, 2]  # null, short (V), long (VV)
+      - name: consonant_type
+        type: categorical
+        values: [none, stable, carrier_alif, carrier_waw, carrier_ya]
+      - name: nucleus_type
+        type: categorical
+        values: [none, sukun, fatha, damma, kasra]
+    
+  morphological:
+    id: morpho_space
+    description: "Morphological space for word formation and derivation"
+    dimensions:
+      - name: root_type
+        type: categorical
+        values: [jamid, mushtaq]  # solid/derived
+      - name: pattern
+        type: categorical
+        values: [mujarrad, mazid]  # base/augmented
+      - name: root_position
+        type: discrete
+        values: [0, 1, 2, 3]  # C0, C1, C2, C3
+      - name: transformation
+        type: categorical
+        values: [none, i3lal, idgham, ibdal]  # substitution, assimilation, replacement
+    
+  syntactic:
+    id: syntax_space
+    description: "Syntactic space for grammatical structure"
+    dimensions:
+      - name: role
+        type: categorical
+        values: [mubtada, khabar, fael, mafoul, mudaf, mudaf_ilayh, sifa, mousoof]
+      - name: case
+        type: categorical
+        values: [marfou3, mansub, majrour, mabniy]
+      - name: state
+        type: categorical
+        values: [ma3rifa, nakira, mudaf]
+    
+  semantic:
+    id: semantic_space
+    description: "Semantic space for meaning and pragmatics"
+    dimensions:
+      - name: animacy
+        type: categorical
+        values: [aqil, ghair_aqil]  # rational/non-rational
+      - name: definiteness
+        type: categorical
+        values: [definite, indefinite]
+      - name: semantic_role
+        type: categorical
+        values: [agent, patient, instrument, location, time, manner]
+  
+  discourse:
+    id: discourse_space
+    description: "Discourse/scope space for propositional content and denotation"
+    dimensions:
+      - name: quant_scope
+        type: categorical
+        values: [general, specific]  # عام/خاص
+      - name: restrict_scope
+        type: categorical
+        values: [absolute, restricted]  # مطلق/مقيد
+      - name: cond_scope
+        type: categorical
+        values: [none, conditional]  # with/without condition
+      - name: goal_scope
+        type: categorical
+        values: [none, boundary, purpose]  # حتى/إلى as boundary, كي/لكي as purpose
+      - name: number_scope
+        type: categorical
+        values: [none, numbered]  # with/without number restriction
+      - name: except_scope
+        type: categorical
+        values: [none, excepted]  # with/without exception (إلا/غير/سوى)
+      - name: truth_apt
+        type: boolean
+        values: [true, false]  # claim vs insha (truth-apt vs not)
+      - name: bridge_strength
+        type: float
+        range: [0.0, 1.0]  # strength of bridge for iltizam
+      - name: audit_ok
+        type: boolean
+        values: [true, false]
+
+# ==============================================================================
+# 2. NODE TYPES
+# ==============================================================================
+# Nodes represent linguistic units at different levels
+node_types:
+  position_token:
+    space: phonological
+    attributes:
+      - name: consonant_code
+        type: integer
+        required: true
+      - name: vowel_code
+        type: integer
+        required: true
+      - name: position_index
+        type: integer
+        required: true
+      - name: is_carrier
+        type: boolean
+        default: false
+    
+  morpheme:
+    space: morphological
+    attributes:
+      - name: root_consonants
+        type: list[integer]
+        required: true
+      - name: pattern_id
+        type: string
+        required: true
+      - name: form_number
+        type: integer
+        range: [1, 15]
+      - name: transformations_applied
+        type: list[string]
+        default: []
+    
+  word:
+    space: syntactic
+    attributes:
+      - name: surface_form
+        type: string
+        required: true
+      - name: syntactic_role
+        type: string
+        required: true
+      - name: case_ending
+        type: string
+        required: true
+      - name: gender
+        type: string
+        values: [mudhakkar, muannath]
+      - name: number
+        type: string
+        values: [mufrad, muthanna, jam3]
+    
+  phrase:
+    space: syntactic
+    attributes:
+      - name: phrase_type
+        type: string
+        values: [idafa, na3t_man3ut, jumla_ismiyya, jumla_fi3liyya]
+      - name: head_word_id
+        type: string
+        required: true
+      - name: dependents
+        type: list[string]
+        default: []
+    
+  concept:
+    space: semantic
+    attributes:
+      - name: meaning_id
+        type: string
+        required: true
+      - name: semantic_features
+        type: dict
+        default: {}
+      - name: pragmatic_context
+        type: string
+        default: ""
+  
+  # Discourse/Scope node types
+  scope:
+    space: discourse
+    attributes:
+      - name: scope_type
+        type: string
+        values: [general, specific, absolute, restricted]
+        required: true
+      - name: quant_scope
+        type: string
+        default: "general"
+      - name: restrict_scope
+        type: string
+        default: "absolute"
+      - name: specializations
+        type: list[string]
+        default: []
+      - name: truth_apt
+        type: boolean
+        default: true
+  
+  quantifier:
+    space: discourse
+    attributes:
+      - name: quant_type
+        type: string
+        values: [general, specific, universal, existential]
+        required: true
+      - name: domain
+        type: string
+        default: ""
+  
+  restrictor:
+    space: discourse
+    attributes:
+      - name: restrict_type
+        type: string
+        values: [adjective, relative, idafa, pp, other]
+        required: true
+      - name: restriction_content
+        type: string
+        default: ""
+  
+  condition:
+    space: discourse
+    attributes:
+      - name: cond_type
+        type: string
+        values: [if_then, unless, provided]
+        required: true
+      - name: condition_content
+        type: string
+        default: ""
+  
+  goal:
+    space: discourse
+    attributes:
+      - name: goal_type
+        type: string
+        values: [boundary, purpose]  # boundary: حتى/إلى, purpose: كي/لكي
+        required: true
+      - name: goal_content
+        type: string
+        default: ""
+  
+  number:
+    space: discourse
+    attributes:
+      - name: number_value
+        type: integer
+        required: true
+      - name: number_type
+        type: string
+        values: [exact, range, minimum, maximum]
+        default: "exact"
+  
+  exception:
+    space: discourse
+    attributes:
+      - name: exception_type
+        type: string
+        values: [illa, ghayr, siwa]  # إلا/غير/سوى
+        required: true
+      - name: exception_content
+        type: string
+        default: ""
+  
+  claim:
+    space: discourse
+    attributes:
+      - name: claim_type
+        type: string
+        values: [declarative, interrogative, imperative, exclamative]
+        required: true
+      - name: truth_apt
+        type: boolean
+        default: true
+      - name: proposition_content
+        type: string
+        default: ""
+  
+  bridge:
+    space: discourse
+    attributes:
+      - name: bridge_type
+        type: string
+        values: [entailment, presupposition, implicature]
+        required: true
+      - name: bridge_strength
+        type: float
+        default: 0.0
+        range: [0.0, 1.0]
+      - name: source_id
+        type: string
+        required: true
+      - name: target_id
+        type: string
+        required: true
+
+# ==============================================================================
+# 3. EDGE TYPES (OPERATORS)
+# ==============================================================================
+# Edges represent transformations, derivations, and relationships
+operators:
+  # --- Phonological Operators ---
+  phono_onset_check:
+    source_type: position_token
+    target_type: position_token
+    space: phonological
+    direction: forward
+    preconditions:
+      - "source.position_index + 1 == target.position_index"
+    constraints:
+      - name: no_cc_cluster
+        check: |
+          NOT (source.consonant_code != 0 AND 
+               target.consonant_code != 0 AND
+               source.vowel_code IN [0, 1] AND
+               target.vowel_code IN [0, 1])
+        unless: exception_declared
+    effects: []
+    audit_trail:
+      operator_name: "phono_onset_check"
+      validates: "CC_onset_constraint"
+  
+  phono_long_vowel_formation:
+    source_type: position_token
+    target_type: position_token
+    space: phonological
+    direction: forward
+    preconditions:
+      - "source.position_index + 1 == target.position_index"
+      - "source.vowel_code IN [2, 3, 4]"  # fatha, damma, kasra
+    rules:
+      - condition: "source.vowel_code == 2 AND target.is_carrier AND target.consonant_code IN alif_carriers"
+        effect: {nucleus_length: 2, vowel_type: "VV_fatha_alif"}
+      - condition: "source.vowel_code == 3 AND target.is_carrier AND target.consonant_code IN waw_carriers"
+        effect: {nucleus_length: 2, vowel_type: "VV_damma_waw"}
+      - condition: "source.vowel_code == 4 AND target.is_carrier AND target.consonant_code IN ya_carriers"
+        effect: {nucleus_length: 2, vowel_type: "VV_kasra_ya"}
+    audit_trail:
+      operator_name: "phono_long_vowel_formation"
+      validates: "long_vowel_rules"
+  
+  # --- Morphological Operators ---
+  morpho_root_gate:
+    source_type: null
+    target_type: morpheme
+    space: morphological
+    direction: creation
+    preconditions:
+      - "gate_authorization_required"
+    constraints:
+      - name: root_validity
+        check: "len(target.root_consonants) IN [3, 4]"
+      - name: gate_sequence
+        check: "C1_gate_fired AND C2_gate_fired"
+        for_target: "C3_insertion"
+    effects:
+      - "create_morpheme_node"
+      - "register_root_consonants"
+    audit_trail:
+      operator_name: "morpho_root_gate"
+      validates: "no_root_without_gate"
+  
+  morpho_pattern_application:
+    source_type: morpheme
+    target_type: morpheme
+    space: morphological
+    direction: transformation
+    preconditions:
+      - "source.root_consonants IS NOT NULL"
+      - "gate_authorization_required"
+    rules:
+      - condition: "pattern == 'fa3ala'"
+        effect: {form_number: 1, pattern_type: "mujarrad_thulathi"}
+      - condition: "pattern == 'fa33ala'"
+        effect: {form_number: 2, pattern_type: "mazid_fih"}
+      - condition: "pattern == 'fa3ala_with_i3lal'"
+        effect: {form_number: 1, transformations_applied: ["i3lal"]}
+    audit_trail:
+      operator_name: "morpho_pattern_application"
+      validates: "no_pattern_without_gate"
+  
+  morpho_derivation_gate:
+    source_type: morpheme
+    target_type: morpheme
+    space: morphological
+    direction: derivation
+    preconditions:
+      - "source.root_type == 'mushtaq'"
+      - "gate_authorization_required"
+    constraints:
+      - name: derivation_order
+        check: "source.root_consonants[0] LOCKED AND source.root_consonants[1] LOCKED"
+        before_adding: "C3"
+    effects:
+      - "create_derived_morpheme"
+      - "inherit_root_consonants"
+      - "apply_derivation_transformation"
+    audit_trail:
+      operator_name: "morpho_derivation_gate"
+      validates: "C3_after_C1_C2_locked"
+  
+  # --- Syntactic Operators ---
+  syntax_case_assignment:
+    source_type: word
+    target_type: word
+    space: syntactic
+    direction: annotation
+    preconditions:
+      - "source.syntactic_role IS NOT NULL"
+    rules:
+      - condition: "syntactic_role IN ['mubtada', 'khabar', 'fael']"
+        effect: {case_ending: "marfou3"}
+      - condition: "syntactic_role IN ['mafoul_bih', 'tamyeez']"
+        effect: {case_ending: "mansub"}
+      - condition: "syntactic_role IN ['mudaf_ilayh', 'after_preposition']"
+        effect: {case_ending: "majrour"}
+    audit_trail:
+      operator_name: "syntax_case_assignment"
+      validates: "case_agreement"
+  
+  syntax_agreement:
+    source_type: word
+    target_type: word
+    space: syntactic
+    direction: constraint
+    preconditions:
+      - "relationship IN ['sifa_mousoof', 'khabar_mubtada']"
+    constraints:
+      - name: gender_agreement
+        check: "source.gender == target.gender"
+      - name: number_agreement
+        check: "source.number == target.number"
+      - name: case_agreement
+        check: "source.case_ending == target.case_ending"
+      - name: definiteness_agreement
+        check: "source.state == target.state"
+    audit_trail:
+      operator_name: "syntax_agreement"
+      validates: "syntactic_agreement_rules"
+  
+  # --- Semantic Operators ---
+  semantic_role_assignment:
+    source_type: word
+    target_type: concept
+    space: semantic
+    direction: mapping
+    preconditions:
+      - "source.surface_form IS NOT NULL"
+    rules:
+      - condition: "syntactic_role == 'fael'"
+        effect: {semantic_role: "agent"}
+      - condition: "syntactic_role == 'mafoul_bih'"
+        effect: {semantic_role: "patient"}
+      - condition: "syntactic_role IN ['zarf_zaman', 'zarf_makan']"
+        effect: {semantic_role: "location_or_time"}
+    audit_trail:
+      operator_name: "semantic_role_assignment"
+      validates: "syntax_semantics_mapping"
+  
+  # --- Discourse/Scope Operators ---
+  scope_quantify:
+    source_type: quantifier
+    target_type: scope
+    space: discourse
+    direction: annotation
+    gate_required: true
+    gate_type: SCOPE_GATE
+    preconditions:
+      - "source.quant_type IS NOT NULL"
+      - "gate_authorization_required"
+    effects:
+      - "set_quant_scope"
+      - "register_quantifier"
+    audit_trail:
+      operator_name: "scope_quantify"
+      validates: "quantification_scope"
+  
+  scope_restrict:
+    source_type: restrictor
+    target_type: scope
+    space: discourse
+    direction: annotation
+    gate_required: true
+    gate_type: SCOPE_GATE
+    preconditions:
+      - "source.restrict_type IS NOT NULL"
+      - "gate_authorization_required"
+    effects:
+      - "set_restrict_scope"
+      - "add_specialization"
+    audit_trail:
+      operator_name: "scope_restrict"
+      validates: "restriction_scope"
+  
+  scope_if_then:
+    source_type: condition
+    target_type: scope
+    space: discourse
+    direction: annotation
+    gate_required: true
+    gate_type: SCOPE_GATE
+    preconditions:
+      - "source.cond_type IS NOT NULL"
+      - "gate_authorization_required"
+    effects:
+      - "set_cond_scope"
+      - "add_specialization_condition"
+    audit_trail:
+      operator_name: "scope_if_then"
+      validates: "conditional_scope"
+  
+  scope_goal_boundary:
+    source_type: goal
+    target_type: scope
+    space: discourse
+    direction: annotation
+    gate_required: true
+    gate_type: SCOPE_GATE
+    preconditions:
+      - "source.goal_type == 'boundary'"
+      - "gate_authorization_required"
+    constraints:
+      - name: "boundary_markers"
+        check: "goal_content contains 'حتى' or 'إلى'"
+    effects:
+      - "set_goal_scope_boundary"
+      - "add_specialization_goal"
+    audit_trail:
+      operator_name: "scope_goal_boundary"
+      validates: "goal_boundary_scope"
+  
+  scope_goal_purpose:
+    source_type: goal
+    target_type: scope
+    space: discourse
+    direction: annotation
+    gate_required: true
+    gate_type: SCOPE_GATE
+    preconditions:
+      - "source.goal_type == 'purpose'"
+      - "gate_authorization_required"
+    constraints:
+      - name: "purpose_markers"
+        check: "goal_content contains 'كي' or 'لكي'"
+    effects:
+      - "set_goal_scope_purpose"
+      - "add_specialization_goal"
+    audit_trail:
+      operator_name: "scope_goal_purpose"
+      validates: "goal_purpose_scope"
+  
+  scope_counts:
+    source_type: number
+    target_type: scope
+    space: discourse
+    direction: annotation
+    gate_required: true
+    gate_type: SCOPE_GATE
+    preconditions:
+      - "source.number_value IS NOT NULL"
+      - "gate_authorization_required"
+    effects:
+      - "set_number_scope"
+      - "add_specialization_number"
+    audit_trail:
+      operator_name: "scope_counts"
+      validates: "number_scope"
+  
+  scope_except:
+    source_type: exception
+    target_type: scope
+    space: discourse
+    direction: annotation
+    gate_required: true
+    gate_type: SCOPE_GATE
+    preconditions:
+      - "source.exception_type IS NOT NULL"
+      - "gate_authorization_required"
+    effects:
+      - "set_except_scope"
+      - "add_specialization_exception"
+    audit_trail:
+      operator_name: "scope_except"
+      validates: "exception_scope"
+  
+  # --- Denotation Operators ---
+  denotation_mutabaqa:
+    source_type: word
+    target_type: concept
+    space: discourse
+    direction: mapping
+    gate_required: true
+    gate_type: DENOTATION_GATE
+    preconditions:
+      - "source.surface_form IS NOT NULL"
+      - "target.meaning_id IS NOT NULL"
+      - "gate_authorization_required"
+    constraints:
+      - name: "matching_denotation"
+        check: "word and concept have direct matching"
+    effects:
+      - "establish_mutabaqa_denotation"
+    audit_trail:
+      operator_name: "denotation_mutabaqa"
+      validates: "mutabaqa_matching"
+  
+  denotation_tadammun:
+    source_type: word
+    target_type: concept
+    space: discourse
+    direction: mapping
+    gate_required: true
+    gate_type: DENOTATION_GATE
+    preconditions:
+      - "source.surface_form IS NOT NULL"
+      - "target.meaning_id IS NOT NULL"
+      - "gate_authorization_required"
+    constraints:
+      - name: "inclusion_denotation"
+        check: "word meaning includes concept"
+    effects:
+      - "establish_tadammun_denotation"
+    audit_trail:
+      operator_name: "denotation_tadammun"
+      validates: "tadammun_inclusion"
+  
+  denotation_iltizam:
+    source_type: word
+    target_type: concept
+    space: discourse
+    direction: mapping
+    gate_required: true
+    gate_type: DENOTATION_GATE
+    preconditions:
+      - "source.surface_form IS NOT NULL"
+      - "target.meaning_id IS NOT NULL"
+      - "gate_authorization_required"
+      - "bridge_exists_and_strong"
+    constraints:
+      - name: "iltizam_requires_bridge"
+        check: "bridge_strength >= bridge_threshold"
+        threshold: 0.7
+      - name: "bridge_edge_exists"
+        check: "exists bridge edge between source and target"
+    effects:
+      - "establish_iltizam_denotation"
+    audit_trail:
+      operator_name: "denotation_iltizam"
+      validates: "iltizam_entailment_with_bridge"
+
+# ==============================================================================
+# 4. PARAMETERS
+# ==============================================================================
+# Global parameters for the system
+parameters:
+  carrier_consonants:
+    alif_carriers: [1, 28]  # ا and ى codes
+    waw_carriers: [27]      # و code
+    ya_carriers: [28]       # ي code
+  
+  vowel_codes:
+    none: 0
+    sukun: 1
+    fatha: 2
+    damma: 3
+    kasra: 4
+  
+  morphological_forms:
+    mujarrad_thulathi: [1, 2, 3, 4, 5, 6]  # forms I-VI base patterns
+    mazid_thulathi: [7, 8, 9, 10, 11, 12, 13, 14, 15]  # forms VII-XV augmented
+  
+  gate_policies:
+    require_authorization: true
+    audit_all_operations: true
+    enforce_sequential_constraints: true
+    SCOPE_GATE:
+      description: "Gate for scope operators (quantify, restrict, condition, goal, number, exception)"
+      allowed_operators: ["scope_quantify", "scope_restrict", "scope_if_then", "scope_goal_boundary", "scope_goal_purpose", "scope_counts", "scope_except"]
+      require_authorization: true
+    DENOTATION_GATE:
+      description: "Gate for denotation operators (mutabaqa, tadammun, iltizam)"
+      allowed_operators: ["denotation_mutabaqa", "denotation_tadammun", "denotation_iltizam"]
+      require_authorization: true
+      bridge_threshold: 0.7
+    SPEECHACT_GATE:
+      description: "Gate for speech act operators (optional for now)"
+      allowed_operators: []
+      require_authorization: false
+  
+  bridge_threshold: 0.7  # Minimum bridge strength for iltizam
+  
+  validation_modes:
+    strict: true  # Fail on any constraint violation
+    permissive: false  # Allow exceptions with warnings
+    audit_only: false  # Log but don't block
+
+# ==============================================================================
+# 5. AUDIT TRAIL SCHEMA
+# ==============================================================================
+# Unified audit trail for all operations
+audit_trail_schema:
+  required_fields:
+    - operation_id        # UUID for the operation
+    - timestamp           # ISO 8601 timestamp
+    - operator_name       # Name of the operator applied
+    - source_node_id      # ID of source node (null for creation)
+    - target_node_id      # ID of target node
+    - space               # Space where operation occurred
+    - status              # success | failure | warning
+  
+  optional_fields:
+    - preconditions_met   # List of satisfied preconditions
+    - constraints_checked # List of constraint results
+    - effects_applied     # List of effects executed
+    - gate_authorization  # Gate ID if gate was required
+    - exception_declared  # Exception ID if exception applies
+    - validation_result   # Result of validation checks
+    - error_message       # Error description if failed
+    - metadata            # Additional operator-specific data
+  
+  indexing:
+    primary_key: operation_id
+    indices:
+      - operator_name
+      - timestamp
+      - source_node_id
+      - target_node_id
+      - space
+      - status
+  
+  retention:
+    policy: "keep_all"
+    archive_after_days: 365
+    compression: true
+
+# ==============================================================================
+# 6. VALIDATION RULES
+# ==============================================================================
+validation_rules:
+  global:
+    - rule: "All nodes must belong to exactly one space"
+    - rule: "All operators must have valid source and target types"
+    - rule: "Audit trail must be created for every operation"
+    - rule: "Gate authorization must be checked when required"
+  
+  phonological:
+    - rule: "No CC clusters without exception"
+    - rule: "Long vowels only with appropriate carrier"
+    - rule: "Position indices must be sequential"
+  
+  morphological:
+    - rule: "Root must be established before pattern"
+    - rule: "C1 and C2 must be locked before C3"
+    - rule: "Derivations require source morpheme"
+  
+  syntactic:
+    - rule: "All words must have syntactic role"
+    - rule: "Agreement must hold between related words"
+    - rule: "Case must match syntactic position"
+  
+  semantic:
+    - rule: "Semantic roles must map from syntactic roles"
+    - rule: "Animacy constraints must be satisfied"
+  
+  discourse:
+    - rule: "Scope operators require SCOPE_GATE authorization"
+    - rule: "Denotation operators require DENOTATION_GATE authorization"
+    - rule: "Iltizam requires bridge with strength >= threshold"
+    - rule: "Bridge edge must exist for iltizam"
+    - rule: "Specializations must be applied via scope operators"
+
+# ==============================================================================
+# METADATA
+# ==============================================================================
+metadata:
+  schema_version: "0.1"
+  created_date: "2025-12-19"
+  description: "Unified YAML schema for FractalHub linguistic graph engine"
+  authors: ["FractalHub Team"]
+  references:
+    - "FractalHubSpec.v - Core type definitions"
+    - "FractalHubPhonology.v - Phonological constraints"
+    - "FractalHubMorphology.v - Morphological derivations (planned)"
+  compatibility:
+    coq_modules: ["FractalHubSpec", "FractalHubGates", "FractalHubDerivation", "FractalHubPhonology"]
+    python_version: ">=3.8"

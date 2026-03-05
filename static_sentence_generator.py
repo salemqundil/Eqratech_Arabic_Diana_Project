@@ -273,19 +273,19 @@ class StaticSentenceGenerator:
     def save_comprehensive_excel(self, filename="comprehensive_arabic_sentences.xlsx"):
         """حفظ الجمل الشاملة في Excel"""
         try:
-            df = self.generate_comprehensive_sentences()
+            result_dataframe = self.generate_comprehensive_sentences()
             
-            if not df.empty:
-                df.to_excel(filename, index=False, sheet_name='الجمل_المولدة_الشاملة')
-                print(f"\n✅ تم حفظ {len(df)} جملة في {filename}")
+            if not result_dataframe.empty:
+                result_dataframe.to_excel(filename, index=False, sheet_name='الجمل_المولدة_الشاملة')
+                print(f"\n✅ تم حفظ {len(result_dataframe)} جملة في {filename}")
                 
                 # إحصائيات
                 print(f"\n📊 الإحصائيات:")
-                print(f"   • إجمالي الجمل: {len(df)}")
-                print(f"   • الأعمدة: {len(df.columns)}")
+                print(f"   • إجمالي الجمل: {len(result_dataframe)}")
+                print(f"   • الأعمدة: {len(result_dataframe.columns)}")
                 
                 # أنواع الجمل
-                types = df['النوع'].value_counts()
+                types = result_dataframe['النوع'].value_counts()
                 print(f"   • أنواع الجمل:")
                 for stype, count in types.items():
                     print(f"     - {stype}: {count}")

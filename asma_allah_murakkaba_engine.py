@@ -25,5 +25,5 @@ class AsmaAllahMurakkabaEngine(BaseReconstructionEngine):
                 "الوظيفة الاشتقاقية": "مركب غالبًا",
                 "ملاحظات": "اسم مركب من أسماء الله الحسنى"
             })
-        df = pd.DataFrame(data)
-        return reconstruct_from_base_df(df)
+        dataframe = pd.DataFrame(data)
+        return reconstruct_from_base_df(dataframe)

@@ -17,12 +17,12 @@ class SentenceGenerationEngine(BaseReconstructionEngine):
     def make_df(cls):
         # الحصول على أول/أولَيْن من كل محرك لتوليد أمثلة متنوعة
         def first(df, i=0):
-            return df.iloc[i]['الأداة'] if (not df.empty and i < len(df)) else ''
+            return dataframe.iloc[i]['الأداة'] if (not dataframe.empty and i < len(df)) else ''
         def phon_utf_map(df):
             # يعيد قائمة من tuples (tool, utf8)
             out = []
-            if not df.empty and 'الأداة' in df.columns:
-                for _, r in df.head(5).iterrows():
+            if not dataframe.empty and 'الأداة' in dataframe.columns:
+                for _, r in dataframe.head(5).iterrows():
                     out.append((r['الأداة'], r.get('UTF-8', '')))
             return out
 
@@ -73,7 +73,7 @@ class SentenceGenerationEngine(BaseReconstructionEngine):
         nouns_df = dfs['nouns']
         # قوائم مختارة
         def take_tokens(df, limit=8):
-            if df.empty or 'الأداة' not in df.columns:
+            if dataframe.empty or 'الأداة' not in dataframe.columns:
                 return []
             vals = [x for x in df['الأداة'].head(limit).tolist() if isinstance(x, str) and x.strip()]
             return vals
